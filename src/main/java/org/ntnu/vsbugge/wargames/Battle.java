@@ -29,9 +29,15 @@ public class Battle {
      *
      * The first army attacks first, then the second army attacks.
      * This continues unit an army is left with 0 units.
-     * @return
+     * @return The army that won the battle
+     * @throws IllegalStateException Throws an exception if one of the armies
+     * does not have any units at the start of the simulation.
      */
-    public Army simulate() {
+    public Army simulate() throws IllegalStateException{
+        if (!armyOne.hasUnits() || !armyTwo.hasUnits()) {
+            throw new IllegalStateException("Both armies need to have units to simulate a battle");
+        }
+
         Army attacker = armyOne;
         Army defender = armyTwo;
         while (armyOne.hasUnits() && armyTwo.hasUnits()) {
