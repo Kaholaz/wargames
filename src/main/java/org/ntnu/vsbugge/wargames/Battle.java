@@ -1,0 +1,63 @@
+package org.ntnu.vsbugge.wargames;
+
+import org.ntnu.vsbugge.wargames.units.Unit;
+
+/**
+ * A class that represents a battle between two armies.
+ */
+public class Battle {
+    private Army armyOne;
+    private Army armyTwo;
+
+    /**
+     * The constructor for an instance of the Battle class
+     * @param armyOne The fist army
+     * @param armyTwo The second army
+     */
+    public Battle(Army armyOne, Army armyTwo) {
+        this.armyOne = armyOne;
+        this.armyTwo = armyTwo;
+    }
+
+    /**
+     * Used to simmulate a battle between two armies,
+     *
+     * When one army attacks the other, a random unit from
+     * the attacking army, is picked to attack a random unit
+     * from the defending army. Whenever a unit falls bellow 1 health,
+     * the unit is removed from its army.
+     *
+     * The first army attacks first, then the second army attacks.
+     * This continues unit an army is left with 0 units.
+     * @return
+     */
+    public Army simulate() {
+        Army attacker = armyOne;
+        Army defender = armyTwo;
+        while (armyOne.hasUnits() && armyTwo.hasUnits()) {
+            Unit attackerUnit =  attacker.getRandomUnit();
+            Unit defenderUnit = defender.getRandomUnit();
+
+            attackerUnit.attack(defenderUnit);
+            if (defenderUnit.getHealth() <= 0) {
+                defender.remove(defenderUnit);
+            }
+
+            Army temp = attacker;
+            attacker = defender;
+            defender = temp;
+        }
+
+        // The reassignment at the end of the while loop, makes the defender
+        // the army that last attacked; ie the victor
+        return defender;
+    }
+
+    @Override
+    public String toString() {
+        return "Battle{" +
+                "armyOne=" + armyOne +
+                ", armyTwo=" + armyTwo +
+                '}';
+    }
+}
