@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Army {
     private final String name;
-    private final List<Unit> units;
+    private List<Unit> units;
 
     public Army(String name) {
         this(name, new ArrayList<>());
@@ -26,7 +26,7 @@ public class Army {
     }
 
     public void addAll(List<Unit> units) {
-        this.units.addAll(units);
+        this.units.addAll(List.copyOf(units));
     }
 
     public void remove(Unit unit) {
@@ -39,7 +39,7 @@ public class Army {
 
     public Unit getRandomUnit() throws IllegalStateException {
         if (!hasUnits()) {
-            throw new IllegalStateException("The army has not units");
+            throw new IllegalStateException("The army has no units");
         }
 
         Random random = new Random();
