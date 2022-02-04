@@ -3,11 +3,6 @@ package org.ntnu.vsbugge.wargames;
 import junit.framework.TestCase;
 import org.ntnu.vsbugge.wargames.units.CommanderUnit;
 import org.ntnu.vsbugge.wargames.units.InfantryUnit;
-import org.ntnu.vsbugge.wargames.units.RangedUnit;
-import org.w3c.dom.ranges.Range;
-
-import java.util.Arrays;
-import java.util.LinkedList;
 
 public class BattleTest extends TestCase {
 

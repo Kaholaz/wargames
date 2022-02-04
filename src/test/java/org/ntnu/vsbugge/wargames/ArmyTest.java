@@ -5,7 +5,6 @@ import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 import org.ntnu.vsbugge.wargames.units.RangedUnit;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
-import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
