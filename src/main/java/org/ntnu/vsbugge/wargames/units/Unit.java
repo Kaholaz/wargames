@@ -4,8 +4,9 @@ package org.ntnu.vsbugge.wargames.units;
  * An abstract class for all units
  */
 public abstract class Unit {
-    private String name;
-    private int health, attack, armor;
+    private final String name;
+    private final int attack, armor;
+    private int health;
 
     /**
      * Constructor for the abstract class
@@ -30,9 +31,7 @@ public abstract class Unit {
      */
     public void attack(Unit opponent) {
         int damage = (this.getAttack() + this.getAttackBonus()) - (opponent.getArmor() + opponent.getResistBonus());
-        if (damage > 0) {
-            opponent.takeDamage(damage);
-        }
+        opponent.takeDamage(Integer.max(damage, 0)); // no negative damage
     }
 
     /**
@@ -68,7 +67,7 @@ public abstract class Unit {
      * @param damage The damage inflicted on the unit
      */
     public void takeDamage(int damage) {
-        this.health = health;
+        this.health = health - damage;
     }
 
     @Override

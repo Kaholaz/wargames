@@ -2,8 +2,8 @@ package org.ntnu.vsbugge.wargames.units;
 
 public class CavalryUnit extends Unit {
     private final int resistBonus = 1;
-    private final int attackBonus = 2;
-    private final int firstAttackBonus = 4;
+    private final int attackBonus = 2; // The general attack bonus
+    private final int firstAttackBonus = 6; // The attack bonus for the first strike
     private boolean hasAttacked = false;
 
     private static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
@@ -30,8 +30,8 @@ public class CavalryUnit extends Unit {
 
     @Override
     public void attack(Unit opponent) {
-        hasAttacked = true;
         super.attack(opponent);
+        hasAttacked = true;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CavalryUnit extends Unit {
     @Override
     public int getAttackBonus() {
         if (!hasAttacked) {
-            return attackBonus + firstAttackBonus;
+            return firstAttackBonus;
         }
 
         return attackBonus;
