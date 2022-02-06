@@ -93,7 +93,7 @@ public class ArmyTest extends TestCase {
         }
 
         testObj.add(test1);
-        assertSame(testObj.getRandomUnit(), test1);
+        assertEquals(testObj.getRandomUnit(), test1);
     }
 
     public void testGetName() {

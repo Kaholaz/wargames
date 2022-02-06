@@ -32,11 +32,11 @@ public class Army {
     }
 
     /**
-     * Adds a unit to the army
+     * Adds a unit to the army the unit is copied before inserted into the object.
      * @param unit The unit to be added
      */
     public void add(Unit unit) {
-        this.units.add(unit);
+        this.units.add(Unit.copyOf(unit));
     }
 
     /**
@@ -44,7 +44,9 @@ public class Army {
      * @param units The units to add
      */
     public void addAll(List<Unit> units) {
-        this.units.addAll(List.copyOf(units));
+        for (Unit unit : units) {
+            add(unit);
+        }
     }
 
     /**
@@ -77,20 +79,6 @@ public class Army {
         return units.get(index);
     }
 
-    public Map<Unit, Integer> getArmyTemplate() {
-        Map<Unit, Integer> template = new HashMap<>();
-
-        for (Unit unit : units) {
-            int count = template.getOrDefault(unit, 0);
-            count += 1;
-            template.put(unit, count);
-        }
-
-        return template;
-    }
-
-
-
     /**
      * @return The name of the army
      */
@@ -105,6 +93,39 @@ public class Army {
         return units;
     }
 
+    /**
+     * @return A template that could be used to create an equivalent army.
+     *
+     * The template is a HashMap where the key is a unit in the army,
+     * and the value is the amount of that specific unit in the army.
+     *
+     * Please note that since Unit.copyOf does not retain stats about
+     * the number of times a unit has or has been attacked, and that
+     * this function is called whenever a unit is added to an army;
+     * the generated template can not necessarily be replicated fully
+     * by using the parseArmyTemplate method.
+     */
+    public Map<Unit, Integer> getArmyTemplate() {
+        Map<Unit, Integer> template = new HashMap<>();
+
+        for (Unit unit : units) {
+            int count = template.getOrDefault(unit, 0);
+            count += 1;
+            template.put(unit, count);
+        }
+
+        return template;
+    }
+
+    /**
+     * Takes a template and returns an army based on that template
+     * @param name The name of the army
+     * @param template The template the army should be based on
+     * @return An instance of Army based on the provided template
+     *
+     * The template should be a HashMap where the key is a unit in the army,
+     * and the value is the amount of that specific unit in the army.
+     */
     public static Army parseArmyTemplate(String name, Map<Unit, Integer> template) {
         Army army = new Army(name);
 
@@ -113,7 +134,7 @@ public class Army {
             int count = entry.getValue();
 
             for (int i = 0; i < count; i++) {
-                army.add(Unit.copyOf(unit));
+                army.add(unit);
             }
         }
 
