@@ -6,8 +6,8 @@ import org.ntnu.vsbugge.wargames.units.Unit;
  * A class that represents a battle between two armies.
  */
 public class Battle {
-    private Army armyOne;
-    private Army armyTwo;
+    private final Army armyOne;
+    private final Army armyTwo;
 
     /**
      * The constructor for an instance of the Battle class

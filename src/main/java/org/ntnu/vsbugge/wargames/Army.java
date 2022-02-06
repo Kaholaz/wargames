@@ -2,17 +2,14 @@ package org.ntnu.vsbugge.wargames;
 
 import org.ntnu.vsbugge.wargames.units.Unit;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 /**
  * A class that represents a single army
  */
 public class Army {
     private final String name;
-    private List<Unit> units;
+    private final List<Unit> units;
 
     /**
      * Shot-hand constructor for an Army object
@@ -80,6 +77,20 @@ public class Army {
         return units.get(index);
     }
 
+    public Map<Unit, Integer> getArmyTemplate() {
+        Map<Unit, Integer> template = new HashMap<>();
+
+        for (Unit unit : units) {
+            int count = template.getOrDefault(unit, 0);
+            count += 1;
+            template.put(unit, count);
+        }
+
+        return template;
+    }
+
+
+
     /**
      * @return The name of the army
      */
@@ -92,6 +103,21 @@ public class Army {
      */
     public List<Unit> getAllUnits() {
         return units;
+    }
+
+    public static Army parseArmyTemplate(String name, Map<Unit, Integer> template) {
+        Army army = new Army(name);
+
+        for (Map.Entry<Unit, Integer> entry: template.entrySet()) {
+            Unit unit = entry.getKey();
+            int count = entry.getValue();
+
+            for (int i = 0; i < count; i++) {
+                army.add(Unit.copyOf(unit));
+            }
+        }
+
+        return army;
     }
 
     @Override
