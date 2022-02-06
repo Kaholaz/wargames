@@ -5,10 +5,7 @@ import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 import org.ntnu.vsbugge.wargames.units.RangedUnit;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ArmyTest extends TestCase {
 
@@ -149,5 +146,20 @@ public class ArmyTest extends TestCase {
 
         testObj1.remove(test1);
         assertTrue(testObj1.hashCode() != testObj2.hashCode());
+    }
+
+    public void testArmyTemplate() {
+        RangedUnit test1 = new RangedUnit("Test1", 10);
+        InfantryUnit test2 = new InfantryUnit("Test2", 20);
+        List<Unit> testList = List.of(test1, test2);
+
+        Army testObj1 = new Army("Test", testList);
+        Map<Unit, Integer> template = testObj1.getArmyTemplate();
+        Army testObj2 = Army.parseArmyTemplate("Test", template);
+
+        assertEquals(testObj1, testObj2);
+
+        testObj1.remove(test1);
+        assertFalse(testObj1.equals(testObj2));
     }
 }
