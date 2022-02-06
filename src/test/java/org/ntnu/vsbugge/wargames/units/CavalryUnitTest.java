@@ -69,7 +69,7 @@ public class CavalryUnitTest extends TestCase {
     public void testToString() {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
 
-        assertEquals(test1.toString(), "Unit{name='Test1', health=20, attack=10, armor=5}");
+        assertEquals(test1.toString(), "CavalryUnit{name='Test1', health=20, attack=10, armor=5}");
     }
 
     public void testGetResistBonus() {
@@ -92,5 +92,13 @@ public class CavalryUnitTest extends TestCase {
 
         test1.attack(test2);
         assertEquals(test1.getAttackBonus(), 2);
+    }
+
+    public void testCopyOf() {
+        CavalryUnit test1 = new CavalryUnit("Test1", 15, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+
+        assertNotSame(test1, test2);
+        assertEquals(test1, test2);
     }
 }

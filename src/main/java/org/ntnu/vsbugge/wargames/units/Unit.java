@@ -75,7 +75,7 @@ public abstract class Unit implements Comparable<Unit>{
 
     @Override
     public String toString() {
-        return "Unit{" +
+        return this.getClass().getSimpleName() + "{" +
                 "name='" + name + '\'' +
                 ", health=" + health +
                 ", attack=" + attack +
