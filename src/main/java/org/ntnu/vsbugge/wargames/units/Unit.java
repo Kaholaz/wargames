@@ -1,9 +1,11 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import java.util.Objects;
+
 /**
  * An abstract class for all units
  */
-public abstract class Unit {
+public abstract class Unit implements Comparable<Unit>{
     private final String name;
     private final int attack, armor;
     private int health;
@@ -33,6 +35,7 @@ public abstract class Unit {
         int damage = (this.getAttack() + this.getAttackBonus()) - (opponent.getArmor() + opponent.getResistBonus());
         opponent.takeDamage(Integer.max(damage, 0)); // no negative damage
     }
+
 
     /**
      * @return The name of the unit
@@ -78,6 +81,56 @@ public abstract class Unit {
                 ", attack=" + attack +
                 ", armor=" + armor +
                 '}';
+    }
+
+    public static Unit copyOf(Unit unit) {
+        if (unit instanceof CommanderUnit) {
+            return new CommanderUnit((CommanderUnit) unit);
+        }
+        if (unit instanceof CavalryUnit) {
+            return new CavalryUnit((CavalryUnit) unit);
+        }
+        if (unit instanceof InfantryUnit) {
+            return new InfantryUnit((InfantryUnit) unit);
+        }
+        if (unit instanceof RangedUnit) {
+            return new RangedUnit((RangedUnit) unit);
+        }
+
+        throw new IllegalArgumentException("Cloning not supported for this unit");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Unit unit = (Unit) o;
+        return attack == unit.attack && armor == unit.armor && health == unit.health && name.equals(unit.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, attack, armor, health, getClass());
+    }
+
+    @Override
+    public int compareTo(Unit other) {
+        if (!this.getClass().equals(other.getClass())) {
+            return this.getClass().getName().compareTo(other.getClass().getName());
+        }
+        if (!this.getName().equals(other.getName())) {
+            return this.getName().compareTo(other.getName());
+        }
+        if (this.getAttack() != other.getAttack()) {
+            return Integer.compare(this.getAttack(), other.getAttack());
+        }
+        if (this.getArmor() != other.getArmor()) {
+            return Integer.compare(this.getArmor(), other.getArmor());
+        }
+        if (this.getHealth() != other.getHealth()) {
+            return Integer.compare(this.getHealth(), other.getHealth());
+        }
+        return 0;
     }
 
     /**

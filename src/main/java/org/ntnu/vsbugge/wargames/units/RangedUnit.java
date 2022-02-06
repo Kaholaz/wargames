@@ -31,6 +31,22 @@ public class RangedUnit extends Unit{
         super(name, health, attack, armor);
     }
 
+    /**
+     * Takes an existing RangedUnit instance and creates a new instance with the same attributes.
+     *
+     * Please note that stats regarding number of times taken damage and number of times attacked are reset,
+     * so the new instance will not necessarily be exactly the same as the original.
+     * @param rangedUnit An instance of RangedUnit
+     */
+    public RangedUnit(RangedUnit rangedUnit) {
+        this(
+                rangedUnit.getName(),
+                rangedUnit.getHealth(),
+                rangedUnit.getAttack(),
+                rangedUnit.getArmor()
+        );
+    }
+
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);

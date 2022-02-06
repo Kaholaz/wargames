@@ -28,6 +28,23 @@ public class CavalryUnit extends Unit {
         super(name, health, attack, armor);
     }
 
+    /**
+     * Takes an existing CavalryUnit instance and creates a new instance with the same attributes.
+     *
+     * Please note that stats regarding number of times taken damage and number of times attacked are reset,
+     * so the new instance will not necessarily be exactly the same as the original.
+     * @param cavalryUnit An instance of CavalryUnit
+     */
+    public CavalryUnit(CavalryUnit cavalryUnit) {
+        this(
+                cavalryUnit.getName(),
+                cavalryUnit.getHealth(),
+                cavalryUnit.getAttack(),
+                cavalryUnit.getArmor()
+        );
+    }
+
+
     @Override
     public void attack(Unit opponent) {
         super.attack(opponent);
