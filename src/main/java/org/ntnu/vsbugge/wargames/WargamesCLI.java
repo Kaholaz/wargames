@@ -5,9 +5,16 @@ import org.ntnu.vsbugge.wargames.units.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * A class used to run the CLI of the application
+ */
 public class WargamesCLI {
     private Battle battle;
 
+    /**
+     * Loads two predetermined armies into memory.
+     * This function must be run before running the start method.
+     */
     public void loadTestData() {
         Map<Unit,Integer> armyOneTemplate = new HashMap<>();
         armyOneTemplate.put(new InfantryUnit("Footman", 100), 500);
@@ -26,6 +33,10 @@ public class WargamesCLI {
         battle = new Battle(armyOne, armyTwo);
     }
 
+
+    /**
+     * Starts the CLI. Data needs to be loaded into {@code battle} before this function is called
+     */
     public void start() {
         System.out.println("Welcome to the CLI for the battle simulator Wargames!");
         System.out.println("Press enter to start...");
@@ -48,12 +59,25 @@ public class WargamesCLI {
         }
     }
 
+    /**
+     * Creates a simple text based representation of a unit
+     *
+     * The string is based on this format:
+     * {unit.getName}({unit.getClass().getSimpleName()}) at {unit.getHealth()} hp
+     * @param unit A Unit instance
+     * @return A simple text based representation of a unit
+     */
     private String unitToSimpleString(Unit unit) {
         return unit.getName() + "(" + unit.getClass().getSimpleName() +
                 ")" +  " at " +
                 unit.getHealth() + " hp";
     }
 
+    /**
+     * Creates a simple text based representation of an army based on its current template
+     * @param army An army instance
+     * @return A simple text based representation.
+     */
     private String armyToSimpleString(Army army) {
         Map<Unit, Integer> template = army.getArmyTemplate();
         Unit[] units = template.keySet().stream().toArray(Unit[]::new);
