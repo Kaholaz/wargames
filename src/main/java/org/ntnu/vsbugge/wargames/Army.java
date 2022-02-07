@@ -154,10 +154,10 @@ public class Army {
         if (o == null || getClass() != o.getClass()) return false;
         Army army = (Army) o;
 
-        // units are sorted because order does not matter.
-        army.units.sort(Unit::compareTo);
-        this.units.sort(Unit::compareTo);
-        return name.equals(army.name) && units.equals(army.units);
+        // units are sorted because order does not matter when comparing.
+        List<Unit> armyUnits = army.getAllUnits().stream().sorted(Unit::compareTo).toList();
+        List<Unit> thisUnits = this.getAllUnits().stream().sorted(Unit::compareTo).toList();
+        return name.equals(army.name) && thisUnits.equals(armyUnits);
     }
 
     @Override
