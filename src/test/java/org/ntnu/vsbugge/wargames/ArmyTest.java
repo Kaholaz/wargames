@@ -16,16 +16,15 @@ public class ArmyTest extends TestCase {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
 
-        assertEquals(testObj.getAllUnits(), testList);
+        assertEquals(testList, testObj.getAllUnits());
 
         testList.add(test1);
         testObj.add(test1);
-        assertEquals(testObj.getAllUnits(), testList);
+        assertEquals(testList, testObj.getAllUnits());
 
         testList.add(test2);
         testObj.add(test2);
-        assertEquals(testObj.getAllUnits(), testList);
-
+        assertEquals(testList, testObj.getAllUnits());
     }
 
     public void testAddAll() {
@@ -62,16 +61,16 @@ public class ArmyTest extends TestCase {
         List<Unit> testList = List.of(test1, test2);
 
         Army testObj = new Army("TestObj");
-        assertEquals(testObj.hasUnits(), false);
+        assertFalse(testObj.hasUnits());
 
         testObj.addAll(testList);
-        assertEquals(testObj.hasUnits(), true);
+        assertTrue(testObj.hasUnits());
 
         testObj.remove(test1);
-        assertEquals(testObj.hasUnits(), true);
+        assertTrue(testObj.hasUnits());
 
         testObj.remove(test2);
-        assertEquals(testObj.hasUnits(), false);
+        assertFalse(testObj.hasUnits());
     }
 
     public void testGetRandomUnit() {
@@ -83,19 +82,19 @@ public class ArmyTest extends TestCase {
             fail("IllegalStateException not thrown");
         }
         catch (IllegalStateException e) {
-            assertEquals(e.getMessage(), "The army has no units");
+            assertEquals("The army has no units", e.getMessage());
         }
         catch (Exception e) {
             fail("IllegalStateException not thrown");
         }
 
         testObj.add(test1);
-        assertEquals(testObj.getRandomUnit(), test1);
+        assertEquals(test1, testObj.getRandomUnit());
     }
 
     public void testGetName() {
         Army testObj = new Army("TestObj");
-        assertEquals(testObj.getName(), "TestObj");
+        assertEquals("TestObj", testObj.getName());
     }
 
     public void testGetAllUnits() {
@@ -104,12 +103,12 @@ public class ArmyTest extends TestCase {
         List<Unit> testList = List.of(test1, test2);
 
         Army testObj = new Army("TestObj", testList);
-        assertEquals(testObj.getAllUnits(), testList);
+        assertEquals(testList, testObj.getAllUnits());
     }
 
     public void testToString() {
         Army testObj = new Army("TestObj");
-        assertEquals(testObj.toString(), "Army{name='TestObj'}");
+        assertEquals("Army{name='TestObj'}", testObj.toString());
     }
 
     public void testEquals() {
@@ -138,11 +137,11 @@ public class ArmyTest extends TestCase {
         Army testObj1 = new Army("TestObj");
         Army testObj2 = new Army("TestObj");
 
-        assertEquals(testObj1.hashCode(), testObj2.hashCode());
+        assertTrue(testObj1.hashCode() == testObj2.hashCode());
 
         testObj1.addAll(testList);
         testObj2.addAll(testList);
-        assertEquals(testObj1.hashCode(), testObj2.hashCode());
+        assertTrue(testObj1.hashCode() == testObj2.hashCode());
 
         testObj1.remove(test1);
         assertTrue(testObj1.hashCode() != testObj2.hashCode());
@@ -157,7 +156,7 @@ public class ArmyTest extends TestCase {
         Map<Unit, Integer> template = testObj1.getArmyTemplate();
         Army testObj2 = Army.parseArmyTemplate("Test", template);
 
-        assertEquals(testObj1, testObj2);
+        assertTrue(testObj1.equals(testObj2));
 
         testObj1.remove(test1);
         assertFalse(testObj1.equals(testObj2));

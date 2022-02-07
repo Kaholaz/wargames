@@ -9,21 +9,21 @@ public class CavalryUnitTest extends TestCase {
         CavalryUnit test2 = new CavalryUnit("Test2", 15);
 
         test1.attack(test2);
-        assertEquals(test1.getHealth(), 20);
-        assertEquals(test2.getHealth(), 12);
+        assertEquals(20, test1.getHealth());
+        assertEquals(12, test2.getHealth());
 
         test1.attack(test2);
-        assertEquals(test1.getHealth(), 20);
-        assertEquals(test2.getHealth(), 12);
+        assertEquals(20, test1.getHealth());
+        assertEquals(12, test2.getHealth());
 
         test1.attack(test2);
-        assertEquals(test2.getHealth(), 12);
+        assertEquals(12, test2.getHealth());
 
-        assertEquals(test1.getHealth(), 20);
+        assertEquals(20, test1.getHealth());
 
         test2.attack(test1);
-        assertEquals(test1.getHealth(), 0);
-        assertEquals(test2.getHealth(), 12);
+        assertEquals(0, test1.getHealth());
+        assertEquals(12, test2.getHealth());
 
     }
 
@@ -31,74 +31,74 @@ public class CavalryUnitTest extends TestCase {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
         CavalryUnit test2 = new CavalryUnit("Test2", 15);
 
-        assertEquals(test1.getName(), "Test1");
-        assertEquals(test2.getName(), "Test2");
+        assertEquals("Test1", test1.getName());
+        assertEquals("Test2", test2.getName());
     }
 
     public void testGetHealth() {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
         CavalryUnit test2 = new CavalryUnit("Test2", 15);
 
-        assertEquals(test1.getHealth(), 20);
-        assertEquals(test2.getHealth(), 15);
+        assertEquals(20, test1.getHealth());
+        assertEquals(15, test2.getHealth());
     }
 
     public void testGetAttack() {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
         CavalryUnit test2 = new CavalryUnit("Test2", 15);
 
-        assertEquals(test1.getAttack(), 10);
-        assertEquals(test2.getAttack(), 20);
+        assertEquals(10, test1.getAttack());
+        assertEquals(20, test2.getAttack());
     }
 
     public void testGetArmor() {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
         CavalryUnit test2 = new CavalryUnit("Test2", 15);
 
-        assertEquals(test1.getArmor(), 5);
-        assertEquals(test2.getArmor(), 12);
+        assertEquals(5, test1.getArmor());
+        assertEquals(12, test2.getArmor());
     }
 
     public void testTakeDamage() {
         CavalryUnit test1 = new CavalryUnit("Test1", 15);
 
         test1.takeDamage(2);
-        assertEquals(test1.getHealth(), 13);
+        assertEquals(13, test1.getHealth());
     }
 
     public void testToString() {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
 
-        assertEquals(test1.toString(), "CavalryUnit{name='Test1', health=20, attack=10, armor=5}");
+        assertEquals("CavalryUnit{name='Test1', health=20, attack=10, armor=5}", test1.toString());
     }
 
     public void testGetResistBonus() {
         CavalryUnit test1 = new CavalryUnit("Test1", 15);
 
-        assertEquals(test1.getResistBonus(), 1);
+        assertEquals(1, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(test1.getResistBonus(), 1);
+        assertEquals(1, test1.getResistBonus());
     }
 
     public void testGetAttackBonus() {
         CavalryUnit test1 = new CavalryUnit("Test1", 15);
         CavalryUnit test2 = new CavalryUnit("Test2", 10);
 
-        assertEquals(test1.getAttackBonus(), 6);
+        assertEquals(6, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(test1.getAttackBonus(), 2);
+        assertEquals(2, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(test1.getAttackBonus(), 2);
+        assertEquals(2, test1.getAttackBonus());
     }
 
     public void testCopyOf() {
         CavalryUnit test1 = new CavalryUnit("Test1", 15, 10 ,5);
         CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
 
-        assertNotSame(test1, test2);
-        assertEquals(test1, test2);
+        assertFalse(test1 == test2);
+        assertTrue(test1.equals(test2));
     }
 }

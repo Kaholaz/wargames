@@ -28,12 +28,12 @@ public class UnitTest extends TestCase {
         ));
 
         list.sort(Unit::compareTo);
-        assertSame(list.get(0), infantryUnit5); // First based on Name
-        assertSame(list.get(1), infantryUnit4); // then attack
-        assertSame(list.get(2), infantryUnit6); // then armor
-        assertSame(list.get(3), infantryUnit3); // lastly health
-        assertSame(list.get(4), infantryUnit2);
-        assertSame(list.get(5), infantryUnit1);
-        assertSame(list.get(6), ranged1);
+        assertSame(infantryUnit5, list.get(0)); // First based on Name
+        assertSame(infantryUnit4, list.get(1)); // then attack
+        assertSame(infantryUnit6, list.get(2)); // then armor
+        assertSame(infantryUnit3, list.get(3)); // lastly health
+        assertSame(infantryUnit2, list.get(4));
+        assertSame(infantryUnit1, list.get(5));
+        assertSame(ranged1, list.get(6));
     }
 }

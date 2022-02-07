@@ -16,7 +16,7 @@ public class BattleTest extends TestCase {
             fail("Should throw IllegalStateException if one of the armies does not have units");
         }
         catch (IllegalStateException e) {
-            assertEquals(e.getMessage(), "Both armies need to have units to simulate a battle");
+            assertEquals("Both armies need to have units to simulate a battle", e.getMessage());
         }
         catch (Exception e) {
             fail("Should throw IllegalStateException if one of the armies does not have units");
@@ -24,17 +24,17 @@ public class BattleTest extends TestCase {
 
         armyOne.add(new InfantryUnit("TestInfantry", 20));
         armyTwo.add(new InfantryUnit("TestInfantry", 1));
-        assertEquals(battle.simulate(), armyOne);
+        assertEquals(armyOne, battle.simulate());
 
         armyTwo.add(new CommanderUnit("TestCommander", 1000));
-        assertEquals(battle.simulate(), armyTwo);
+        assertEquals(armyTwo, battle.simulate());
 
         try {
             battle.simulate();
             fail("Should throw IllegalStateException if one of the armies does not have units");
         }
         catch (IllegalStateException e) {
-            assertEquals(e.getMessage(), "Both armies need to have units to simulate a battle");
+            assertEquals("Both armies need to have units to simulate a battle", e.getMessage());
         }
         catch (Exception e) {
             fail("Should throw IllegalStateException if one of the armies does not have units");
@@ -46,6 +46,6 @@ public class BattleTest extends TestCase {
         Army armyTwo = new Army("ArmyTwo");
         Battle battle = new Battle(armyOne, armyTwo);
 
-        assertEquals(battle.toString(), "Battle{armyOne=Army{name='ArmyOne'}, armyTwo=Army{name='ArmyTwo'}}");
+        assertEquals("Battle{armyOne=Army{name='ArmyOne'}, armyTwo=Army{name='ArmyTwo'}}", battle.toString());
     }
 }

@@ -9,21 +9,21 @@ public class InfantryUnitTest extends TestCase {
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
         test1.attack(test2);
-        assertEquals(test1.getHealth(), 20);
-        assertEquals(test2.getHealth(), 14);
+        assertEquals(20, test1.getHealth());
+        assertEquals(14, test2.getHealth());
 
         test1.attack(test2);
-        assertEquals(test1.getHealth(), 20);
-        assertEquals(test2.getHealth(), 13);
+        assertEquals(20, test1.getHealth());
+        assertEquals(13, test2.getHealth());
 
         test1.attack(test2);
-        assertEquals(test2.getHealth(), 12);
+        assertEquals(12, test2.getHealth());
 
-        assertEquals(test1.getHealth(), 20);
+        assertEquals(20, test1.getHealth());
 
         test2.attack(test1);
-        assertEquals(test1.getHealth(), 9);
-        assertEquals(test2.getHealth(), 12);
+        assertEquals(9, test1.getHealth());
+        assertEquals(12, test2.getHealth());
 
     }
 
@@ -31,71 +31,71 @@ public class InfantryUnitTest extends TestCase {
         InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
-        assertEquals(test1.getName(), "Test1");
-        assertEquals(test2.getName(), "Test2");
+        assertEquals("Test1", test1.getName());
+        assertEquals("Test2", test2.getName());
     }
 
     public void testGetHealth() {
         InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
-        assertEquals(test1.getHealth(), 20);
-        assertEquals(test2.getHealth(), 15);
+        assertEquals(20, test1.getHealth());
+        assertEquals(15, test2.getHealth());
     }
 
     public void testGetAttack() {
         InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
-        assertEquals(test1.getAttack(), 10);
-        assertEquals(test2.getAttack(), 15);
+        assertEquals(10, test1.getAttack());
+        assertEquals(15, test2.getAttack());
     }
 
     public void testGetArmor() {
         InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
-        assertEquals(test1.getArmor(), 5);
-        assertEquals(test2.getArmor(), 10);
+        assertEquals(5, test1.getArmor());
+        assertEquals(10, test2.getArmor());
     }
 
     public void testTakeDamage() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15);
 
         test1.takeDamage(2);
-        assertEquals(test1.getHealth(), 13);
+        assertEquals(13, test1.getHealth());
     }
 
     public void testToString() {
         InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
 
-        assertEquals(test1.toString(), "InfantryUnit{name='Test1', health=20, attack=10, armor=5}");
+        assertEquals("InfantryUnit{name='Test1', health=20, attack=10, armor=5}", test1.toString());
     }
 
     public void testGetResistBonus() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15);
 
-        assertEquals(test1.getResistBonus(), 1);
+        assertEquals(1, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(test1.getResistBonus(), 1);
+        assertEquals(1, test1.getResistBonus());
     }
 
     public void testGetAttackBonus() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15);
         InfantryUnit test2 = new InfantryUnit("Test2", 10);
 
-        assertEquals(test1.getAttackBonus(), 2);
+        assertEquals(2, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(test1.getAttackBonus(), 2);
+        assertEquals(2, test1.getAttackBonus());
     }
 
     public void testCopyOf() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15, 10 ,5);
         InfantryUnit test2 = (InfantryUnit) Unit.copyOf(test1);
 
-        assertNotSame(test1, test2);
-        assertEquals(test1, test2);
+        assertFalse(test1 == test2);
+        assertTrue(test1.equals(test2));
     }
 }
