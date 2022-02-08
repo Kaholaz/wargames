@@ -4,8 +4,8 @@ package org.ntnu.vsbugge.wargames.units;
  * A class that represent a single infantry unit
  */
 public class InfantryUnit extends Unit{
-    private final int resistBonus = 1;
-    private final int attackBonus = 2;
+    private final int RESIST_BONUS = 1;
+    private final int ATTACK_BONUS = 2;
 
     private static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 10;
 
@@ -47,11 +47,11 @@ public class InfantryUnit extends Unit{
 
     @Override
     public int getResistBonus() {
-        return resistBonus;
+        return RESIST_BONUS;
     }
 
     @Override
     public int getAttackBonus() {
-        return attackBonus;
+        return ATTACK_BONUS;
     }
 }

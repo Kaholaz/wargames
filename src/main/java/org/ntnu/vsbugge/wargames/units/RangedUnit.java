@@ -1,11 +1,11 @@
 package org.ntnu.vsbugge.wargames.units;
 
 public class RangedUnit extends Unit{
-    private final int attackBonus = 3;
+    private final int ATTACK_BONUS = 3;
 
-    private final int initialResistBonus = 6; // Initial resist bonus
-    private final int resistBonusPenalty = 2; // Penalty in resist bonus per time this unit has taken damage
-    private final int minimumResistBonus = 2; // Minimum resist bonus
+    private final int INITIAL_RESIST_BONUS = 6; // Initial resist bonus
+    private final int RESIST_BONUS_PENALTY = 2; // Penalty in resist bonus per time this unit has taken damage
+    private final int MINIMUM_RESIST_BONUS = 2; // Minimum resist bonus
 
     private int timesTakenDamage = 0;
 
@@ -55,13 +55,13 @@ public class RangedUnit extends Unit{
 
     @Override
     public int getResistBonus() {
-        int calculatedResistBonus = initialResistBonus - timesTakenDamage * resistBonusPenalty;
-        return Integer.max(calculatedResistBonus, minimumResistBonus);
+        int calculatedResistBonus = INITIAL_RESIST_BONUS - timesTakenDamage * RESIST_BONUS_PENALTY;
+        return Integer.max(calculatedResistBonus, MINIMUM_RESIST_BONUS);
     }
 
 
     @Override
     public int getAttackBonus() {
-        return attackBonus;
+        return ATTACK_BONUS;
     }
 }
