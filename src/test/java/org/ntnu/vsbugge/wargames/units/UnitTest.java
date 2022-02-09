@@ -38,4 +38,25 @@ public class UnitTest extends TestCase {
         assertSame(infantryUnit1, list.get(6));
         assertSame(ranged1, list.get(7));
     }
+
+    public void testCopyOf() {
+        class TestUnit extends Unit {
+            public TestUnit(){
+                super("Hello", 1,1,1);
+            }
+            public int getAttackBonus() {return 0;}
+            public int getResistBonus() {return 0;}
+        }
+
+        TestUnit testUnit = new TestUnit();
+
+        try {
+            Unit.copyOf(testUnit);
+            fail("Unit.copyOf should throw IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Cloning not supported for this unit", e.getMessage());
+        } catch (Exception e) {
+            fail("Unit.copyOf should throw IllegalArgumentException");
+        }
+    }
 }
