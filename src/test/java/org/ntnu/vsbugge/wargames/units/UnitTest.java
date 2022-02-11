@@ -40,15 +40,10 @@ public class UnitTest extends TestCase {
     }
 
     public void testCopyOf() {
-        class TestUnit extends Unit {
-            public TestUnit(){
-                super("Hello", 1,1,1);
-            }
-            public int getAttackBonus() {return 0;}
-            public int getResistBonus() {return 0;}
-        }
-
-        TestUnit testUnit = new TestUnit();
+        Unit testUnit = new Unit("Test",1, 2, 3) {
+            public int getResistBonus(){ return 0; }
+            public int getAttackBonus(){ return 0; }
+        };
 
         try {
             Unit.copyOf(testUnit);
