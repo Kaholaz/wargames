@@ -73,6 +73,11 @@ public abstract class Unit implements Comparable<Unit>{
         this.health = health - damage;
     }
 
+    /**
+     * This method should be used for debugging purpouses only. {@code WargamesCLI.unitToSimpleString(Unit unit)}
+     * should be used to create a human-readable representation of a unit, ready to be printed to console.
+     * @return A string representation of an instance (used for debugging)
+     */
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{" +
@@ -86,6 +91,7 @@ public abstract class Unit implements Comparable<Unit>{
     /**
      * Creates a copy of a Unit instance.
      *
+     * <br><br>
      * Do note that stats about how many times the unit
      * has been attacked and has attacked others, are reset
      * and not retained. This function does in other words
@@ -111,6 +117,13 @@ public abstract class Unit implements Comparable<Unit>{
         throw new IllegalArgumentException("Cloning not supported for this unit");
     }
 
+    /**
+     * Check if a Unit equals another instance of Unit.
+     * This does not take into account subclass specific traits such as
+     * number of times attacked, or how many times the unit has been attacked.
+     * @param o The object to compare to.
+     * @return True if the objects are equal, false if not.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -119,11 +132,32 @@ public abstract class Unit implements Comparable<Unit>{
         return attack == unit.attack && armor == unit.armor && health == unit.health && name.equals(unit.name);
     }
 
+    /**
+     * This method hashes name, attack, armor, health, and class name
+     * @return The hashcode of the Unit.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, attack, armor, health, getClass());
     }
 
+    /**
+     * Compares two units according to the specification of Comparable.compareTo()
+     *
+     * <br><br>
+     * This is the order of the comparisons:
+     * <ol>
+     *   <li>Class name (lexically ascending)</li>
+     *   <li>Given name (lexically ascending)</li>
+     *   <li>Attack (ascending)</li>
+     *   <li>Armor (ascending)</li>
+     *   <li>Health (ascending)</li>
+     * </ol>
+     *
+     * @param other The Unit to compare to
+     * @return A value less than 0 if this is deemed less than other, 0 if the objects are equivalent,
+     * and a value more than 0 if other is deemed greater than 0
+     */
     @Override
     public int compareTo(Unit other) {
         if (!this.getClass().equals(other.getClass())) {

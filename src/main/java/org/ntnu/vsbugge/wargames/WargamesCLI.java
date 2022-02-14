@@ -83,7 +83,7 @@ public class WargamesCLI {
         Unit[] units = template.keySet().stream().toArray(Unit[]::new);
         Arrays.sort(units);
 
-        // Converts each unit to a simple string and concats the count.
+        // Converts each unit to a simple string and concatenates the amount of that unit in the army.
         // Each entry is then joined together to a single string separated by newlines.
         return Arrays.stream(units).map(unit -> template.get(unit) + "x " + unitToSimpleString(unit))
                 .collect(Collectors.joining("\n"));

@@ -22,11 +22,13 @@ public class Battle {
     /**
      * Used to simmulate a battle between two armies,
      *
+     * <br><br>
      * When one army attacks the other, a random unit from
      * the attacking army, is picked to attack a random unit
      * from the defending army. Whenever a unit falls bellow 1 health,
      * the unit is removed from its army.
      *
+     * <br><br>
      * The first army attacks first, then the second army attacks.
      * This continues unit an army is left with 0 units.
      * @return The army that won the battle
@@ -59,6 +61,9 @@ public class Battle {
         return defender;
     }
 
+    /**
+     * @return A string representation of and instance of Battle.
+     */
     @Override
     public String toString() {
         return "Battle{" +

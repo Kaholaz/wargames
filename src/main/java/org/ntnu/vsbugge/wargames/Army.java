@@ -94,16 +94,17 @@ public class Army {
     }
 
     /**
-     * @return A template that could be used to create an equivalent army.
-     *
      * The template is a HashMap where the key is a unit in the army,
      * and the value is the amount of that specific unit in the army.
      *
+     * <br><br>
      * Please note that since Unit.copyOf does not retain stats about
      * the number of times a unit has or has been attacked, and that
      * this function is called whenever a unit is added to an army;
      * the generated template can not necessarily be replicated fully
      * by using the parseArmyTemplate method.
+     *
+     * @return A template that could be used to create an equivalent army.
      */
     public Map<Unit, Integer> getArmyTemplate() {
         Map<Unit, Integer> template = new HashMap<>();
@@ -119,12 +120,14 @@ public class Army {
 
     /**
      * Takes a template and returns an army based on that template
+     *
+     * <br><br>
+     * The template should be a HashMap where the key is a unit in the army,
+     * and the value is the amount of that specific unit in the army.
+     *
      * @param name The name of the army
      * @param template The template the army should be based on
      * @return An instance of Army based on the provided template
-     *
-     * The template should be a HashMap where the key is a unit in the army,
-     * and the value is the amount of that specific unit in the army.
      */
     public static Army parseArmyTemplate(String name, Map<Unit, Integer> template) {
         Army army = new Army(name);
@@ -141,6 +144,12 @@ public class Army {
         return army;
     }
 
+    /**
+     * This method should be used for debugging purposes only. {@code WargamesCLI.armyToSimpleString(Army army)}
+     * should be used create a human-readable representation of a unit, ready to be printed to console.
+     *
+     * @return A string representation of an instance (used for debugging)
+     */
     @Override
     public String toString() {
         return "Army{" +
@@ -148,6 +157,11 @@ public class Army {
                 '}';
     }
 
+    /**
+     * Checks whether two objects are equivalent
+     * @param o The other object to compare with
+     * @return True if the objects are equivalent, false if not.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -160,8 +174,13 @@ public class Army {
         return name.equals(army.name) && thisUnits.equals(armyUnits);
     }
 
+    /**
+     * @return A HashCode for the Army. This method hashes the name and the collection of units.
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(name, units);
+        Unit[] hashUnits = units.toArray(Unit[]::new);
+        Arrays.sort(hashUnits);
+        return Objects.hash(name, Arrays.hashCode(hashUnits));
     }
 }
