@@ -30,7 +30,7 @@ public class RangedUnitTest extends TestCase {
 
     }
 
-    public void testTestGetName() {
+    public void testGetName() {
         RangedUnit test1 = new RangedUnit("Test1", 20, 10, 5);
         RangedUnit test2 = new RangedUnit("Test2", 15);
 

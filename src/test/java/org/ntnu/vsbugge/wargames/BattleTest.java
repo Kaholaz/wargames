@@ -41,7 +41,7 @@ public class BattleTest extends TestCase {
         }
     }
 
-    public void testTestToString() {
+    public void testToString() {
         Army armyOne = new Army("ArmyOne");
         Army armyTwo = new Army("ArmyTwo");
         Battle battle = new Battle(armyOne, armyTwo);

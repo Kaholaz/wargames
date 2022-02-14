@@ -18,7 +18,6 @@ public class InfantryUnitTest extends TestCase {
 
         test1.attack(test2);
         assertEquals(12, test2.getHealth());
-
         assertEquals(20, test1.getHealth());
 
         test2.attack(test1);
@@ -27,7 +26,7 @@ public class InfantryUnitTest extends TestCase {
 
     }
 
-    public void testTestGetName() {
+    public void testGetName() {
         InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 

@@ -27,7 +27,7 @@ public class CavalryUnitTest extends TestCase {
 
     }
 
-    public void testTestGetName() {
+    public void testGetName() {
         CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
         CavalryUnit test2 = new CavalryUnit("Test2", 15);
 

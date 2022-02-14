@@ -22,7 +22,7 @@ public class CommanderUnitTest extends TestCase {
 
     }
 
-    public void testTestGetName() {
+    public void testGetName() {
         CommanderUnit test1 = new CommanderUnit("Test1", 20, 10, 5);
         CommanderUnit test2 = new CommanderUnit("Test2", 15);
 
