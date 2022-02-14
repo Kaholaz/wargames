@@ -27,6 +27,7 @@ public abstract class Unit implements Comparable<Unit>{
     /**
      * Simulates an engagement and deals damage to the opponent according to the stats of the unit and the opponent
      *
+     * <br><br>
      * Total damage is calculated by this formula: <br>
      * {@code ((this.getAttack() + this.getAttackBonus()) - (opponent.getArmor() + opponent.getResistBonus())}
      * @param opponent The opposing unit in the engagement
@@ -67,6 +68,19 @@ public abstract class Unit implements Comparable<Unit>{
 
     /**
      * Makes the unit take damage to health-points. A negative or zero health-value signifies that the unit is dead.
+     *
+     * <br><br>
+     * This method is included in favor of a setHealth method, to both encapsulate the health attribute and protect
+     * it form being changed in an unforeseen way; and to create an interface that makes it possible to track the
+     * number of times a unit has been attacked without introducing unexpected behaviour (ie incrementing a variable
+     * tracking the number of times a unit has taken damage in a setHealth method, or in the getResistBonus method)
+     *
+     * <br><br>
+     * If there exists a need to change the health of a unit in other ways (ie healing or resetting health), other
+     * methods should be added to deal with these actions instead of implementing a setHealth method. This is to ensure
+     * that setHealth (which arguably has a name that is more likely to get used if the user is not familiar with the
+     * source code) is not used instead of takeDamage when dealing damage to a unit.
+     *
      * @param damage The damage inflicted on the unit
      */
     public void takeDamage(int damage) {
