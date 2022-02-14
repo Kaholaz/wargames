@@ -40,28 +40,28 @@ public abstract class Unit implements Comparable<Unit>{
     /**
      * @return The name of the unit
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     /**
      * @return The remaining health of the unit
      */
-    public int getHealth() {
+    public final int getHealth() {
         return health;
     }
 
     /**
      * @return The attack of teh unit
      */
-    public int getAttack() {
+    public final int getAttack() {
         return attack;
     }
 
     /**
      * @return The armor of the unit
      */
-    public int getArmor() {
+    public final int getArmor() {
         return armor;
     }
 
