@@ -45,7 +45,7 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * @return The remaining health of the unit
+     * @return The remaining health of the unit. A negative or zero health-value signifies that the unit is dead.
      */
     public final int getHealth() {
         return health;
@@ -66,7 +66,7 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * Makes the unit take damage to health-points
+     * Makes the unit take damage to health-points. A negative or zero health-value signifies that the unit is dead.
      * @param damage The damage inflicted on the unit
      */
     public void takeDamage(int damage) {
