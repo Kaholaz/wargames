@@ -1,5 +1,8 @@
 package org.ntnu.vsbugge.wargames.units;
 
+/**
+ * A class that represent a single commander unit
+ */
 public class CommanderUnit extends CavalryUnit{
     private static final int DEFAULT_ATTACK = 25, DEFAULT_ARMOR = 15;
 

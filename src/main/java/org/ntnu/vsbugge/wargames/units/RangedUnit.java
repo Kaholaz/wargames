@@ -1,5 +1,8 @@
 package org.ntnu.vsbugge.wargames.units;
 
+/**
+ * A class that represent a single ranged unit
+ */
 public class RangedUnit extends Unit{
     private final int ATTACK_BONUS = 3;
 
@@ -47,12 +50,27 @@ public class RangedUnit extends Unit{
         );
     }
 
+    /**
+     * When this method is called, {@code super.takeDamage} is first called, then the private field
+     * {@code timesTakenDamage} is incremented by one. This is important for the calculation of resist bonus,
+     * which is variable depending on the number of times the unit has taken damage.
+     * @param damage The damage inflicted on the unit
+     */
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
         timesTakenDamage += 1;
     }
 
+    /**
+     * Calculates the resist bonus of this unit.
+     *
+     * <br><br>
+     * This is the formula used: {@code INITIAL_RESIST_BONUS - timesTakenDamage * RESIST_BONUS_PENALTY}<br>
+     * The resist bonus is first set to an initial value. After each time this unit takes damage, the resist bonus
+     * is lowered by a set amount until the minimum resist bonus is reached.
+     * @return The resist bonus of the unit
+     */
     @Override
     public int getResistBonus() {
         int calculatedResistBonus = INITIAL_RESIST_BONUS - timesTakenDamage * RESIST_BONUS_PENALTY;

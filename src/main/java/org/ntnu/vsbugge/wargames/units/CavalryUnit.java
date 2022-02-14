@@ -1,5 +1,8 @@
 package org.ntnu.vsbugge.wargames.units;
 
+/**
+ * A class that represent a single cavalry unit
+ */
 public class CavalryUnit extends Unit {
     private final int RESIST_BONUS = 1;
     private final int ATTACK_BONUS = 2; // The general attack bonus
@@ -56,12 +59,17 @@ public class CavalryUnit extends Unit {
         return RESIST_BONUS;
     }
 
+    /**
+     * Calculates the attack bonus of the unit. If the unit has not attacked,
+     * this returns the value of the private constant FIRST_ATTACK_BONUS. If the unit already has attacked,
+     * the value of the private constant ATTACK_BONUS is returned instead.
+     * @return The attack bonus of the unit
+     */
     @Override
     public int getAttackBonus() {
         if (!hasAttacked) {
             return FIRST_ATTACK_BONUS;
         }
-
         return ATTACK_BONUS;
     }
 }

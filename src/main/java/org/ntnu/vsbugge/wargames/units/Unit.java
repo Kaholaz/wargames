@@ -179,12 +179,12 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * Calculates and returns the attack bonus of the unit
+     * @return The attack bonus of the unit
      */
     public abstract int getAttackBonus();
 
     /**
-     * Calculates and returns the resist bonus of the unit
+     * @return The resist bonus of the unit
      */
     public abstract int getResistBonus();
 }
