@@ -35,7 +35,7 @@ public class Battle {
      * @throws IllegalStateException Throws an exception if one of the armies
      * does not have any units at the start of the simulation.
      */
-    public Army simulate() throws IllegalStateException{
+    public Army simulate() throws IllegalStateException {
         if (!armyOne.hasUnits() || !armyTwo.hasUnits()) {
             throw new IllegalStateException("Both armies need to have units to simulate a battle");
         }

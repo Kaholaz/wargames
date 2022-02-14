@@ -36,26 +36,41 @@ public class WargamesCLI {
 
     /**
      * Starts the CLI. Data needs to be loaded into {@code battle} before this function is called
+     * @throws IllegalStateException If start is called without data loaded, or if a simulation is started
+     * where one or both of the armies contains 0 units.
      */
-    public void start() {
-        System.out.println("Welcome to the CLI for the battle simulator Wargames!");
-        System.out.println("Press enter to start...");
+    public void start() throws IllegalStateException{
+        if (battle == null) {
+            throw new IllegalStateException("Data was not loaded before starting the battle");
+        }
 
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        boolean playing = true;
+        while (playing){
+            System.out.println("Welcome to the CLI for the battle simulator Wargames!");
+            System.out.println("Press enter to start...");
 
-        Army victor = battle.simulate();
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
 
-        System.out.printf("The army '%s' won!\n", victor.getName());
-        System.out.println("Here is the surviving army: ");
-        System.out.println(armyToSimpleString(victor));
+            Army victor = battle.simulate();
 
-        System.out.println("Would you like to start again? [Y/n]");
-        String response = scanner.nextLine();
+            System.out.printf("The army '%s' won!\n", victor.getName());
+            System.out.println("Here is the surviving army: ");
+            System.out.println(armyToSimpleString(victor));
 
-        if (response.toLowerCase(Locale.ROOT).equals("y") || response.toLowerCase(Locale.ROOT).equals("yes")) {
-            loadTestData();
-            start();
+            System.out.println("Would you like to start again? [Y/n]");
+            String response = scanner.nextLine();
+
+            // This will exit if the user does not respond with 'y' or 'yes', regardless if they wrote 'n' or 'no'.
+            // This is not optimal, but good enough for this simple implementation, since it will be replaced by a
+            // GUI later down the road.
+            // TODO: Improve the user interface
+            if (response.toLowerCase(Locale.ROOT).equals("y") || response.toLowerCase(Locale.ROOT).equals("yes")) {
+                // Reload test data before a reset
+                loadTestData();
+            } else {
+                playing = false;
+            }
         }
     }
 
