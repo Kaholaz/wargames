@@ -61,6 +61,11 @@ public class RangedUnit extends Unit{
         timesTakenDamage += 1;
     }
 
+    @Override
+    public void resetStats() {
+        timesTakenDamage = 0;
+    }
+
     /**
      * Calculates the resist bonus of this unit.
      *

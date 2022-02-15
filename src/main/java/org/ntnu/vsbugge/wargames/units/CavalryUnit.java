@@ -54,6 +54,11 @@ public class CavalryUnit extends Unit {
     }
 
     @Override
+    public void resetStats() {
+        hasAttacked = false;
+    }
+
+    @Override
     public int getResistBonus() {
         return RESIST_BONUS;
     }

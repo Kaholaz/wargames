@@ -187,6 +187,11 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
+     * Resets stats about how many times the unit has been attacked or has attacked others.
+     */
+    public abstract void resetStats();
+
+    /**
      * @return The attack bonus of the unit
      */
     public abstract int getAttackBonus();
