@@ -34,8 +34,6 @@ public class CavalryUnit extends Unit {
     /**
      * Takes an existing CavalryUnit instance and creates a new instance with the same attributes.
      *
-     * Please note that stats regarding number of times taken damage and number of times attacked are reset,
-     * so the new instance will not necessarily be exactly the same as the original.
      * @param cavalryUnit An instance of CavalryUnit
      */
     public CavalryUnit(CavalryUnit cavalryUnit) {
@@ -45,6 +43,7 @@ public class CavalryUnit extends Unit {
                 cavalryUnit.getAttack(),
                 cavalryUnit.getArmor()
         );
+        this.hasAttacked = cavalryUnit.hasAttacked;
     }
 
 

@@ -105,12 +105,6 @@ public abstract class Unit implements Comparable<Unit>{
     /**
      * Creates a copy of a Unit instance.
      *
-     * <br><br>
-     * Do note that stats about how many times the unit
-     * has been attacked and has attacked others, are reset
-     * and not retained. This function does in other words
-     * not necessarily return an exact copy of the unit.
-     *
      * @param unit The original unit to copy
      * @return A copy of the original unit
      */

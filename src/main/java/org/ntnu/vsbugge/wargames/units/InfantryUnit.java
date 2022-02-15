@@ -32,8 +32,6 @@ public class InfantryUnit extends Unit{
     /**
      * Takes an existing InfantryUnit instance and creates a new instance with the same attributes.
      *
-     * Please note that stats regarding number of times taken damage and number of times attacked are reset,
-     * so the new instance will not necessarily be exactly the same as the original.
      * @param infantryUnit An instance of InfantryUnit
      */
     public InfantryUnit(InfantryUnit infantryUnit) {
