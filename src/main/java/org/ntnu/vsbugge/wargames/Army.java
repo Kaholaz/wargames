@@ -98,11 +98,22 @@ public class Army {
      * and the value is the amount of that specific unit in the army.
      *
      * <br><br>
-     * Please note that since Unit.copyOf does not retain stats about
-     * the number of times a unit has or has been attacked, and that
-     * this function is called whenever a unit is added to an army;
-     * the generated template can not necessarily be replicated fully
-     * by using the parseArmyTemplate method.
+     * Please note that due to how the army template is constructed,
+     * a template can not contain multiple copies of a unit that only
+     * differs in how many times that unit has attacked or has been
+     * attacked. Stats about this are therefore reset when the army
+     * template is constructed. The army template is thereby not a
+     * one to one representation of an army. In other words:
+     * If the returned army template is passed into the parseArmyTemplate,
+     * the returned army is then not necessarily a perfect recreation of the
+     * original army.
+     *
+     * <br><br>
+     * This implementation of an 'army template' is just implemented to increase QOL when
+     * retrieving information about or when creating armies by enabling
+     * these actions to be completed using an easy-to-use format. These templates
+     * are inadequate when an <i>exact</i> representation of an army is needed.
+     * If this is the case, the getAllUnits method should be used instead.
      *
      * @return A template that could be used to create an equivalent army.
      */
@@ -110,9 +121,16 @@ public class Army {
         Map<Unit, Integer> template = new HashMap<>();
 
         for (Unit unit : units) {
+            // stats are reset to avoid confusion about
+            // cases where the stats of one unit gets
+            // overwritten by another unit when multiple units
+            // with the same hashcode are entered into the template
+            unit = Unit.copyOf(unit);
+            unit.resetStats(); // <- here
             int count = template.getOrDefault(unit, 0);
+
             count += 1;
-            template.put(unit, count);
+            template.put(unit, count); // Could overwrite unit if two units have different stats but are otherwise equal
         }
 
         return template;
@@ -124,6 +142,13 @@ public class Army {
      * <br><br>
      * The template should be a HashMap where the key is a unit in the army,
      * and the value is the amount of that specific unit in the army.
+     *
+     * <br><br>
+     * This implementation of an 'army template' is just implemented to increase QOL when
+     * retrieving information about or when creating armies by enabling
+     * these actions to be completed using an easy-to-use format. These templates
+     * are inadequate when an <i>exact</i> representation of an army is needed.
+     * If this is the case, the getAllUnits method should be used instead.
      *
      * @param name The name of the army
      * @param template The template the army should be based on

@@ -41,6 +41,7 @@ public class UnitTest extends TestCase {
 
     public void testCopyOf() {
         Unit testUnit = new Unit("Test",1, 2, 3) {
+            public void resetStats() {}
             public int getResistBonus(){ return 0; }
             public int getAttackBonus(){ return 0; }
         };
