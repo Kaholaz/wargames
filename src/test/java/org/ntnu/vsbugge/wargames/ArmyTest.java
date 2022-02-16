@@ -141,6 +141,41 @@ public class ArmyTest extends TestCase {
         assertFalse(testObj1.equals(testObj2));
     }
 
+    public void testEqualsDoesNotAlterUnitOrder() {
+        RangedUnit ranged1 = new RangedUnit("Test1", 20,10,10);
+        InfantryUnit infantryUnit1 = new InfantryUnit("Test2", 20, 10, 10);
+        InfantryUnit infantryUnit2 = new InfantryUnit("Test1", 20, 11, 10);
+        InfantryUnit infantryUnit3 = new InfantryUnit("Test1", 20, 10, 12);
+        InfantryUnit infantryUnit4 = new InfantryUnit("Test1", 20, 10, 10);
+        InfantryUnit infantryUnit5 = new InfantryUnit("Test1", 15, 10, 10);
+        InfantryUnit infantryUnit6 = new InfantryUnit("Test1", 100, 10, 10);
+
+        List<Unit> testList = new LinkedList<>(Arrays.asList(
+                ranged1,
+                infantryUnit1,
+                infantryUnit2,
+                infantryUnit3,
+                infantryUnit4,
+                infantryUnit5,
+                infantryUnit5,
+                infantryUnit6
+        ));
+
+        Army testArmy1 = new Army("Test", testList);
+        Army testArmy2 = new Army("Test", testList);
+        assertTrue(testArmy1.getAllUnits().equals(testArmy2.getAllUnits())); // same order, same units (List.equals) [true]
+
+        assertTrue(testArmy1.equals(testArmy2)); // same order, same units (Army.equals) [true]
+        assertEquals(testList, testArmy1.getAllUnits()); // same order, same units (List.equals) [true]
+        assertEquals(testList, testArmy2.getAllUnits()); // same order, same units (List.equals) [true]
+
+        testArmy2 = new Army("Test", testList.stream().sorted().toList());
+        assertFalse(testList.equals(testArmy2.getAllUnits())); // different order, same units (List.equals) [false]
+        assertTrue(testArmy1.equals(testArmy2)); // different order, same units (Army.equals) [true]
+        assertTrue(testArmy1.getAllUnits().equals(testList)); // same order, same units (List.equals) [true]
+        assertFalse(testArmy2.getAllUnits().equals(testList)); // different order, same units (List.equals) [false]
+    }
+
     public void testHashCode() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
