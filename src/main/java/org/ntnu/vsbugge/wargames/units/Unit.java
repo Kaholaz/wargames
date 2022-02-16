@@ -88,7 +88,7 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * This method should be used for debugging purpouses only. {@code WargamesCLI.unitToSimpleString(Unit unit)}
+     * This method should be used for debugging purposes only. {@code WargamesCLI.unitToSimpleString(Unit unit)}
      * should be used to create a human-readable representation of a unit, ready to be printed to console.
      * @return A string representation of an instance (used for debugging)
      */
