@@ -9,7 +9,7 @@ public class WargamesCLITest extends TestCase {
         try {
             cli.loadTestData();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.fillInStackTrace());
+            e.printStackTrace();
             fail("Something went wrong in the loading of test data.");
         }
     }

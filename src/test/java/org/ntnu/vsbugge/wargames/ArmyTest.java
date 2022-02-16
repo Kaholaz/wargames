@@ -10,7 +10,7 @@ import java.util.*;
 public class ArmyTest extends TestCase {
 
     public void testAdd() {
-        List<Unit> testList = new ArrayList<Unit>();
+        List<Unit> testList = new ArrayList<>();
         Army testObj = new Army("TestObj");
 
         RangedUnit test1 = new RangedUnit("Test1", 10);
@@ -90,7 +90,7 @@ public class ArmyTest extends TestCase {
         Army testObj = new Army("TestObj");
 
         try {
-            Unit unit = testObj.getRandomUnit();
+            testObj.getRandomUnit();
             fail("IllegalStateException not thrown");
         }
         catch (IllegalStateException e) {
