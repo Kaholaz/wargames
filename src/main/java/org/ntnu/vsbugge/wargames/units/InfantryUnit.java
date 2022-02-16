@@ -4,10 +4,10 @@ package org.ntnu.vsbugge.wargames.units;
  * A class that represent a single infantry unit
  */
 public class InfantryUnit extends Unit{
-    private final int RESIST_BONUS = 1;
-    private final int ATTACK_BONUS = 2;
+    protected static final int RESIST_BONUS = 1;
+    protected static final int ATTACK_BONUS = 2;
 
-    private static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 10;
+    protected static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 10;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)

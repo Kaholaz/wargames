@@ -4,15 +4,15 @@ package org.ntnu.vsbugge.wargames.units;
  * A class that represent a single ranged unit
  */
 public class RangedUnit extends Unit{
-    private final int ATTACK_BONUS = 3;
+    protected static final int ATTACK_BONUS = 3;
 
-    private final int INITIAL_RESIST_BONUS = 6; // Initial resist bonus
-    private final int RESIST_BONUS_PENALTY = 2; // Penalty in resist bonus per time this unit has taken damage
-    private final int MINIMUM_RESIST_BONUS = 2; // Minimum resist bonus
+    protected static final int INITIAL_RESIST_BONUS = 6; // Initial resist bonus
+    protected static final int RESIST_BONUS_PENALTY = 2; // Penalty in resist bonus per time this unit has taken damage
+    protected static final int MINIMUM_RESIST_BONUS = 2; // Minimum resist bonus
 
     private int timesTakenDamage = 0;
 
-    private static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 8;
+    protected static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 8;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)

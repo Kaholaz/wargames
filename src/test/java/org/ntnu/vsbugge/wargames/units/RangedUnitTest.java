@@ -51,7 +51,7 @@ public class RangedUnitTest extends TestCase {
         RangedUnit test2 = new RangedUnit("Test2", 15);
 
         assertEquals(10, test1.getAttack());
-        assertEquals(15, test2.getAttack());
+        assertEquals(RangedUnit.DEFAULT_ATTACK, test2.getAttack());
     }
 
     public void testGetArmor() {
@@ -59,7 +59,7 @@ public class RangedUnitTest extends TestCase {
         RangedUnit test2 = new RangedUnit("Test2", 15);
 
         assertEquals(5, test1.getArmor());
-        assertEquals(8, test2.getArmor());
+        assertEquals(RangedUnit.DEFAULT_ARMOR, test2.getArmor());
     }
 
     public void testTakeDamage() {
@@ -78,26 +78,26 @@ public class RangedUnitTest extends TestCase {
     public void testGetResistBonus() {
         RangedUnit test1 = new RangedUnit("Test1", 15);
 
-        assertEquals(6, test1.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(4, test1.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS - RangedUnit.RESIST_BONUS_PENALTY, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(2, test1.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS - 2 * RangedUnit.RESIST_BONUS_PENALTY, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(2, test1.getResistBonus());
+        assertEquals(RangedUnit.MINIMUM_RESIST_BONUS, test1.getResistBonus());
     }
 
     public void testGetAttackBonus() {
         RangedUnit test1 = new RangedUnit("Test1", 15);
         RangedUnit test2 = new RangedUnit("Test2", 10);
 
-        assertEquals(3, test1.getAttackBonus());
+        assertEquals(RangedUnit.ATTACK_BONUS, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(3, test1.getAttackBonus());
+        assertEquals(RangedUnit.ATTACK_BONUS, test1.getAttackBonus());
     }
 
     public void testCopyOf() {
@@ -114,29 +114,29 @@ public class RangedUnitTest extends TestCase {
         test1.takeDamage(2);
         RangedUnit test2 = (RangedUnit) Unit.copyOf(test1);
 
-        assertEquals(4, test2.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS - RangedUnit.RESIST_BONUS_PENALTY, test2.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(4, test2.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS - RangedUnit.RESIST_BONUS_PENALTY, test2.getResistBonus());
 
         test2.takeDamage(2);
-        assertEquals(2, test2.getResistBonus());
+        assertEquals(RangedUnit.MINIMUM_RESIST_BONUS, test2.getResistBonus());
     }
 
     public void testResetStats() {
         RangedUnit test1 = new RangedUnit("Test1", 15, 10 ,5);
 
         test1.takeDamage(1);
-        assertEquals(4, test1.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS - RangedUnit.RESIST_BONUS_PENALTY, test1.getResistBonus());
 
         test1.resetStats();
-        assertEquals(6, test1.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS, test1.getResistBonus());
 
         test1.takeDamage(1);
         test1.takeDamage(1);
-        assertEquals(2, test1.getResistBonus());
+        assertEquals(RangedUnit.MINIMUM_RESIST_BONUS, test1.getResistBonus());
 
         test1.resetStats();
-        assertEquals(6, test1.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS, test1.getResistBonus());
     }
 }

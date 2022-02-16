@@ -4,12 +4,12 @@ package org.ntnu.vsbugge.wargames.units;
  * A class that represent a single cavalry unit
  */
 public class CavalryUnit extends Unit {
-    private final int RESIST_BONUS = 1;
-    private final int ATTACK_BONUS = 2; // The general attack bonus
-    private final int FIRST_ATTACK_BONUS = 6; // The attack bonus for the first strike
+    protected static final int RESIST_BONUS = 1;
+    protected static final int ATTACK_BONUS = 2; // The general attack bonus
+    protected static final int FIRST_ATTACK_BONUS = 6; // The attack bonus for the first strike
     protected boolean hasAttacked = false;
 
-    private static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
+    protected static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)

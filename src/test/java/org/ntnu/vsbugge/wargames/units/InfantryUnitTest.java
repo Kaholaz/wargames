@@ -47,7 +47,7 @@ public class InfantryUnitTest extends TestCase {
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
         assertEquals(10, test1.getAttack());
-        assertEquals(15, test2.getAttack());
+        assertEquals(InfantryUnit.DEFAULT_ATTACK, test2.getAttack());
     }
 
     public void testGetArmor() {
@@ -55,7 +55,7 @@ public class InfantryUnitTest extends TestCase {
         InfantryUnit test2 = new InfantryUnit("Test2", 15);
 
         assertEquals(5, test1.getArmor());
-        assertEquals(10, test2.getArmor());
+        assertEquals(InfantryUnit.DEFAULT_ARMOR, test2.getArmor());
     }
 
     public void testTakeDamage() {
@@ -74,20 +74,20 @@ public class InfantryUnitTest extends TestCase {
     public void testGetResistBonus() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15);
 
-        assertEquals(1, test1.getResistBonus());
+        assertEquals(InfantryUnit.RESIST_BONUS, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(1, test1.getResistBonus());
+        assertEquals(InfantryUnit.RESIST_BONUS, test1.getResistBonus());
     }
 
     public void testGetAttackBonus() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15);
         InfantryUnit test2 = new InfantryUnit("Test2", 10);
 
-        assertEquals(2, test1.getAttackBonus());
+        assertEquals(InfantryUnit.ATTACK_BONUS, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(2, test1.getAttackBonus());
+        assertEquals(InfantryUnit.ATTACK_BONUS, test1.getAttackBonus());
     }
 
     public void testCopyOf() {

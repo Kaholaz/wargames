@@ -43,7 +43,7 @@ public class CommanderUnitTest extends TestCase {
         CommanderUnit test2 = new CommanderUnit("Test2", 15);
 
         assertEquals(10, test1.getAttack());
-        assertEquals(25, test2.getAttack());
+        assertEquals(CommanderUnit.DEFAULT_ATTACK, test2.getAttack());
     }
 
     public void testGetArmor() {
@@ -51,7 +51,7 @@ public class CommanderUnitTest extends TestCase {
         CommanderUnit test2 = new CommanderUnit("Test2", 15);
 
         assertEquals(5, test1.getArmor());
-        assertEquals(15, test2.getArmor());
+        assertEquals(CommanderUnit.DEFAULT_ARMOR, test2.getArmor());
     }
 
     public void testTakeDamage() {
@@ -70,23 +70,23 @@ public class CommanderUnitTest extends TestCase {
     public void testGetResistBonus() {
         CommanderUnit test1 = new CommanderUnit("Test1", 15);
 
-        assertEquals(1, test1.getResistBonus());
+        assertEquals(CommanderUnit.RESIST_BONUS, test1.getResistBonus());
 
         test1.takeDamage(2);
-        assertEquals(1, test1.getResistBonus());
+        assertEquals(CommanderUnit.RESIST_BONUS, test1.getResistBonus());
     }
 
     public void testGetAttackBonus() {
         CommanderUnit test1 = new CommanderUnit("Test1", 15);
         CommanderUnit test2 = new CommanderUnit("Test2", 10);
 
-        assertEquals(6, test1.getAttackBonus());
+        assertEquals(CommanderUnit.FIRST_ATTACK_BONUS, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(2, test1.getAttackBonus());
+        assertEquals(CommanderUnit.ATTACK_BONUS, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(2, test1.getAttackBonus());
+        assertEquals(CommanderUnit.ATTACK_BONUS, test1.getAttackBonus());
     }
 
     public void testCopyOf() {
@@ -102,10 +102,10 @@ public class CommanderUnitTest extends TestCase {
         CommanderUnit test2 = (CommanderUnit) Unit.copyOf(test1);
 
         test1.attack(test2);
-        assertEquals(6, test2.getAttackBonus());
+        assertEquals(CommanderUnit.FIRST_ATTACK_BONUS, test2.getAttackBonus());
 
         test2 = (CommanderUnit) Unit.copyOf(test1);
-        assertEquals(2, test2.getAttackBonus());
+        assertEquals(CommanderUnit.ATTACK_BONUS, test2.getAttackBonus());
     }
 
     public void testResetStats() {
@@ -113,12 +113,12 @@ public class CommanderUnitTest extends TestCase {
         CommanderUnit test2 = (CommanderUnit) Unit.copyOf(test1);
 
         test1.attack(test2);
-        assertEquals(2, test1.getAttackBonus());
+        assertEquals(CommanderUnit.ATTACK_BONUS, test1.getAttackBonus());
 
         test1.resetStats();
-        assertEquals(6, test1.getAttackBonus());
+        assertEquals(CommanderUnit.FIRST_ATTACK_BONUS, test1.getAttackBonus());
 
         test1.attack(test2);
-        assertEquals(2, test1.getAttackBonus());
+        assertEquals(CommanderUnit.ATTACK_BONUS, test1.getAttackBonus());
     }
 }
