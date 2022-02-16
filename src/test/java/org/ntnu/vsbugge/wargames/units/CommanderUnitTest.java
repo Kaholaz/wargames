@@ -96,4 +96,29 @@ public class CommanderUnitTest extends TestCase {
         assertFalse(test1 == test2);
         assertTrue(test1.equals(test2));
     }
+
+    public void testCopyOfRetainsStats() {
+        CommanderUnit test1 = new CommanderUnit("Test1", 100, 10 ,5);
+        CommanderUnit test2 = (CommanderUnit) Unit.copyOf(test1);
+
+        test1.attack(test2);
+        assertEquals(6, test2.getAttackBonus());
+
+        test2 = (CommanderUnit) Unit.copyOf(test1);
+        assertEquals(2, test2.getAttackBonus());
+    }
+
+    public void testResetStats() {
+        CommanderUnit test1 = new CommanderUnit("Test1", 100, 10 ,5);
+        CommanderUnit test2 = (CommanderUnit) Unit.copyOf(test1);
+
+        test1.attack(test2);
+        assertEquals(2, test1.getAttackBonus());
+
+        test1.resetStats();
+        assertEquals(6, test1.getAttackBonus());
+
+        test1.attack(test2);
+        assertEquals(2, test1.getAttackBonus());
+    }
 }

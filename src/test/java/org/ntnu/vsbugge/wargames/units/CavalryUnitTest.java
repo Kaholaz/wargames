@@ -101,4 +101,29 @@ public class CavalryUnitTest extends TestCase {
         assertFalse(test1 == test2);
         assertTrue(test1.equals(test2));
     }
+
+    public void testCopyOfRetainsStats() {
+        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+
+        test1.attack(test2);
+        assertEquals(6, test2.getAttackBonus());
+
+        test2 = (CavalryUnit) Unit.copyOf(test1);
+        assertEquals(2, test2.getAttackBonus());
+    }
+
+    public void testResetStats() {
+        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+
+        test1.attack(test2);
+        assertEquals(2, test1.getAttackBonus());
+
+        test1.resetStats();
+        assertEquals(6, test1.getAttackBonus());
+
+        test1.attack(test2);
+        assertEquals(2, test1.getAttackBonus());
+    }
 }

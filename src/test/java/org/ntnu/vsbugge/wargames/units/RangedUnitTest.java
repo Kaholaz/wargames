@@ -107,4 +107,36 @@ public class RangedUnitTest extends TestCase {
         assertFalse(test1 == test2);
         assertTrue(test1.equals(test2));
     }
+
+    public void testCopyOfRetainsStats() {
+        RangedUnit test1 = new RangedUnit("Test1", 15, 10 ,5);
+
+        test1.takeDamage(2);
+        RangedUnit test2 = (RangedUnit) Unit.copyOf(test1);
+
+        assertEquals(4, test2.getResistBonus());
+
+        test1.takeDamage(2);
+        assertEquals(4, test2.getResistBonus());
+
+        test2.takeDamage(2);
+        assertEquals(2, test2.getResistBonus());
+    }
+
+    public void testResetStats() {
+        RangedUnit test1 = new RangedUnit("Test1", 15, 10 ,5);
+
+        test1.takeDamage(1);
+        assertEquals(4, test1.getResistBonus());
+
+        test1.resetStats();
+        assertEquals(6, test1.getResistBonus());
+
+        test1.takeDamage(1);
+        test1.takeDamage(1);
+        assertEquals(2, test1.getResistBonus());
+
+        test1.resetStats();
+        assertEquals(6, test1.getResistBonus());
+    }
 }
