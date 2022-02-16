@@ -95,7 +95,7 @@ public class WargamesCLI {
      */
     private String armyToSimpleString(Army army) {
         Map<Unit, Integer> template = army.getArmyTemplate();
-        Unit[] units = template.keySet().stream().toArray(Unit[]::new);
+        Unit[] units = template.keySet().toArray(Unit[]::new);
         Arrays.sort(units);
 
         // Converts each unit to a simple string and concatenates the amount of that unit in the army.

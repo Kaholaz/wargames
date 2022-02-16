@@ -44,9 +44,7 @@ public class InfantryUnit extends Unit{
     }
 
     @Override
-    public void resetStats() {
-        return;
-    }
+    public void resetStats() {}
 
     @Override
     public int getResistBonus() {
