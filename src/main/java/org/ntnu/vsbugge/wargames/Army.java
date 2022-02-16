@@ -40,6 +40,17 @@ public class Army {
     }
 
     /**
+     * Adds a given number of a unit into the army. The unit is copied before each add
+     * @param unit The unit to be added
+     * @param count The number of that unit
+     */
+    public void add(Unit unit, int count) {
+        for (int i = 0; i < count; i++){
+            add(unit);
+        }
+    }
+
+    /**
      * Adds all given units to the army
      * @param units The units to add
      */
@@ -161,9 +172,7 @@ public class Army {
             Unit unit = entry.getKey();
             int count = entry.getValue();
 
-            for (int i = 0; i < count; i++) {
-                army.add(unit);
-            }
+            army.add(unit, count);
         }
 
         return army;

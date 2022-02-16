@@ -27,6 +27,18 @@ public class ArmyTest extends TestCase {
         assertEquals(testList, testObj.getAllUnits());
     }
 
+    public void testAddMultiple() {
+        Army testObj = new Army("TestObj");
+
+        RangedUnit test = new RangedUnit("Test", 10);
+        testObj.add(test, 5);
+        assertEquals(5, testObj.getAllUnits().size());
+
+        for(Unit unit : testObj.getAllUnits()) {
+            assertEquals(test, unit);
+        }
+    }
+
     public void testAddAll() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
