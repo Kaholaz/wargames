@@ -40,5 +40,6 @@ public class CommanderUnit extends CavalryUnit{
                 commanderUnit.getAttack(),
                 commanderUnit.getArmor()
         );
+        this.hasAttacked = commanderUnit.hasAttacked;
     }
 }

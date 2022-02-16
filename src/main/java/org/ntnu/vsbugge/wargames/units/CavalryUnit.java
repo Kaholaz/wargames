@@ -7,7 +7,7 @@ public class CavalryUnit extends Unit {
     private final int RESIST_BONUS = 1;
     private final int ATTACK_BONUS = 2; // The general attack bonus
     private final int FIRST_ATTACK_BONUS = 6; // The attack bonus for the first strike
-    private boolean hasAttacked = false;
+    protected boolean hasAttacked = false;
 
     private static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
 
