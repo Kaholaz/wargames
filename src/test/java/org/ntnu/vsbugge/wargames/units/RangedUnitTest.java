@@ -139,4 +139,45 @@ public class RangedUnitTest extends TestCase {
         test1.resetStats();
         assertEquals(RangedUnit.INITIAL_RESIST_BONUS, test1.getResistBonus());
     }
+
+    public void testEqualsComparesUnitSpecificStats() {
+        RangedUnit test1 = new RangedUnit("Test1", 100);
+        RangedUnit test2 = (RangedUnit) Unit.copyOf(test1);
+        RangedUnit pokingStick = new RangedUnit("Poking Stick", 1, 0,0);
+
+        assertTrue(test1.equals(test2));
+
+        pokingStick.attack(test1);
+        assertFalse(test1.equals(test2));
+
+        pokingStick.attack(test2);
+        assertTrue(test1.equals(test2));
+    }
+
+    public void testHashCodeHashesUnitSpecificStats() {
+        RangedUnit test1 = new RangedUnit("Test1", 100);
+        RangedUnit test2 = (RangedUnit) Unit.copyOf(test1);
+        RangedUnit pokingStick = new RangedUnit("Poking Stick", 1, 0,0);
+
+        assertTrue(test1.hashCode() == test2.hashCode());
+
+        pokingStick.attack(test1);
+        assertFalse(test1.hashCode() == test2.hashCode());
+
+        pokingStick.attack(test2);
+        assertTrue(test1.hashCode() == test2.hashCode());
+    }
+
+    public void testCompareToForUnitSpecificStats() {
+        RangedUnit test1 = new RangedUnit("Test", 100);
+        RangedUnit test2 = (RangedUnit) Unit.copyOf(test1);
+
+        assertEquals(0, test1.compareTo(test2));
+
+        test2.takeDamage(0);
+        assertEquals(-1, test1.compareTo(test2));
+
+        test1.takeDamage(0);
+        assertEquals(0, test1.compareTo(test2));
+    }
 }

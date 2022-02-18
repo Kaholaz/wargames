@@ -126,4 +126,46 @@ public class CavalryUnitTest extends TestCase {
         test1.attack(test2);
         assertEquals(CavalryUnit.ATTACK_BONUS, test1.getAttackBonus());
     }
+
+    public void testEqualsComparesUnitSpecificTraits(){
+        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
+
+        assertTrue(test1.equals(test2));
+
+        test1.attack(punchingBag);
+        assertFalse(test1.equals(test2));
+
+        test2.attack(punchingBag);
+        assertTrue(test1.equals(test2));
+    }
+
+    public void testHashCodeHashesUnitSpecificStats(){
+        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
+
+        assertTrue(test1.hashCode() == test2.hashCode());
+
+        test1.attack(punchingBag);
+        assertFalse(test1.hashCode() == test2.hashCode());
+
+        test2.attack(punchingBag);
+        assertTrue(test1.hashCode() == test2.hashCode());
+    }
+
+    public void testCompareToComparesUnitSpecificStats() {
+        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
+
+        assertEquals(0, test1.compareTo(test2));
+
+        test1.attack(punchingBag);
+        assertEquals(1, test1.compareTo(test2));
+
+        test2.attack(punchingBag);
+        assertEquals(0, test1.compareTo(test2));
+    }
 }

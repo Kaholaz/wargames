@@ -1,6 +1,7 @@
 package org.ntnu.vsbugge.wargames;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.units.CavalryUnit;
 import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 import org.ntnu.vsbugge.wargames.units.RangedUnit;
 import org.ntnu.vsbugge.wargames.units.Unit;
@@ -65,6 +66,47 @@ public class ArmyTest extends TestCase {
 
         testObj.remove(test2);
         assertFalse(testObj.hasUnits());
+    }
+
+    public void testRemoveUniqueCavalryUnit() {
+        CavalryUnit test = new CavalryUnit("Test", 100);
+        CavalryUnit punchingBag = new CavalryUnit("PUNCH ME!", 1000, 0, 1000);
+        Army testArmy = new Army("TestArmy");
+
+        testArmy.add(test, 2);
+
+        // Should only remove one copy
+        testArmy.remove(test);
+        assertEquals(1, testArmy.getAllUnits().size());
+
+        // Should not be removed because of different unit-specific traits (hasAttacked)
+        test.attack(punchingBag); // ouch!
+        testArmy.remove(test);
+        assertTrue(testArmy.hasUnits());
+
+        testArmy.getRandomUnit().attack(punchingBag);
+        testArmy.remove(test);
+        assertFalse(testArmy.hasUnits());
+    }
+
+    public void testRemoveUniqueRangedUnit(){
+        RangedUnit test = new RangedUnit("Test", 100);
+        Army testArmy = new Army("TestArmy");
+
+        testArmy.add(test, 2);
+
+        // Should only remove one copy
+        testArmy.remove(test);
+        assertEquals(1, testArmy.getAllUnits().size());
+
+        // Should not be removed because of different unit-specific traits (timesTakenDamage)
+        test.takeDamage(0);
+        testArmy.remove(test);
+        assertTrue(testArmy.hasUnits());
+
+        testArmy.getRandomUnit().takeDamage(0); // ouch!
+        testArmy.remove(test);
+        assertFalse(testArmy.hasUnits());
     }
 
     public void testHasUnits() {

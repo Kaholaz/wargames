@@ -121,4 +121,22 @@ public class CommanderUnitTest extends TestCase {
         test1.attack(test2);
         assertEquals(CommanderUnit.ATTACK_BONUS, test1.getAttackBonus());
     }
+
+    public void testEqualsCommanderUnitIsNotEqualToCavalryUnit() {
+        CommanderUnit test1 = new CommanderUnit("Test", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit test3 = new CavalryUnit("Test", 100, 10,5); // same stats as test1
+
+        assertTrue(test2.equals(test1));
+        assertFalse(test3.equals(test1));
+    }
+
+    public void testHashCodesDifferentForCommanderUnitAndCavalryUnit() {
+        CommanderUnit test1 = new CommanderUnit("Test", 100, 10 ,5);
+        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit test3 = new CavalryUnit("Test", 100, 10,5); // same stats as test1
+
+        assertTrue(test1.hashCode() == test2.hashCode());
+        assertFalse(test1.hashCode() == test3.hashCode());
+    }
 }
