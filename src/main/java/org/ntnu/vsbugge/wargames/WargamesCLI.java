@@ -82,7 +82,7 @@ public class WargamesCLI {
      * @param unit A Unit instance
      * @return A simple text based representation of a unit
      */
-    private String unitToSimpleString(Unit unit) {
+    protected static String unitToSimpleString(Unit unit) {
         return unit.getName() + "(" + unit.getClass().getSimpleName() +
                 ")" +  " at " +
                 unit.getHealth() + " hp";
@@ -93,7 +93,7 @@ public class WargamesCLI {
      * @param army An army instance
      * @return A simple text based representation.
      */
-    private String armyToSimpleString(Army army) {
+    protected static String armyToSimpleString(Army army) {
         Map<Unit, Integer> template = army.getArmyTemplate();
         Unit[] units = template.keySet().toArray(Unit[]::new);
         Arrays.sort(units);

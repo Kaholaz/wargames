@@ -1,6 +1,9 @@
 package org.ntnu.vsbugge.wargames;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.units.CavalryUnit;
+import org.ntnu.vsbugge.wargames.units.CommanderUnit;
+import org.ntnu.vsbugge.wargames.units.RangedUnit;
 
 public class WargamesCLITest extends TestCase {
 
@@ -25,4 +28,57 @@ public class WargamesCLITest extends TestCase {
             fail("IllegalArgument exception should be thrown when starting without loaded data");
         }
     }
+
+    public void testUnitToSimpleString() {
+        CavalryUnit cav = new CavalryUnit("cav", 10, 11, 12);
+        RangedUnit rang = new RangedUnit("rang", 10,11,12);
+
+        assertEquals("cav(CavalryUnit) at 10 hp", WargamesCLI.unitToSimpleString(cav));
+
+        assertEquals("rang(RangedUnit) at 10 hp", WargamesCLI.unitToSimpleString(rang));
+    }
+
+    public void testArmyToSimpleString() {
+        CavalryUnit cav = new CavalryUnit("cav", 10, 11, 12);
+        RangedUnit rang = new RangedUnit("rang", 10,11,12);
+        Army army = new Army("army");
+        army.add(cav, 2);
+        army.add(rang);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("2x ");
+        sb.append(WargamesCLI.unitToSimpleString(cav));
+
+        sb.append("\n1x ");
+        sb.append(WargamesCLI.unitToSimpleString(rang));
+
+        assertEquals(sb.toString(), WargamesCLI.armyToSimpleString(army));
+    }
+
+    public void testArmyToStringGroupRegardlessOfUnitSpecificStats() {
+        CavalryUnit cav = new CavalryUnit("cav", 10, 11, 12);
+        RangedUnit rang = new RangedUnit("rang", 10,11,12);
+        CommanderUnit aMountain = new CommanderUnit("THE MOUNTAIN!", 10000, 0, 10000);
+        Army army = new Army("army");
+        army.add(cav, 2);
+        army.add(rang, 2);
+
+        // Altering class specific stats
+        army.getAllUnits().get(0).attack(aMountain);
+        army.getAllUnits().get(2).takeDamage(0);
+
+        // Check if the unit specific stats are altered
+        assertFalse(army.getAllUnits().get(0).equals(army.getAllUnits().get(1)));
+        assertFalse(army.getAllUnits().get(2).equals(army.getAllUnits().get(3)));
+
+        // Constructing how the string should look
+        StringBuilder sb = new StringBuilder();
+        sb.append("2x ");
+        sb.append(WargamesCLI.unitToSimpleString(cav));
+        sb.append("\n2x ");
+        sb.append(WargamesCLI.unitToSimpleString(rang));
+
+        assertEquals(sb.toString(), WargamesCLI.armyToSimpleString(army));
+    }
+
 }

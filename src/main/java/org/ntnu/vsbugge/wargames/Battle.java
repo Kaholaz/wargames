@@ -51,6 +51,7 @@ public class Battle {
                 defender.remove(defenderUnit);
             }
 
+            // Swaps attacked and defender
             Army temp = attacker;
             attacker = defender;
             defender = temp;
