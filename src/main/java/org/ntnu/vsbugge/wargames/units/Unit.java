@@ -129,6 +129,9 @@ public abstract class Unit implements Comparable<Unit>{
      * Check if a Unit equals another instance of Unit.
      * This does not take into account subclass specific traits such as
      * number of times attacked, or how many times the unit has been attacked.
+     *
+     * <br><br>
+     * If a subclass has specific traits. These should be compared in using a subclass-specific .equals
      * @param o The object to compare to.
      * @return True if the objects are equal, false if not.
      */

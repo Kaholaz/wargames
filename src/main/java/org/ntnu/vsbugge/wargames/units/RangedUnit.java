@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import java.util.Objects;
+
 /**
  * A class that represent a single ranged unit
  */
@@ -85,5 +87,29 @@ public class RangedUnit extends Unit{
     @Override
     public int getAttackBonus() {
         return ATTACK_BONUS;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        RangedUnit that = (RangedUnit) o;
+        return timesTakenDamage == that.timesTakenDamage;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), timesTakenDamage);
+    }
+
+    @Override
+    public int compareTo(Unit other) {
+        int superCompare = super.compareTo(other);
+        if (superCompare != 0) {
+            return superCompare;
+        }
+        RangedUnit that = (RangedUnit) other;
+        return Integer.compare(this.timesTakenDamage, that.timesTakenDamage);
     }
 }

@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import java.util.Objects;
+
 /**
  * A class that represent a single cavalry unit
  */
@@ -75,5 +77,29 @@ public class CavalryUnit extends Unit {
             return FIRST_ATTACK_BONUS;
         }
         return ATTACK_BONUS;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CavalryUnit that = (CavalryUnit) o;
+        return hasAttacked == that.hasAttacked;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), hasAttacked);
+    }
+
+    @Override
+    public int compareTo(Unit other) {
+        int superCompare = super.compareTo(other);
+        if (superCompare != 0) {
+            return superCompare;
+        }
+        CavalryUnit that = (CavalryUnit) other;
+        return Boolean.compare(this.hasAttacked, that.hasAttacked);
     }
 }
