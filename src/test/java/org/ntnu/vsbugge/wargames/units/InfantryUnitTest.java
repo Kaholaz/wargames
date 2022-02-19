@@ -26,75 +26,90 @@ public class InfantryUnitTest extends TestCase {
 
     }
 
-    public void testGetName() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
-        InfantryUnit test2 = new InfantryUnit("Test2", 15);
-
-        assertEquals("Test1", test1.getName());
-        assertEquals("Test2", test2.getName());
+    public void testGetNameLongConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20, 10, 5);
+        assertEquals("Test", test.getName());
     }
 
-    public void testGetHealth() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
-        InfantryUnit test2 = new InfantryUnit("Test2", 15);
-
-        assertEquals(20, test1.getHealth());
-        assertEquals(15, test2.getHealth());
+    public void testGetNameShortConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20);
+        assertEquals("Test", test.getName());
     }
 
-    public void testGetAttack() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
-        InfantryUnit test2 = new InfantryUnit("Test2", 15);
-
-        assertEquals(10, test1.getAttack());
-        assertEquals(InfantryUnit.DEFAULT_ATTACK, test2.getAttack());
+    public void testGetHealthLongConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20, 10, 5);
+        assertEquals(20, test.getHealth());
     }
 
-    public void testGetArmor() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
-        InfantryUnit test2 = new InfantryUnit("Test2", 15);
+    public void testGetHealthShortConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20);
+        assertEquals(20, test.getHealth());
+    }
 
-        assertEquals(5, test1.getArmor());
-        assertEquals(InfantryUnit.DEFAULT_ARMOR, test2.getArmor());
+    public void testGetAttackLongConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20, 10, 5);
+        assertEquals(10, test.getAttack());
+    }
+
+    public void testGetAttackShortConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20);
+        assertEquals(InfantryUnit.DEFAULT_ATTACK, test.getAttack());
+    }
+
+    public void testGetArmorLongConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20, 10, 5);
+        assertEquals(5, test.getArmor());
+    }
+
+    public void testGetArmorShortConstructor() {
+        InfantryUnit test = new InfantryUnit("Test", 20);
+        assertEquals(InfantryUnit.DEFAULT_ARMOR, test.getArmor());
     }
 
     public void testTakeDamage() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 15);
+        InfantryUnit test = new InfantryUnit("Test", 15);
 
-        test1.takeDamage(2);
-        assertEquals(13, test1.getHealth());
+        test.takeDamage(2);
+        assertEquals(13, test.getHealth());
     }
 
     public void testToString() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 20, 10, 5);
+        InfantryUnit test = new InfantryUnit("Test", 20, 10, 5);
 
-        assertEquals("InfantryUnit{name='Test1', health=20, attack=10, armor=5}", test1.toString());
+        assertEquals("InfantryUnit{name='Test', health=20, attack=10, armor=5}", test.toString());
     }
 
     public void testGetResistBonus() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 15);
-
-        assertEquals(InfantryUnit.RESIST_BONUS, test1.getResistBonus());
-
-        test1.takeDamage(2);
-        assertEquals(InfantryUnit.RESIST_BONUS, test1.getResistBonus());
+        InfantryUnit test = new InfantryUnit("Test", 15);
+        assertEquals(InfantryUnit.RESIST_BONUS, test.getResistBonus());
     }
 
     public void testGetAttackBonus() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 15);
-        InfantryUnit test2 = new InfantryUnit("Test2", 10);
-
-        assertEquals(InfantryUnit.ATTACK_BONUS, test1.getAttackBonus());
-
-        test1.attack(test2);
-        assertEquals(InfantryUnit.ATTACK_BONUS, test1.getAttackBonus());
+        InfantryUnit test = new InfantryUnit("Test", 15);
+        assertEquals(InfantryUnit.ATTACK_BONUS, test.getAttackBonus());
     }
 
-    public void testCopyOf() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 15, 10 ,5);
-        InfantryUnit test2 = (InfantryUnit) Unit.copyOf(test1);
+    public void testCopyOfIsNotSame() {
+        InfantryUnit test = new InfantryUnit("Test", 15, 10, 5);
+        InfantryUnit copy = (InfantryUnit) Unit.copyOf(test);
 
-        assertFalse(test1 == test2);
-        assertTrue(test1.equals(test2));
+        assertNotSame(test, copy);
+    }
+
+    public void testCopyOfIsEqual() {
+        InfantryUnit test = new InfantryUnit("Test", 15, 10, 5);
+        InfantryUnit copy = (InfantryUnit) Unit.copyOf(test);
+
+        assertEquals(test, copy);
+    }
+
+    public void testCopyOfDifferentUnitsAreNotEqual() {
+        InfantryUnit test1 = new InfantryUnit("Test1", 15, 10 ,5);
+        InfantryUnit test1Copy = (InfantryUnit) Unit.copyOf(test1);
+
+        InfantryUnit test2 = new InfantryUnit("Test2", 20, 25 ,30);
+        InfantryUnit test2Copy = (InfantryUnit) Unit.copyOf(test2);
+
+        assertFalse(test1Copy.equals(test2Copy));
     }
 }

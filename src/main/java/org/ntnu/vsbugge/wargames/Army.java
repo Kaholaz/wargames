@@ -98,10 +98,10 @@ public class Army {
     }
 
     /**
-     * @return A list of all the units in the army
+     * @return A copy of a list of all the units in the army
      */
     public List<Unit> getAllUnits() {
-        return units;
+        return new ArrayList<>(units);
     }
 
     /**

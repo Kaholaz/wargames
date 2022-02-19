@@ -60,37 +60,87 @@ public class UnitTest extends TestCase {
         }
     }
 
-    public void testEquals() {
+    public void testEqualsReturnsTrueWhenSame() {
         InfantryUnit base = new InfantryUnit("Test", 1,2,3);
-        InfantryUnit test1 = (InfantryUnit) Unit.copyOf(base);
-        InfantryUnit test2 = new InfantryUnit("Jim", 1,2,3);
-        InfantryUnit test3 = new InfantryUnit("Test", 4,2,3);
-        InfantryUnit test4 = new InfantryUnit("Test", 1,4,3);
-        InfantryUnit test5 = new InfantryUnit("Test", 1,2,4);
-        CavalryUnit test6 = new CavalryUnit("Test", 1,2,3);
+        InfantryUnit test = (InfantryUnit) Unit.copyOf(base);
 
-        assertEquals(base, test1); // equal
-        assertFalse(base.equals(test2)); // different name
-        assertFalse(base.equals(test3)); // different health
-        assertFalse(base.equals(test4)); // different attack
-        assertFalse(base.equals(test5)); // different armor
-        assertFalse(base.equals(test6)); // different class
+        assertEquals(base, test);
     }
 
-    public void testHashCode() {
+    public void testEqualsReturnsFalseWhenDifferentName() {
         InfantryUnit base = new InfantryUnit("Test", 1,2,3);
-        InfantryUnit test1 = (InfantryUnit) Unit.copyOf(base);
-        InfantryUnit test2 = new InfantryUnit("Jim", 1,2,3);
-        InfantryUnit test3 = new InfantryUnit("Test", 4,2,3);
-        InfantryUnit test4 = new InfantryUnit("Test", 1,4,3);
-        InfantryUnit test5 = new InfantryUnit("Test", 1,2,4);
-        CavalryUnit test6 = new CavalryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Jim", 1,2,3);
 
-        assertTrue(base.hashCode() == test1.hashCode()); // equal
-        assertFalse(base.hashCode() == test2.hashCode()); // different name
-        assertFalse(base.hashCode() == test3.hashCode()); // different health
-        assertFalse(base.hashCode() == test4.hashCode()); // different attack
-        assertFalse(base.hashCode() == test5.hashCode()); // different armor
-        assertFalse(base.hashCode() == test6.hashCode()); // different class
+        assertFalse(base.equals(test));
+    }
+
+    public void testEqualsReturnsFalseWhenDifferentHealth() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Test", 4,2,3);
+
+        assertFalse(base.equals(test));
+    }
+
+    public void testEqualsReturnsFalseWhenDifferentAttack() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Test", 1,4,3);
+
+        assertFalse(base.equals(test));
+    }
+
+    public void testEqualsReturnsFalseWhenDifferentArmor() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Test", 1,2,4);
+
+        assertFalse(base.equals(test));
+    }
+
+    public void testEqualsReturnsFalseWhenDifferentSubClass() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        RangedUnit test = new RangedUnit("Test", 1,2,3);
+
+        assertFalse(base.equals(test));
+    }
+
+    public void testHashCodeReturnsSameHashWhenSame() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = (InfantryUnit) Unit.copyOf(base);
+
+        assertEquals(base.hashCode(), test.hashCode());
+    }
+
+    public void testHashCodeReturnsDifferentHashWhenDifferentName() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Jim", 1,2,3);
+
+        assertFalse(base.hashCode() == test.hashCode());
+    }
+
+    public void testHashCodeReturnsDifferentHashWhenDifferentHealth() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Test", 4,2,3);
+
+        assertFalse(base.hashCode() == test.hashCode());
+    }
+
+    public void testHashCodeReturnsDifferentHashWhenDifferentAttack() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Test", 1,4,3);
+
+        assertFalse(base.hashCode() == test.hashCode());
+    }
+
+    public void testHashCodeReturnsDifferentHashWhenDifferentArmor() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        InfantryUnit test = new InfantryUnit("Test", 1,2,4);
+
+        assertFalse(base.hashCode() == test.hashCode());
+    }
+
+    public void testHashCodeReturnsDifferentHashWhenDifferentSubClass() {
+        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
+        RangedUnit test = new RangedUnit("Test", 1,2,3);
+
+        assertFalse(base.hashCode() == test.hashCode());
     }
 }

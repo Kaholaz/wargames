@@ -1,40 +1,40 @@
 package org.ntnu.vsbugge.wargames;
 
 import junit.framework.TestCase;
-import org.ntnu.vsbugge.wargames.units.CavalryUnit;
-import org.ntnu.vsbugge.wargames.units.InfantryUnit;
-import org.ntnu.vsbugge.wargames.units.RangedUnit;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.units.*;
 
 import java.util.*;
 
 public class ArmyTest extends TestCase {
 
-    public void testAdd() {
+    public void testAddToEmptyArmy() {
         List<Unit> testList = new ArrayList<>();
         Army testObj = new Army("TestObj");
 
+        RangedUnit test = new RangedUnit("Test1", 10);
+
+        testList.add(test);
+        testObj.add(test);
+        assertEquals(testList, testObj.getAllUnits());
+    }
+
+    public void testAddToNonEmptyArmy() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
 
-        assertEquals(testList, testObj.getAllUnits());
+        Army testObj = new Army("TestObj", List.of(test1));
 
-        testList.add(test1);
-        testObj.add(test1);
-        assertEquals(testList, testObj.getAllUnits());
-
-        testList.add(test2);
         testObj.add(test2);
-        assertEquals(testList, testObj.getAllUnits());
+        assertEquals(List.of(test1, test2), testObj.getAllUnits());
     }
 
     public void testAddMultiple() {
         Army testObj = new Army("TestObj");
-
         RangedUnit test = new RangedUnit("Test", 10);
         testObj.add(test, 5);
-        assertEquals(5, testObj.getAllUnits().size());
 
+        // Check count and equals
+        assertEquals(5, testObj.getAllUnits().size());
         for(Unit unit : testObj.getAllUnits()) {
             assertEquals(test, unit);
         }
@@ -46,7 +46,6 @@ public class ArmyTest extends TestCase {
         List<Unit> testList = new LinkedList<>(Arrays.asList(test1, test2));
 
         Army testObj = new Army("TestObj", testList);
-        assertEquals(testObj.getAllUnits(), testList);
 
         testObj.addAll(testList);
         testList.addAll(testList);
@@ -56,16 +55,29 @@ public class ArmyTest extends TestCase {
     public void testRemove() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
-        List<Unit> testList = new LinkedList<>(Arrays.asList(test1, test2));
 
-        Army testObj = new Army("TestObj", testList);
+        Army testObj = new Army("TestObj", List.of(test1, test2));
 
         testObj.remove(test1);
-        testList.remove(test1);
-        assertEquals(testObj.getAllUnits(), testList);
+        assertEquals(List.of(test2), testObj.getAllUnits());
+    }
 
-        testObj.remove(test2);
-        assertFalse(testObj.hasUnits());
+    public void testRemoveOnEmptyArmy() {
+        Army testObj = new Army("TestObj");
+
+        try {
+            testObj.remove(new CavalryUnit("prank", 5));
+        } catch (Exception e) {
+            fail("Remove from empty should not throw exception");
+        }
+    }
+
+    public void testRemoveRemoveUnitNotInArmy() {
+        CommanderUnit test = new CommanderUnit("Test", 100);
+        Army armyObj = new Army("TestObj", List.of(new InfantryUnit("prank", 10)));
+
+        armyObj.remove(test);
+        assertEquals(List.of(new InfantryUnit("prank", 10)), armyObj.getAllUnits());
     }
 
     public void testRemoveUniqueCavalryUnit() {
@@ -109,41 +121,77 @@ public class ArmyTest extends TestCase {
         assertFalse(testArmy.hasUnits());
     }
 
-    public void testHasUnits() {
+    public void testGetAllUnitsReturnsEqualList() {
+        List<Unit> testList = List.of(new RangedUnit("Range", 10), new InfantryUnit("Close", 10));
+        Army army = new Army("Test", testList);
+
+        assertEquals(testList, army.getAllUnits());
+    }
+
+    public void testGetAllUnitsDoesNotReturnReference() {
+        List<Unit> testList = List.of(new RangedUnit("Range", 10), new InfantryUnit("Close", 10));
+        Army army = new Army("Test", testList);
+
+        army.getAllUnits().remove(1);
+        assertEquals(testList, army.getAllUnits());
+    }
+
+    public void testGetAllUnitsReturnsListOfReferences() {
+        List<Unit> testList = List.of(new RangedUnit("Range", 10), new InfantryUnit("Close", 10));
+        Army army = new Army("Test", testList);
+
+        army.getAllUnits().get(0).takeDamage(0);
+        assertFalse(testList.equals(army.getAllUnits()));
+
+        testList.get(0).takeDamage(0);
+        assertEquals(testList, army.getAllUnits());
+    }
+
+    public void testHasUnitsEmptyArmyReturnsFalse() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
         List<Unit> testList = List.of(test1, test2);
 
         Army testObj = new Army("TestObj");
         assertFalse(testObj.hasUnits());
+    }
 
-        testObj.addAll(testList);
+    public void testHasUnitsNonEmptyArmyReturnsTrue() {
+        RangedUnit test1 = new RangedUnit("Test1", 10);
+        InfantryUnit test2 = new InfantryUnit("Test2", 20);
+
+        Army testObj = new Army("TestObj", List.of(test1, test2));
         assertTrue(testObj.hasUnits());
+    }
 
-        testObj.remove(test1);
-        assertTrue(testObj.hasUnits());
+    public void testHasUnitsArmyWhereAllUnitsAreRemovedReturnFalse() {
+        RangedUnit test = new RangedUnit("Test", 10);
 
-        testObj.remove(test2);
+        Army testObj = new Army("TestObj", List.of(test));
+        testObj.remove(test);
+
         assertFalse(testObj.hasUnits());
     }
 
-    public void testGetRandomUnit() {
-        RangedUnit test1 = new RangedUnit("Test1", 10);
+    public void testGetRandomUnitThrowsExceptionWhenCalledOnAnEmptyArmy() {
         Army testObj = new Army("TestObj");
 
         try {
             testObj.getRandomUnit();
             fail("IllegalStateException not thrown");
-        }
-        catch (IllegalStateException e) {
+        } catch (IllegalStateException e) {
             assertEquals("The army has no units", e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("IllegalStateException not thrown");
         }
+    }
 
-        testObj.add(test1);
-        assertEquals(test1, testObj.getRandomUnit());
+    public void testGetRandomUnitReturnsUnit() {
+        RangedUnit test = new RangedUnit("Test", 10);
+        Army testObj = new Army("TestObj");
+        testObj.add(test);
+
+        assertEquals(test, testObj.getRandomUnit());
     }
 
     public void testGetName() {
@@ -165,75 +213,89 @@ public class ArmyTest extends TestCase {
         assertEquals("Army{name='TestObj'}", testObj.toString());
     }
 
-    public void testEquals() {
+    public void testEqualsOnEmptyArmy() {
+        Army testObj1 = new Army("TestObj");
+        Army testObj2 = new Army("TestObj");
+
+        assertEquals(testObj1, testObj2);
+    }
+
+    public void testEqualsOnNonEmptyArmy() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
         List<Unit> testList = List.of(test1, test2);
 
+        Army testObj1 = new Army("TestObj", testList);
+        Army testObj2 = new Army("TestObj", testList);
+        assertEquals(testObj1, testObj2);
+    }
+
+    public void testEqualsDoesNotTakeOrderIntoAccount() {
+        RangedUnit test1 = new RangedUnit("Test1", 10);
+        InfantryUnit test2 = new InfantryUnit("Test2", 20);
+
         Army testObj1 = new Army("TestObj");
         Army testObj2 = new Army("TestObj");
 
-        assertTrue(testObj1.equals(testObj2));
+        testObj1.add(test1);
+        testObj1.add(test2);
 
-        testObj1.addAll(testList);
-        testObj2.addAll(testList);
-        assertTrue(testObj1.equals(testObj2));
+        testObj2.add(test2);
+        testObj2.add(test1);
 
-        testObj1.remove(test1);
+        assertEquals(testObj1, testObj2);
+    }
+
+    public void testEqualsReturnFalse() {
+        Army testObj1 = new Army("TestObj");
+        Army testObj2 = new Army("TestObj");
+
+        testObj1.add(new RangedUnit("Test1", 10));
+
         assertFalse(testObj1.equals(testObj2));
     }
 
-    public void testEqualsDoesNotAlterUnitOrder() {
-        RangedUnit ranged1 = new RangedUnit("Test1", 20,10,10);
-        InfantryUnit infantryUnit1 = new InfantryUnit("Test2", 20, 10, 10);
-        InfantryUnit infantryUnit2 = new InfantryUnit("Test1", 20, 11, 10);
-        InfantryUnit infantryUnit3 = new InfantryUnit("Test1", 20, 10, 12);
-        InfantryUnit infantryUnit4 = new InfantryUnit("Test1", 20, 10, 10);
-        InfantryUnit infantryUnit5 = new InfantryUnit("Test1", 15, 10, 10);
-        InfantryUnit infantryUnit6 = new InfantryUnit("Test1", 100, 10, 10);
+    public void testHashCodeOfEmptyArmy() {
+        Army testObj1 = new Army("TestObj");
+        Army testObj2 = new Army("TestObj");
 
-        List<Unit> testList = new LinkedList<>(Arrays.asList(
-                ranged1,
-                infantryUnit1,
-                infantryUnit2,
-                infantryUnit3,
-                infantryUnit4,
-                infantryUnit5,
-                infantryUnit5,
-                infantryUnit6
-        ));
-
-        Army testArmy1 = new Army("Test", testList);
-        Army testArmy2 = new Army("Test", testList);
-        assertTrue(testArmy1.getAllUnits().equals(testArmy2.getAllUnits())); // same order, same units (List.equals) [true]
-
-        assertTrue(testArmy1.equals(testArmy2)); // same order, same units (Army.equals) [true]
-        assertEquals(testList, testArmy1.getAllUnits()); // same order, same units (List.equals) [true]
-        assertEquals(testList, testArmy2.getAllUnits()); // same order, same units (List.equals) [true]
-
-        testArmy2 = new Army("Test", testList.stream().sorted().toList());
-        assertFalse(testList.equals(testArmy2.getAllUnits())); // different order, same units (List.equals) [false]
-        assertTrue(testArmy1.equals(testArmy2)); // different order, same units (Army.equals) [true]
-        assertTrue(testArmy1.getAllUnits().equals(testList)); // same order, same units (List.equals) [true]
-        assertFalse(testArmy2.getAllUnits().equals(testList)); // different order, same units (List.equals) [false]
+        assertEquals(testObj1.hashCode(), testObj2.hashCode());
     }
 
-    public void testHashCode() {
+    public void testHashCodeOfNonEmptyArmy() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
         List<Unit> testList = List.of(test1, test2);
 
+        Army testObj1 = new Army("TestObj", testList);
+        Army testObj2 = new Army("TestObj", testList);
+        assertEquals(testObj1.hashCode(), testObj2.hashCode());
+    }
+
+    public void testHashCodeDoesNotTakeOrderIntoAccount() {
+        RangedUnit test1 = new RangedUnit("Test1", 10);
+        InfantryUnit test2 = new InfantryUnit("Test2", 20);
+        List<Unit> testList = new LinkedList<>(List.of(test1, test2));
+
         Army testObj1 = new Army("TestObj");
         Army testObj2 = new Army("TestObj");
 
-        assertTrue(testObj1.hashCode() == testObj2.hashCode());
+        testObj1.add(test1);
+        testObj1.add(test2);
 
-        testObj1.addAll(testList);
-        testObj2.addAll(testList);
-        assertTrue(testObj1.hashCode() == testObj2.hashCode());
+        testObj2.add(test2);
+        testObj2.add(test1);
 
-        testObj1.remove(test1);
-        assertTrue(testObj1.hashCode() != testObj2.hashCode());
+        assertEquals(testObj1.hashCode(), testObj2.hashCode());
+    }
+
+    public void testHashCodeIsUnique() {
+        Army testObj1 = new Army("TestObj");
+        Army testObj2 = new Army("TestObj");
+
+        testObj1.add(new RangedUnit("Test1", 10));
+
+        assertFalse(testObj1.hashCode() == testObj2.hashCode());
     }
 
     public void testArmyTemplate() {
@@ -245,9 +307,6 @@ public class ArmyTest extends TestCase {
         Map<Unit, Integer> template = testObj1.getArmyTemplate();
         Army testObj2 = Army.parseArmyTemplate("Test", template);
 
-        assertTrue(testObj1.equals(testObj2));
-
-        testObj1.remove(test1);
-        assertFalse(testObj1.equals(testObj2));
+        assertEquals(testObj1, testObj2);
     }
 }

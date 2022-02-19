@@ -27,145 +27,188 @@ public class CavalryUnitTest extends TestCase {
 
     }
 
-    public void testGetName() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
-        CavalryUnit test2 = new CavalryUnit("Test2", 15);
-
-        assertEquals("Test1", test1.getName());
-        assertEquals("Test2", test2.getName());
+    public void testGetNameLongConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20, 10, 5);
+        assertEquals("Test", test.getName());
     }
 
-    public void testGetHealth() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
-        CavalryUnit test2 = new CavalryUnit("Test2", 15);
-
-        assertEquals(20, test1.getHealth());
-        assertEquals(15, test2.getHealth());
+    public void testGetNameShortConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20);
+        assertEquals("Test", test.getName());
     }
 
-    public void testGetAttack() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
-        CavalryUnit test2 = new CavalryUnit("Test2", 15);
-
-        assertEquals(10, test1.getAttack());
-        assertEquals(CavalryUnit.DEFAULT_ATTACK, test2.getAttack());
+    public void testGetHealthLongConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20, 10, 5);
+        assertEquals(20, test.getHealth());
     }
 
-    public void testGetArmor() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
-        CavalryUnit test2 = new CavalryUnit("Test2", 15);
+    public void testGetHealthShortConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20);
+        assertEquals(20, test.getHealth());
+    }
 
-        assertEquals(5, test1.getArmor());
-        assertEquals(CavalryUnit.DEFAULT_ARMOR, test2.getArmor());
+    public void testGetAttackLongConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20, 10, 5);
+        assertEquals(10, test.getAttack());
+    }
+
+    public void testGetAttackShortConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20);
+        assertEquals(CavalryUnit.DEFAULT_ATTACK, test.getAttack());
+    }
+
+    public void testGetArmorLongConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20, 10, 5);
+        assertEquals(5, test.getArmor());
+    }
+
+    public void testGetArmorShortConstructor() {
+        CavalryUnit test = new CavalryUnit("Test", 20);
+        assertEquals(CavalryUnit.DEFAULT_ARMOR, test.getArmor());
     }
 
     public void testTakeDamage() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 15);
+        CavalryUnit test = new CavalryUnit("Test", 15);
 
-        test1.takeDamage(2);
-        assertEquals(13, test1.getHealth());
+        test.takeDamage(2);
+        assertEquals(13, test.getHealth());
     }
 
     public void testToString() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 20, 10, 5);
+        CavalryUnit test = new CavalryUnit("Test", 20, 10, 5);
 
-        assertEquals("CavalryUnit{name='Test1', health=20, attack=10, armor=5}", test1.toString());
+        assertEquals("CavalryUnit{name='Test', health=20, attack=10, armor=5}", test.toString());
     }
 
-    public void testGetResistBonus() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 15);
+    public void testGetResistBonusBeforeUnitHasBeenAttacked() {
+        CavalryUnit test = new CavalryUnit("Test", 15);
 
-        assertEquals(CavalryUnit.RESIST_BONUS, test1.getResistBonus());
-
-        test1.takeDamage(2);
-        assertEquals(CavalryUnit.RESIST_BONUS, test1.getResistBonus());
+        assertEquals(CavalryUnit.RESIST_BONUS, test.getResistBonus());
     }
 
-    public void testGetAttackBonus() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 15);
-        CavalryUnit test2 = new CavalryUnit("Test2", 10);
+    public void testGetResistBonusAfterUnitHasBeenAttacked() {
+        CavalryUnit test = new CavalryUnit("Test", 15);
 
-        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test1.getAttackBonus());
-
-        test1.attack(test2);
-        assertEquals(CavalryUnit.ATTACK_BONUS, test1.getAttackBonus());
-
-        test1.attack(test2);
-        assertEquals(CavalryUnit.ATTACK_BONUS, test1.getAttackBonus());
+        test.takeDamage(2);
+        assertEquals(CavalryUnit.RESIST_BONUS, test.getResistBonus());
     }
 
-    public void testCopyOf() {
+    public void testGetAttackBonusBeforeUnitHasAttacked() {
+        CavalryUnit test = new CavalryUnit("Test", 15);
+        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test.getAttackBonus());
+    }
+
+    public void testGetAttackBonusAfterHasAttacked() {
+        CavalryUnit test = new CavalryUnit("Test", 15);
+        CavalryUnit rock = new CavalryUnit("Rock", 1000, 0, 1000);
+
+        test.attack(rock);
+        assertEquals(CavalryUnit.ATTACK_BONUS, test.getAttackBonus());
+    }
+
+    public void testCopyOfIsNotSame() {
+        CavalryUnit test = new CavalryUnit("Test", 15, 10, 5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+
+        assertNotSame(test, copy);
+    }
+
+    public void testCopyOfIsEqual() {
+        CavalryUnit test = new CavalryUnit("Test", 15, 10, 5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+
+        assertEquals(test, copy);
+    }
+
+    public void testCopyOfDifferentUnitsAreNotEqual() {
         CavalryUnit test1 = new CavalryUnit("Test1", 15, 10 ,5);
-        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit test1Copy = (CavalryUnit) Unit.copyOf(test1);
 
-        assertFalse(test1 == test2);
-        assertTrue(test1.equals(test2));
+        CavalryUnit test2 = new CavalryUnit("Test2", 20, 25 ,30);
+        CavalryUnit test2Copy = (CavalryUnit) Unit.copyOf(test2);
+
+        assertFalse(test1Copy.equals(test2Copy));
     }
 
     public void testCopyOfRetainsStats() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
-        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
 
-        test1.attack(test2);
-        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test2.getAttackBonus());
+        test.attack(copy);
+        copy = (CavalryUnit) Unit.copyOf(test);
 
-        test2 = (CavalryUnit) Unit.copyOf(test1);
-        assertEquals(CavalryUnit.ATTACK_BONUS, test2.getAttackBonus());
+        assertEquals(CavalryUnit.ATTACK_BONUS, copy.getAttackBonus());
     }
 
-    public void testResetStats() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
-        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
-
-        test1.attack(test2);
-        assertEquals(CavalryUnit.ATTACK_BONUS, test1.getAttackBonus());
-
-        test1.resetStats();
-        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test1.getAttackBonus());
-
-        test1.attack(test2);
-        assertEquals(CavalryUnit.ATTACK_BONUS, test1.getAttackBonus());
+    public void testResetStatsWhenUnitHasNotAttacked() {
+        CavalryUnit test = new CavalryUnit("Test", 100, 10, 5);
+        test.resetStats();
+        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test.getAttackBonus());
     }
 
-    public void testEqualsComparesUnitSpecificTraits(){
-        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
-        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+    public void testResetStatsWhenUnitHasAttacked() {
+        CavalryUnit test = new CavalryUnit("Test", 100, 10, 5);
+        CavalryUnit rock = new CavalryUnit("Rock", 1000, 0, 1000);
+
+        test.attack(rock);
+        test.resetStats();
+        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test.getAttackBonus());
+    }
+
+    public void testEqualsReturnsFalseWhenUnitsHaveAttackedDifferentAmountOfTimes(){
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
-        assertTrue(test1.equals(test2));
-
-        test1.attack(punchingBag);
-        assertFalse(test1.equals(test2));
-
-        test2.attack(punchingBag);
-        assertTrue(test1.equals(test2));
+        copy.attack(punchingBag);
+        assertFalse(test.equals(copy));
     }
 
-    public void testHashCodeHashesUnitSpecificStats(){
-        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
-        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+    public void testEqualsReturnsTrueWhenUnitsHaveAttackedTheSameAmountOfTimes() {
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
-        assertTrue(test1.hashCode() == test2.hashCode());
-
-        test1.attack(punchingBag);
-        assertFalse(test1.hashCode() == test2.hashCode());
-
-        test2.attack(punchingBag);
-        assertTrue(test1.hashCode() == test2.hashCode());
+        test.attack(punchingBag);
+        copy.attack(punchingBag);
+        assertEquals(test, copy);
     }
 
-    public void testCompareToComparesUnitSpecificStats() {
-        CavalryUnit test1 = new CavalryUnit("Test1", 100, 10 ,5);
-        CavalryUnit test2 = (CavalryUnit) Unit.copyOf(test1);
+    public void testHashCodeReturnsDifferentHashWhenUnitsHaveAttackedDifferentAmountOfTimes(){
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
-        assertEquals(0, test1.compareTo(test2));
+        copy.attack(punchingBag);
+        assertFalse(test.hashCode() == copy.hashCode());
+    }
 
-        test1.attack(punchingBag);
-        assertEquals(1, test1.compareTo(test2));
+    public void testHashCodeReturnSameHashWhenUnitsHaveAttackedTheSameAmountOfTimes() {
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
-        test2.attack(punchingBag);
-        assertEquals(0, test1.compareTo(test2));
+        test.attack(punchingBag);
+        copy.attack(punchingBag);
+        assertEquals(test.hashCode(), copy.hashCode());
+    }
+
+    public void testCompareToReturnsNonZeroWhenUnitsHaveAttackedDifferentAmountOfTimes(){
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
+
+        copy.attack(punchingBag);
+        assertEquals(-1, test.compareTo(copy));
+    }
+
+    public void testCompareToReturnsZeroWhenUnitsHaveAttackedTheSameAmountOfTimes() {
+        CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
+        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
+
+        test.attack(punchingBag);
+        copy.attack(punchingBag);
+        assertSame(0, test.compareTo(copy));
     }
 }

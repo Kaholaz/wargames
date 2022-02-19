@@ -30,12 +30,8 @@ public class WargamesCLITest extends TestCase {
     }
 
     public void testUnitToSimpleString() {
-        CavalryUnit cav = new CavalryUnit("cav", 10, 11, 12);
-        RangedUnit rang = new RangedUnit("rang", 10,11,12);
-
-        assertEquals("cav(CavalryUnit) at 10 hp", WargamesCLI.unitToSimpleString(cav));
-
-        assertEquals("rang(RangedUnit) at 10 hp", WargamesCLI.unitToSimpleString(rang));
+        CavalryUnit test = new CavalryUnit("cav", 10, 11, 12);
+        assertEquals("cav(CavalryUnit) at 10 hp", WargamesCLI.unitToSimpleString(test));
     }
 
     public void testArmyToSimpleString() {
@@ -66,10 +62,6 @@ public class WargamesCLITest extends TestCase {
         // Altering class specific stats
         army.getAllUnits().get(0).attack(aMountain);
         army.getAllUnits().get(2).takeDamage(0);
-
-        // Check if the unit specific stats are altered
-        assertFalse(army.getAllUnits().get(0).equals(army.getAllUnits().get(1)));
-        assertFalse(army.getAllUnits().get(2).equals(army.getAllUnits().get(3)));
 
         // Constructing how the string should look
         StringBuilder sb = new StringBuilder();
