@@ -41,14 +41,12 @@ public class WargamesCLITest extends TestCase {
         army.add(cav, 2);
         army.add(rang);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("2x ");
-        sb.append(WargamesCLI.unitToSimpleString(cav));
+        String sb = "2x " +
+                WargamesCLI.unitToSimpleString(cav) +
+                "\n1x " +
+                WargamesCLI.unitToSimpleString(rang);
 
-        sb.append("\n1x ");
-        sb.append(WargamesCLI.unitToSimpleString(rang));
-
-        assertEquals(sb.toString(), WargamesCLI.armyToSimpleString(army));
+        assertEquals(sb, WargamesCLI.armyToSimpleString(army));
     }
 
     public void testArmyToStringGroupRegardlessOfUnitSpecificStats() {
@@ -64,13 +62,12 @@ public class WargamesCLITest extends TestCase {
         army.getAllUnits().get(2).takeDamage(0);
 
         // Constructing how the string should look
-        StringBuilder sb = new StringBuilder();
-        sb.append("2x ");
-        sb.append(WargamesCLI.unitToSimpleString(cav));
-        sb.append("\n2x ");
-        sb.append(WargamesCLI.unitToSimpleString(rang));
+        String sb = "2x " +
+                WargamesCLI.unitToSimpleString(cav) +
+                "\n2x " +
+                WargamesCLI.unitToSimpleString(rang);
 
-        assertEquals(sb.toString(), WargamesCLI.armyToSimpleString(army));
+        assertEquals(sb, WargamesCLI.armyToSimpleString(army));
     }
 
 }

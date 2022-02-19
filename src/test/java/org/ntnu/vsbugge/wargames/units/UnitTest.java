@@ -96,8 +96,8 @@ public class UnitTest extends TestCase {
     }
 
     public void testEqualsReturnsFalseWhenDifferentSubClass() {
-        InfantryUnit base = new InfantryUnit("Test", 1,2,3);
-        RangedUnit test = new RangedUnit("Test", 1,2,3);
+        Unit base = new InfantryUnit("Test", 1,2,3);
+        Unit test = new RangedUnit("Test", 1,2,3);
 
         assertFalse(base.equals(test));
     }

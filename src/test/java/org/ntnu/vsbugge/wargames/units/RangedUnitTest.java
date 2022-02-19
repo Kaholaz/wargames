@@ -1,7 +1,6 @@
 package org.ntnu.vsbugge.wargames.units;
 
 import junit.framework.TestCase;
-import org.w3c.dom.ranges.Range;
 
 public class RangedUnitTest extends TestCase {
 
@@ -117,7 +116,6 @@ public class RangedUnitTest extends TestCase {
 
     public void testGetAttackBonusBeforeTheUnitHasAttacked() {
         RangedUnit test = new RangedUnit("Test", 15);
-        RangedUnit punchingBag = new RangedUnit("Punching Bag", 1000, 0, 1000);
 
         assertEquals(RangedUnit.ATTACK_BONUS, test.getAttackBonus());
     }

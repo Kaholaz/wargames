@@ -1,7 +1,6 @@
 package org.ntnu.vsbugge.wargames;
 
 import junit.framework.TestCase;
-import org.ntnu.vsbugge.wargames.units.CommanderUnit;
 import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 
 public class BattleTest extends TestCase {

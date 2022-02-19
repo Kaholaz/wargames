@@ -148,10 +148,6 @@ public class ArmyTest extends TestCase {
     }
 
     public void testHasUnitsEmptyArmyReturnsFalse() {
-        RangedUnit test1 = new RangedUnit("Test1", 10);
-        InfantryUnit test2 = new InfantryUnit("Test2", 20);
-        List<Unit> testList = List.of(test1, test2);
-
         Army testObj = new Army("TestObj");
         assertFalse(testObj.hasUnits());
     }
@@ -240,6 +236,7 @@ public class ArmyTest extends TestCase {
         testObj1.add(test1);
         testObj1.add(test2);
 
+        // different insertion order
         testObj2.add(test2);
         testObj2.add(test1);
 
@@ -250,7 +247,7 @@ public class ArmyTest extends TestCase {
         Army testObj1 = new Army("TestObj");
         Army testObj2 = new Army("TestObj");
 
-        testObj1.add(new RangedUnit("Test1", 10));
+        testObj1.add(new RangedUnit("Test", 10));
 
         assertFalse(testObj1.equals(testObj2));
     }
@@ -275,7 +272,6 @@ public class ArmyTest extends TestCase {
     public void testHashCodeDoesNotTakeOrderIntoAccount() {
         RangedUnit test1 = new RangedUnit("Test1", 10);
         InfantryUnit test2 = new InfantryUnit("Test2", 20);
-        List<Unit> testList = new LinkedList<>(List.of(test1, test2));
 
         Army testObj1 = new Army("TestObj");
         Army testObj2 = new Army("TestObj");
@@ -308,5 +304,18 @@ public class ArmyTest extends TestCase {
         Army testObj2 = Army.parseArmyTemplate("Test", template);
 
         assertEquals(testObj1, testObj2);
+    }
+
+    public void testArmyTemplateDoesNotRetainUnitSpecificStats() {
+        RangedUnit test1 = new RangedUnit("Test1", 100);
+        CavalryUnit test2 = new CavalryUnit("Test2", 20);
+        List<Unit> testList = List.of(test1, test2);
+
+        // Changing unit specific stats
+        test2.attack(test1);
+        Army army = new Army("Test", testList);
+
+        Army armyCopy = Army.parseArmyTemplate("Test", army.getArmyTemplate());
+        assertFalse(army.equals(armyCopy));
     }
 }
