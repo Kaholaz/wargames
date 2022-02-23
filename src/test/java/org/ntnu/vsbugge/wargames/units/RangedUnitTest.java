@@ -229,7 +229,7 @@ public class RangedUnitTest extends TestCase {
         assertEquals(0, test.compareTo(copy));
     }
 
-    public void testCompareToReturnsNegativeOneForUnitsThatHasNotBeenAttackedTheSameAmountOfTimes() {
+    public void testCompareToReturnsNonZeroForUnitsThatHasNotBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
         RangedUnit copy = (RangedUnit) Unit.copyOf(test);
 

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class UnitTest extends TestCase {
 
-    public void testCompareTo() {
+    public void testCompareToNUnitSpecificStats() {
         RangedUnit ranged1 = new RangedUnit("Test1", 20,10,10);
         RangedUnit ranged2 = (RangedUnit) Unit.copyOf(ranged1); ranged2.takeDamage(0); // different unit specific stat
         InfantryUnit infantryUnit1 = new InfantryUnit("Test2", 20, 10, 10);
@@ -31,7 +31,7 @@ public class UnitTest extends TestCase {
         // list is shuffled to make initial order of equal items (where compareTo returns 0) non-deterministic
         Collections.shuffle(list);
 
-        list.sort(Unit::compareTo);
+        Collections.sort(list);
         assertSame(infantryUnit5, list.get(0)); // First based on Name
         assertSame(infantryUnit5, list.get(1)); // then attack
         assertSame(infantryUnit4, list.get(2)); // then armor
