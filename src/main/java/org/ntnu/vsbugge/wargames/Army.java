@@ -109,10 +109,8 @@ public class Army {
      * and the value is the amount of that specific unit in the army.
      *
      * <br><br>
-     * Please note that due to how the army template is constructed,
-     * a template can not contain multiple copies of a unit that only
-     * differs in how many times that unit has attacked or has been
-     * attacked. Stats about this are therefore reset when the army
+     * Please note that because templates groups units that only differ
+     * in unit specific stats, unit specific stats are reset when the
      * template is constructed. The army template is thereby not a
      * one to one representation of an army. In other words:
      * If the returned army template is passed into the parseArmyTemplate,
@@ -132,16 +130,14 @@ public class Army {
         Map<Unit, Integer> template = new HashMap<>();
 
         for (Unit unit : units) {
-            // stats are reset to avoid confusion about
-            // cases where the stats of one unit gets
-            // overwritten by another unit when multiple units
-            // with the same hashcode are entered into the template
+            // Stats are reset to properly group
+            // units that only differ in unit specific stats.
             unit = Unit.copyOf(unit);
             unit.resetStats(); // <- here
             int count = template.getOrDefault(unit, 0);
 
             count += 1;
-            template.put(unit, count); // Could overwrite unit if two units have different stats but are otherwise equal
+            template.put(unit, count); // Would not correctly group units if stats had not been reset
         }
 
         return template;
