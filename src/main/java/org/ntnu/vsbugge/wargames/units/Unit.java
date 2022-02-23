@@ -140,7 +140,8 @@ public abstract class Unit implements Comparable<Unit>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Unit unit = (Unit) o;
-        return attack == unit.attack && armor == unit.armor && health == unit.health && name.equals(unit.name);
+        return attack == unit.attack && armor == unit.armor && health == unit.health && name.equals(unit.name) &&
+                getAttackBonus() == unit.getAttackBonus() && getResistBonus() == unit.getResistBonus();
     }
 
     /**
@@ -149,7 +150,7 @@ public abstract class Unit implements Comparable<Unit>{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(name, attack, armor, health, getClass());
+        return Objects.hash(name, attack, armor, health, getClass(), getResistBonus(), getAttackBonus());
     }
 
     /**
@@ -163,6 +164,8 @@ public abstract class Unit implements Comparable<Unit>{
      *   <li>Attack (ascending)</li>
      *   <li>Armor (ascending)</li>
      *   <li>Health (ascending)</li>
+     *   <li>Attack Bonus (descending)</li>
+     *   <li>Resist Bonus (descending)</li>
      * </ol>
      *
      * @param other The Unit to compare to
@@ -185,6 +188,12 @@ public abstract class Unit implements Comparable<Unit>{
         }
         if (this.getHealth() != other.getHealth()) {
             return Integer.compare(this.getHealth(), other.getHealth());
+        }
+        if (this.getAttackBonus() != other.getAttackBonus()) {
+            return Integer.compare(other.getAttackBonus(), this.getAttackBonus());
+        }
+        if (this.getResistBonus() != other.getResistBonus()) {
+            return Integer.compare(other.getResistBonus(), this.getResistBonus());
         }
         return 0;
     }
