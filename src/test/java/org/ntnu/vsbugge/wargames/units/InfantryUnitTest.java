@@ -89,26 +89,26 @@ public class InfantryUnitTest extends TestCase {
         assertEquals(InfantryUnit.ATTACK_BONUS, test.getAttackBonus());
     }
 
-    public void testCopyOfIsNotSame() {
+    public void testCopyIsNotSame() {
         InfantryUnit test = new InfantryUnit("Test", 15, 10, 5);
-        InfantryUnit copy = (InfantryUnit) Unit.copyOf(test);
+        InfantryUnit copy = test.copy();
 
         assertNotSame(test, copy);
     }
 
-    public void testCopyOfIsEqual() {
+    public void testCopyIsEqual() {
         InfantryUnit test = new InfantryUnit("Test", 15, 10, 5);
-        InfantryUnit copy = (InfantryUnit) Unit.copyOf(test);
+        InfantryUnit copy = test.copy();
 
         assertEquals(test, copy);
     }
 
-    public void testCopyOfDifferentUnitsAreNotEqual() {
+    public void testCopyDifferentUnitsAreNotEqual() {
         InfantryUnit test1 = new InfantryUnit("Test1", 15, 10 ,5);
-        InfantryUnit test1Copy = (InfantryUnit) Unit.copyOf(test1);
+        InfantryUnit test1Copy = test1.copy();
 
         InfantryUnit test2 = new InfantryUnit("Test2", 20, 25 ,30);
-        InfantryUnit test2Copy = (InfantryUnit) Unit.copyOf(test2);
+        InfantryUnit test2Copy = test2.copy();
 
         assertFalse(test1Copy.equals(test2Copy));
     }

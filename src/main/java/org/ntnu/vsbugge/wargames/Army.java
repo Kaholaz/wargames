@@ -36,7 +36,7 @@ public class Army {
      * @param unit The unit to be added
      */
     public void add(Unit unit) {
-        this.units.add(Unit.copyOf(unit));
+        this.units.add(unit.copy());
     }
 
     /**
@@ -132,7 +132,7 @@ public class Army {
         for (Unit unit : units) {
             // Stats are reset to properly group
             // units that only differ in unit specific stats.
-            unit = Unit.copyOf(unit);
+            unit = unit.copy();
             unit.resetStats(); // <- here
             int count = template.getOrDefault(unit, 0);
 

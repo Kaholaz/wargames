@@ -44,6 +44,11 @@ public class InfantryUnit extends Unit{
     }
 
     @Override
+    public InfantryUnit copy() {
+        return new InfantryUnit(this);
+    }
+
+    @Override
     public void resetStats() {}
 
     @Override

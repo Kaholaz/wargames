@@ -42,4 +42,9 @@ public class CommanderUnit extends CavalryUnit{
         );
         this.hasAttacked = commanderUnit.hasAttacked;
     }
+
+    @Override
+    public CommanderUnit copy() {
+        return new CommanderUnit(this);
+    }
 }

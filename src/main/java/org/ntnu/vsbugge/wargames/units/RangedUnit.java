@@ -62,6 +62,11 @@ public class RangedUnit extends Unit{
     }
 
     @Override
+    public RangedUnit copy() {
+        return new RangedUnit(this);
+    }
+
+    @Override
     public void resetStats() {
         timesTakenDamage = 0;
     }

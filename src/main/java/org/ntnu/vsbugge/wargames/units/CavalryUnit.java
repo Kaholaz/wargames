@@ -54,6 +54,11 @@ public class CavalryUnit extends Unit {
     }
 
     @Override
+    public CavalryUnit copy() {
+        return new CavalryUnit(this);
+    }
+
+    @Override
     public void resetStats() {
         hasAttacked = false;
     }

@@ -8,7 +8,7 @@ public class UnitTest extends TestCase {
 
     public void testCompareToNUnitSpecificStats() {
         RangedUnit ranged1 = new RangedUnit("Test1", 20,10,10);
-        RangedUnit ranged2 = (RangedUnit) Unit.copyOf(ranged1); ranged2.takeDamage(0); // different unit specific stat
+        RangedUnit ranged2 = ranged1.copy(); ranged2.takeDamage(0); // different unit specific stat
         InfantryUnit infantryUnit1 = new InfantryUnit("Test2", 20, 10, 10);
         InfantryUnit infantryUnit2 = new InfantryUnit("Test1", 20, 11, 10);
         InfantryUnit infantryUnit3 = new InfantryUnit("Test1", 20, 10, 12);
@@ -43,26 +43,9 @@ public class UnitTest extends TestCase {
         assertSame(ranged2, list.get(8));
     }
 
-    public void testCopyOfThrowsException() {
-        Unit testUnit = new Unit("Test",1, 2, 3) {
-            public void resetStats() {}
-            public int getResistBonus(){ return 0; }
-            public int getAttackBonus(){ return 0; }
-        };
-
-        try {
-            Unit.copyOf(testUnit);
-            fail("Unit.copyOf should throw IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Cloning not supported for this unit", e.getMessage());
-        } catch (Exception e) {
-            fail("Unit.copyOf should throw IllegalArgumentException");
-        }
-    }
-
     public void testEqualsReturnsTrueWhenSame() {
         InfantryUnit base = new InfantryUnit("Test", 1,2,3);
-        InfantryUnit test = (InfantryUnit) Unit.copyOf(base);
+        InfantryUnit test = base.copy();
 
         assertEquals(base, test);
     }
@@ -104,7 +87,7 @@ public class UnitTest extends TestCase {
 
     public void testHashCodeReturnsSameHashWhenSame() {
         InfantryUnit base = new InfantryUnit("Test", 1,2,3);
-        InfantryUnit test = (InfantryUnit) Unit.copyOf(base);
+        InfantryUnit test = base.copy();
 
         assertEquals(base.hashCode(), test.hashCode());
     }

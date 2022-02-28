@@ -106,36 +106,36 @@ public class CavalryUnitTest extends TestCase {
         assertEquals(CavalryUnit.ATTACK_BONUS, test.getAttackBonus());
     }
 
-    public void testCopyOfIsNotSame() {
+    public void testCopyIsNotSame() {
         CavalryUnit test = new CavalryUnit("Test", 15, 10, 5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
 
         assertNotSame(test, copy);
     }
 
-    public void testCopyOfIsEqual() {
+    public void testCopyIsEqual() {
         CavalryUnit test = new CavalryUnit("Test", 15, 10, 5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy =  test.copy();
 
         assertEquals(test, copy);
     }
 
-    public void testCopyOfDifferentUnitsAreNotEqual() {
+    public void testCopyDifferentUnitsAreNotEqual() {
         CavalryUnit test1 = new CavalryUnit("Test1", 15, 10 ,5);
-        CavalryUnit test1Copy = (CavalryUnit) Unit.copyOf(test1);
+        CavalryUnit test1Copy = test1.copy();
 
         CavalryUnit test2 = new CavalryUnit("Test2", 20, 25 ,30);
-        CavalryUnit test2Copy = (CavalryUnit) Unit.copyOf(test2);
+        CavalryUnit test2Copy = test2.copy();
 
         assertFalse(test1Copy.equals(test2Copy));
     }
 
-    public void testCopyOfRetainsStats() {
+    public void testCopyRetainsStats() {
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
 
         test.attack(copy);
-        copy = (CavalryUnit) Unit.copyOf(test);
+        copy = test.copy();
 
         assertEquals(CavalryUnit.ATTACK_BONUS, copy.getAttackBonus());
     }
@@ -157,7 +157,7 @@ public class CavalryUnitTest extends TestCase {
 
     public void testEqualsReturnsFalseWhenUnitsHaveAttackedDifferentAmountOfTimes(){
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         copy.attack(punchingBag);
@@ -166,7 +166,7 @@ public class CavalryUnitTest extends TestCase {
 
     public void testEqualsReturnsTrueWhenUnitsHaveAttackedTheSameAmountOfTimes() {
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         test.attack(punchingBag);
@@ -176,7 +176,7 @@ public class CavalryUnitTest extends TestCase {
 
     public void testHashCodeReturnsDifferentHashWhenUnitsHaveAttackedDifferentAmountOfTimes(){
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         copy.attack(punchingBag);
@@ -185,7 +185,7 @@ public class CavalryUnitTest extends TestCase {
 
     public void testHashCodeReturnSameHashWhenUnitsHaveAttackedTheSameAmountOfTimes() {
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         test.attack(punchingBag);
@@ -195,7 +195,7 @@ public class CavalryUnitTest extends TestCase {
 
     public void testCompareToReturnsNonZeroWhenUnitsHaveAttackedDifferentAmountOfTimes(){
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         copy.attack(punchingBag);
@@ -204,7 +204,7 @@ public class CavalryUnitTest extends TestCase {
 
     public void testCompareToReturnsZeroWhenUnitsHaveAttackedTheSameAmountOfTimes() {
         CavalryUnit test = new CavalryUnit("Test", 100, 10 ,5);
-        CavalryUnit copy = (CavalryUnit) Unit.copyOf(test);
+        CavalryUnit copy = test.copy();
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         test.attack(punchingBag);

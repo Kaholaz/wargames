@@ -103,29 +103,6 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * Creates a copy of a Unit instance.
-     *
-     * @param unit The original unit to copy
-     * @return A copy of the original unit
-     */
-    public static Unit copyOf(Unit unit) {
-        if (unit instanceof CommanderUnit) {
-            return new CommanderUnit((CommanderUnit) unit);
-        }
-        if (unit instanceof CavalryUnit) {
-            return new CavalryUnit((CavalryUnit) unit);
-        }
-        if (unit instanceof InfantryUnit) {
-            return new InfantryUnit((InfantryUnit) unit);
-        }
-        if (unit instanceof RangedUnit) {
-            return new RangedUnit((RangedUnit) unit);
-        }
-
-        throw new IllegalArgumentException("Cloning not supported for this unit");
-    }
-
-    /**
      * Check if a Unit equals another instance of Unit.
      * This does not take into account subclass specific traits such as
      * number of times attacked, or how many times the unit has been attacked.
@@ -197,6 +174,11 @@ public abstract class Unit implements Comparable<Unit>{
         }
         return 0;
     }
+
+    /**
+     * @return A copy of the instance using the class' copy constructor
+     */
+    public abstract Unit copy();
 
     /**
      * Resets stats about how many times the unit has been attacked or has attacked others.

@@ -23,81 +23,81 @@ public class CommanderUnitTest extends TestCase {
     }
 
     public void testGetNameLongConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20, 10, 5);
-        assertEquals("Test1", test1.getName());
+        CommanderUnit test = new CommanderUnit("Test", 20, 10, 5);
+        assertEquals("Test", test.getName());
     }
 
     public void testGetNameShortConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20);
-        assertEquals("Test1", test1.getName());
+        CommanderUnit test = new CommanderUnit("Test", 20);
+        assertEquals("Test", test.getName());
     }
 
     public void testGetHealthLongConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20, 10, 5);
-        assertEquals(20, test1.getHealth());
+        CommanderUnit test = new CommanderUnit("Test", 20, 10, 5);
+        assertEquals(20, test.getHealth());
     }
 
     public void testGetHealthShortConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20);
-        assertEquals(20, test1.getHealth());
+        CommanderUnit test = new CommanderUnit("Test", 20);
+        assertEquals(20, test.getHealth());
     }
 
     public void testGetAttackLongConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20, 10, 5);
-        assertEquals(10, test1.getAttack());
+        CommanderUnit test = new CommanderUnit("Test", 20, 10, 5);
+        assertEquals(10, test.getAttack());
     }
 
     public void testGetAttackShortConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20);
-        assertEquals(CommanderUnit.DEFAULT_ATTACK, test1.getAttack());
+        CommanderUnit test = new CommanderUnit("Test", 20);
+        assertEquals(CommanderUnit.DEFAULT_ATTACK, test.getAttack());
     }
 
     public void testGetArmorLongConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20, 10, 5);
-        assertEquals(5, test1.getArmor());
+        CommanderUnit test = new CommanderUnit("Test", 20, 10, 5);
+        assertEquals(5, test.getArmor());
     }
 
     public void testGetArmorShortConstructor() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20);
-        assertEquals(CommanderUnit.DEFAULT_ARMOR, test1.getArmor());
+        CommanderUnit test = new CommanderUnit("Test", 20);
+        assertEquals(CommanderUnit.DEFAULT_ARMOR, test.getArmor());
     }
 
     public void testToString() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 20, 10, 5);
+        CommanderUnit test = new CommanderUnit("Test", 20, 10, 5);
 
-        assertEquals("CommanderUnit{name='Test1', health=20, attack=10, armor=5}", test1.toString());
+        assertEquals("CommanderUnit{name='Test', health=20, attack=10, armor=5}", test.toString());
     }
 
-    public void testCopyOfIsNotSame() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 15, 10, 5);
-        CommanderUnit copy = (CommanderUnit) Unit.copyOf(test1);
+    public void testCopyIsNotSame() {
+        CommanderUnit test = new CommanderUnit("Test", 15, 10, 5);
+        CommanderUnit copy = test.copy();
 
-        assertNotSame(test1, copy);
+        assertNotSame(test, copy);
     }
 
-    public void testCopyOfIsEqual() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 15, 10, 5);
-        CommanderUnit copy = (CommanderUnit) Unit.copyOf(test1);
+    public void testCopyIsEqual() {
+        CommanderUnit test = new CommanderUnit("Test", 15, 10, 5);
+        CommanderUnit copy = test.copy();
 
-        assertEquals(test1, copy);
+        assertEquals(test, copy);
     }
 
-    public void testCopyOfDifferentUnitsAreNotEqual() {
+    public void testCopyDifferentUnitsAreNotEqual() {
         CommanderUnit test1 = new CommanderUnit("Test1", 15, 10 ,5);
-        CommanderUnit test1Copy = (CommanderUnit) Unit.copyOf(test1);
+        CommanderUnit test1Copy = test1.copy();
 
         CommanderUnit test2 = new CommanderUnit("Test2", 20, 25 ,30);
-        CommanderUnit test2Copy = (CommanderUnit) Unit.copyOf(test2);
+        CommanderUnit test2Copy = test2.copy();
 
         assertFalse(test1Copy.equals(test2Copy));
     }
 
-    public void testCopyOfRetainsStats() {
+    public void testCopyRetainsStats() {
         CommanderUnit test = new CommanderUnit("Test", 100, 10 ,5);
-        CommanderUnit copy = (CommanderUnit) Unit.copyOf(test);
+        CommanderUnit copy = test.copy();
 
         test.attack(copy);
-        copy = (CommanderUnit) Unit.copyOf(test);
+        copy = test.copy();
 
         assertEquals(CommanderUnit.ATTACK_BONUS, copy.getAttackBonus());
     }
