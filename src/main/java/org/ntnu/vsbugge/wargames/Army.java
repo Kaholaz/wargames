@@ -108,13 +108,18 @@ public class Army {
     /**
      * Iterates over all units in the army and returns a list that only contains the units
      * that are of the given class {@code tClass}.
+     *
+     * <br><br>
+     * This method is called using this syntax:<br>
+     * {@code army.getUnitOfType(RangedUnit.class)}<br>
+     * This code will return a list of type {@code List&lt;RangedUnit&gt;}
      * @param tClass The class to filter for.
      * @param <T> The type of the supplied class has to be a subclass of {@code Unit}.
      * @return A complete list that contains all units in the army of the specified class.
      */
     public <T extends Unit> List<T> getUnitsOfType(Class<T> tClass) {
         // All classes are filtered, so every element should be of type T. The unchecked cast is therefore fine here.
-        return (List<T>) units.stream().filter(unit -> unit.getClass().equals(tClass)).toList();
+        return (List<T>) units.stream().filter(unit -> unit.getClass() == tClass).toList();
     }
 
     /**

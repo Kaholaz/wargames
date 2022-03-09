@@ -7,6 +7,15 @@ import java.util.*;
 
 public class ArmyTest extends TestCase {
 
+    static final HashMap<Unit, Integer> sampleArmyTemplate = new HashMap<>();
+    static {
+        sampleArmyTemplate.put(new InfantryUnit("Infantry", 20), 20);
+        sampleArmyTemplate.put(new CavalryUnit("Cavalry", 30), 30);
+        sampleArmyTemplate.put(new CommanderUnit("Commander", 100), 3);
+        sampleArmyTemplate.put(new RangedUnit("Ranged1", 10), 15);
+        sampleArmyTemplate.put(new RangedUnit("Ranged2", 25), 5);
+    }
+
     public void testAddToEmptyArmy() {
         List<Unit> testList = new ArrayList<>();
         Army testObj = new Army("TestObj");
@@ -317,5 +326,44 @@ public class ArmyTest extends TestCase {
 
         Army armyCopy = Army.parseArmyTemplate("Test", army.getArmyTemplate());
         assertFalse(army.equals(armyCopy));
+    }
+
+    public void testGetUnitsOfTypeCavalryUnit() {
+        Army testArmy = Army.parseArmyTemplate("Test Army", sampleArmyTemplate);
+        List<CavalryUnit> cavalryUnitList = testArmy.getUnitsOfType(CavalryUnit.class);
+
+        assertEquals(30, cavalryUnitList.size());
+        assertTrue(cavalryUnitList.stream().allMatch(unit -> unit.getClass() == CavalryUnit.class));
+    }
+
+    public void testGetUnitsOfTypeInfantryUnit() {
+        Army testArmy = Army.parseArmyTemplate("Test Army", sampleArmyTemplate);
+        List<InfantryUnit> infantryUnitList = testArmy.getUnitsOfType(InfantryUnit.class);
+
+        assertEquals(20, infantryUnitList.size());
+        assertTrue(infantryUnitList.stream().allMatch(unit -> unit.getClass() == InfantryUnit.class));
+    }
+
+    public void testGetUnitsOfTypeCommanderUnit() {
+        Army testArmy = Army.parseArmyTemplate("Test Army", sampleArmyTemplate);
+        List<CommanderUnit> commanderUnitList = testArmy.getUnitsOfType(CommanderUnit.class);
+
+        assertEquals(3, commanderUnitList.size());
+        assertTrue(commanderUnitList.stream().allMatch(unit -> unit.getClass() == CommanderUnit.class));
+    }
+
+    public void testGetUnitsOfTypeRangedUnit() {
+        Army testArmy = Army.parseArmyTemplate("Test Army", sampleArmyTemplate);
+        List<RangedUnit> rangedUnitList = testArmy.getUnitsOfType(RangedUnit.class);
+
+        assertEquals(20, rangedUnitList.size());
+        assertTrue(rangedUnitList.stream().allMatch(unit -> unit.getClass() == RangedUnit.class));
+    }
+
+    public void testGetUnitsOfTypeUnit() {
+        Army testArmy = Army.parseArmyTemplate("Test Army", sampleArmyTemplate);
+        List<Unit> unitList = testArmy.getUnitsOfType(Unit.class);
+
+        assertEquals(0, unitList.size());
     }
 }
