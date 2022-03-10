@@ -42,6 +42,12 @@ public class ArmyFileManagerTest extends TestCase {
         assertEquals(templateHumanArmy, fileHumanArmy);
     }
 
+    public void testGetDefaultPath() {
+        File file = new File("src/main/resources/testFiles");
+
+        assertEquals(file, armyFileManager.getDefaultPath());
+    }
+
     public void testLoadFromPathUsingDefaultPath() throws IOException {
         Army fileHumanArmy = armyFileManager.loadFromPath(new File("HumanArmy.army"), true);
         Army templateHumanArmy = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
