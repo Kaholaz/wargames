@@ -32,7 +32,7 @@ public class ArmyFileManager {
     public ArmyFileManager(){}
 
     /**
-     * Private method for parsing a single line. This method does not parse the first line (the name of the amry),
+     * Private method for parsing a single line. This method does not parse the first line (the name of the army),
      * but all subsequent lines.
      * @param line A single line in the army file
      * @return A processed version of the line that consists of a unit and the number of that unit in the army.
@@ -79,7 +79,9 @@ public class ArmyFileManager {
     }
 
     /**
-     * Returns a representation of a unit ready to write to file
+     * Returns a representation of a unit ready to write to file.<br>
+     * The unit is formatted like this '{UnitClass},{UnitName},{Health}',
+     * where UnitClass is the type of unit (e.g. 'InfantryUnit')
      * @param unit The unit to write to file
      * @return A string representation of the unit that fits the CSV file spec
      */
@@ -93,6 +95,16 @@ public class ArmyFileManager {
 
     /**
      * Reads a file at a given filePath and returns an Army object based on the file.
+     * The file needs to be formatted in the following manner:<br>
+     * The first line of the file is the literal name of the army.<br>
+     * Each subsequent lines have 4 fields separated by comma:
+     * <ol>
+     *     <li>The class of the unit</li>
+     *     <li>The name of the unit</li>
+     *     <li>The health of the unit</li>
+     *     <li>The amount of this unit in the army</li>
+     * </ol>
+     * This should look something like this: 'CavalryUnit,Horsey,100,150'
      * @param filePath The filePath of the file
      * @param relativeToDefaultPath If this flag is set to true, filePath is read as a sub-filePath of defaultPath.
      *                              In other words: If default filePath is set to "some/directory" and the filePath
@@ -112,6 +124,16 @@ public class ArmyFileManager {
 
     /**
      * Reads a file at a given filePath and returns an Army object based on the file.
+     * The file needs to be formatted in the following manner:<br>
+     * The first line of the file is the literal name of the army.<br>
+     * Each subsequent lines have 4 fields separated by comma:
+     * <ol>
+     *     <li>The class of the unit</li>
+     *     <li>The name of the unit</li>
+     *     <li>The health of the unit</li>
+     *     <li>The amount of this unit in the army</li>
+     * </ol>
+     * This should look something like this: 'CavalryUnit,Horsey,100,150'
      * @param filePath The filePath of the file
      * @return An army constructed form an army file
      * @throws IOException Throws FileNotFoundException if the file is not found.<br>
@@ -161,7 +183,16 @@ public class ArmyFileManager {
     }
 
     /**
-     * Saves an army as a CSV file at a given path
+     * Saves an army as a CSV file at a given path. The file is written this way:<br>
+     * The first line of the file is the literal name of the army.<br>
+     * Each subsequent lines have 4 fields separated by comma:
+     * <ol>
+     *     <li>The class of the unit</li>
+     *     <li>The name of the unit</li>
+     *     <li>The health of the unit</li>
+     *     <li>The amount of this unit in the army</li>
+     * </ol>
+     * This should look something like this: 'CavalryUnit,Horsey,100,150'
      * @param army The army to save to file
      * @param filePath The path to save to
      * @param relativeToDefaultPath Whenever or not to read the supplied path as being relative to defaultPath.
@@ -176,7 +207,16 @@ public class ArmyFileManager {
     }
 
     /**
-     * Saves an army as a CSV file at a given path
+     * Saves an army as a CSV file at a given path. The file is written this way:<br>
+     * The first line of the file is the literal name of the army.<br>
+     * Each subsequent lines have 4 fields separated by comma:
+     * <ol>
+     *     <li>The class of the unit</li>
+     *     <li>The name of the unit</li>
+     *     <li>The health of the unit</li>
+     *     <li>The amount of this unit in the army</li>
+     * </ol>
+     * This should look something like this: 'CavalryUnit,Horsey,100,150'
      * @param army The army to save to file
      * @param filePath The path to save to
      * @param overwrite Whenever or not to overwrite any file located at the given path
@@ -191,16 +231,24 @@ public class ArmyFileManager {
         }
 
         FileWriter writer = new FileWriter(filePath, CHARSET);
+        // .write erases all contents of the file and writes the given string to the file
+        // making the supplied string its only content.
         writer.write(army.getName() + '\n');
         for (Map.Entry<Unit, Integer> entry : armyTemplate.entrySet()) {
-            writer.append(unitToWritableUnitString(entry.getKey()));
-            writer.append("," + entry.getValue().toString() + "\n");
+            // Each line is formatted like this: "{UnitClass},{UnitName},{UnitHealth},{Count}",
+            // where UnitClass is the Unit subclass of the unit,
+            // and Count is the number of this unit in the army.
+            writer.append(unitToWritableUnitString(entry.getKey()))
+                    .append(",")
+                    .append(entry.getValue().toString())
+                    .append("\n");
         }
         writer.close();
     }
 
     /**
-     * Sets a new default path
+     * Sets a new default path. The default path is the path from witch all paths are
+     * interpreted as relative to if the flag {@code relativeToDefaultPath} is set to {@code true}
      * @param defaultPath The new default path
      */
     public void setDefaultPath(File defaultPath) {
@@ -208,6 +256,8 @@ public class ArmyFileManager {
     }
 
     /**
+     * Gets the current default path. The default path is the path from witch all paths are
+     * interpreted as relative to if the flag {@code relativeToDefaultPath} is set to {@code true}
      * @return The current default path
      */
     public File getDefaultPath() {
