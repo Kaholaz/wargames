@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames;
 
+import java.io.IOException;
+
 /**
  * Entry point for the application
  */
@@ -12,7 +14,13 @@ public class Main {
      */
     public static void main(String[] args) {
         WargamesCLI cli = new WargamesCLI();
-        cli.loadTestData();
+        try {
+            cli.loadTestData();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+            System.exit(20);
+        }
         cli.start();
     }
 }

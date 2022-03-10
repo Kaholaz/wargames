@@ -1,7 +1,10 @@
 package org.ntnu.vsbugge.wargames;
 
+import org.ntnu.vsbugge.wargames.files.ArmyFileManager;
 import org.ntnu.vsbugge.wargames.units.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,22 +18,14 @@ public class WargamesCLI {
      * Loads two predetermined armies into memory.
      * This function must be run before running the start method.
      */
-    public void loadTestData() {
-        Map<Unit,Integer> armyOneTemplate = new HashMap<>();
-        armyOneTemplate.put(new InfantryUnit("Footman", 100), 500);
-        armyOneTemplate.put(new CavalryUnit("Knight", 100), 100);
-        armyOneTemplate.put(new RangedUnit("Archer", 100), 200);
-        armyOneTemplate.put(new CommanderUnit("Mountain King", 180), 1);
-        Army armyOne = Army.parseArmyTemplate("Human Army", armyOneTemplate);
+    public void loadTestData() throws IOException {
+        ArmyFileManager armyFileManager = new ArmyFileManager();
+        armyFileManager.setDefaultPath(new File("src/main/resources/testFiles"));
 
-        Map<Unit, Integer> armyTwoTemplate = new HashMap<>();
-        armyTwoTemplate.put(new InfantryUnit("Grunt", 100), 500);
-        armyTwoTemplate.put(new CavalryUnit("Raider", 100), 100);
-        armyTwoTemplate.put(new RangedUnit("Spearman", 100), 200);
-        armyTwoTemplate.put(new CommanderUnit("Gul ́dan", 180), 1);
-        Army armyTwo = Army.parseArmyTemplate("Orcish Horde", armyTwoTemplate);
+        Army humanArmy = armyFileManager.loadFromPath(new File("HumanArmy.army"), true);
+        Army orcishHorde = armyFileManager.loadFromPath(new File("OrcishHorde.army"), true);
 
-        battle = new Battle(armyOne, armyTwo);
+        battle = new Battle(humanArmy, orcishHorde);
     }
 
 
@@ -67,7 +62,13 @@ public class WargamesCLI {
             // TODO: Improve the user interface
             if (response.toLowerCase(Locale.ROOT).equals("y") || response.toLowerCase(Locale.ROOT).equals("yes")) {
                 // Reload test data before a reset
-                loadTestData();
+                try {
+                    loadTestData();
+                }
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    System.exit(20);
+                }
             } else {
                 playing = false;
             }

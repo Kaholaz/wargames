@@ -5,13 +5,20 @@ import org.ntnu.vsbugge.wargames.units.CavalryUnit;
 import org.ntnu.vsbugge.wargames.units.CommanderUnit;
 import org.ntnu.vsbugge.wargames.units.RangedUnit;
 
+import java.io.IOException;
+
 public class WargamesCLITest extends TestCase {
 
     public void testLoadTestData() {
         WargamesCLI cli = new WargamesCLI();
         try {
             cli.loadTestData();
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            fail("Something went wrong in the loading of test data.");
+        }
+        catch (IOException e) {
             e.printStackTrace();
             fail("Something went wrong in the loading of test data.");
         }
