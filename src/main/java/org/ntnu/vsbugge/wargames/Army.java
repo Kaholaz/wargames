@@ -117,8 +117,10 @@ public class Army {
      * @param <T> The type of the supplied class has to be a subclass of {@code Unit}.
      * @return A complete list that contains all units in the army of the specified class.
      */
+    @SuppressWarnings("unchecked")
     public <T extends Unit> List<T> getUnitsOfType(Class<T> tClass) {
-        // All classes are filtered, so every element should be of type T. The unchecked cast is therefore fine here.
+        // Since the list is filtered based on type, every remaining element will be of type T.
+        // The unchecked cast is therefore fine here.
         return (List<T>) units.stream().filter(unit -> unit.getClass() == tClass).toList();
     }
 
