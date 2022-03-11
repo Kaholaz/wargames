@@ -20,7 +20,7 @@ public class Battle {
     }
 
     /**
-     * Used to simmulate a battle between two armies,
+     * Used to simulate a battle between two armies,
      *
      * <br><br>
      * When one army attacks the other, a random unit from
