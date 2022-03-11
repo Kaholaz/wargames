@@ -81,7 +81,7 @@ public class ArmyFileManager {
      * @param unit The unit to write to file
      * @return A string representation of the unit that fits the CSV file spec
      */
-    private String unitToWritableUnitString(Unit unit) {
+    private String convertUnitToWritableString(Unit unit) {
         String unitType = unit.getClass().getSimpleName();
         String name = unit.getName();
         int health = unit.getHealth();
@@ -102,7 +102,7 @@ public class ArmyFileManager {
      * </ol>
      * This should look something like this: 'CavalryUnit,Horsey,100,150'
      * @param filePath The filePath of the file
-     * @param relativeToDefaultPath If this flag is set to true, filePath is read as a sub-filePath of defaultPath.
+     * @param relativeToDefaultPath If this flag is set to true, filePath is read as a sub-path of defaultPath.
      *                              In other words: If default filePath is set to "some/directory" and the filePath
      *                              supplied is "some/file". Then, if relativeToDefaultPath is set to true,
      *                              the file that is read is the file at the filePath "some/directory/some/file".
@@ -171,13 +171,17 @@ public class ArmyFileManager {
     }
 
     /**
-     * Checks if a file at the path is a readable file
+     * Checks if a file at the path is a readable file. This is currently not an efficient method,
+     * as this method just calls loadFromPath and checks if the method completed without exceptions.
+     * If this check is done before a call to loadFromPath, one should probably just call that method
+     * and surround it with a try/catch (which to my knowledge should be best practice in the regardless).
      * @param filePath The path of the file
      * @param relativeToDefaultPath If this flag is set to true, the path is read as a sub-path to defaultPath,
      *                              similarly to how it is done in loadFromPath(File filePath, boolean relativeToDefaultPath)
      * @return ture if the fila at the path is valid, false if not.
      */
     public boolean isFileAtPathValid(File filePath, boolean relativeToDefaultPath) {
+        // TODO: Find an efficient way to verify a file
         try {
             loadFromPath(filePath, relativeToDefaultPath);
         }
@@ -231,19 +235,22 @@ public class ArmyFileManager {
     public void saveArmyToPath(Army army, File filePath, boolean overwrite) throws IOException {
         Map<Unit, Integer> armyTemplate = army.getArmyTemplate();
 
+        // File already exist and overwrite is set to false
         if (!filePath.createNewFile() && !overwrite) { // file.createNewFile() throws IOException
             throw new FileAlreadyExistsException("File already exists. Writing to file would delete it's contents");
         }
 
         FileWriter writer = new FileWriter(filePath, CHARSET);
+
         // .write erases all contents of the file and writes the given string to the file
         // making the supplied string its only content.
         writer.write(army.getName() + '\n');
         for (Map.Entry<Unit, Integer> entry : armyTemplate.entrySet()) {
+
             // Each line is formatted like this: "{UnitClass},{UnitName},{UnitHealth},{Count}",
             // where UnitClass is the Unit subclass of the unit,
             // and Count is the number of this unit in the army.
-            writer.append(unitToWritableUnitString(entry.getKey()))
+            writer.append(convertUnitToWritableString(entry.getKey()))
                     .append(",")
                     .append(entry.getValue().toString())
                     .append("\n");
