@@ -55,9 +55,7 @@ public class Army {
      * @param units The units to add
      */
     public void addAll(List<Unit> units) {
-        for (Unit unit : units) {
-            add(unit);
-        }
+        units.forEach(this::add);
     }
 
     /**
@@ -149,16 +147,14 @@ public class Army {
     public Map<Unit, Integer> getArmyTemplate() {
         Map<Unit, Integer> template = new HashMap<>();
 
-        for (Unit unit : units) {
-            // Stats are reset to properly group
-            // units that only differ in unit specific stats.
-            unit = unit.copy();
-            unit.resetStats(); // <- here
-            int count = template.getOrDefault(unit, 0);
+        units.stream().map(Unit::copy).forEach(unit -> {
+            // Unit specific stats are reset to properly group units
+            unit.resetStats();
 
-            count += 1;
-            template.put(unit, count); // Would not correctly group units if stats had not been reset
-        }
+            // This increments the count of the unit in the template by one
+            // (or sets the count to 1 if no equal unit already is in the map)
+            template.merge(unit, 1, Integer::sum);
+        });
 
         return template;
     }
@@ -183,14 +179,7 @@ public class Army {
      */
     public static Army parseArmyTemplate(String name, Map<Unit, Integer> template) {
         Army army = new Army(name);
-
-        for (Map.Entry<Unit, Integer> entry: template.entrySet()) {
-            Unit unit = entry.getKey();
-            int count = entry.getValue();
-
-            army.add(unit, count);
-        }
-
+        template.forEach(army::add); // Adds an amount of units to the army equal to the count
         return army;
     }
 
