@@ -152,13 +152,24 @@ public class ArmyFileManagerTest extends TestCase {
         assertEquals(army, fileArmy);
     }
 
+    public void testLoadFromPathAddsUnitCounts() throws IOException {
+        Army army = new Army("Sum Army");
+        army.add(new RangedUnit("Range", 20), 20);
+
+        Army fileArmy = armyFileManager.loadFromPath(new File("SumUnitCount.army"), true);
+
+        assertEquals(army, fileArmy);
+    }
+
     public void testIsValidFilePath() {
         assertTrue(armyFileManager.isFileAtPathValid(new File("HumanArmy.army"), true));
         assertTrue(armyFileManager.isFileAtPathValid(new File("OrcishHorde.army"), true));
+        assertTrue(armyFileManager.isFileAtPathValid(new File("EmptyArmy.army"), true));
         assertFalse(armyFileManager.isFileAtPathValid(new File("FileDoesNotExist.army"), true));
         assertFalse(armyFileManager.isFileAtPathValid(new File("UnrecognizedUnitType.army"), true));
         assertFalse(armyFileManager.isFileAtPathValid(new File("TooFewFields.army"), true));
         assertFalse(armyFileManager.isFileAtPathValid(new File("NonNumberFields.army"), true));
+        assertFalse(armyFileManager.isFileAtPathValid(new File("EmptyFile.army"), true));
     }
 
     public void testIsValidFilePathBlankStringFields() {

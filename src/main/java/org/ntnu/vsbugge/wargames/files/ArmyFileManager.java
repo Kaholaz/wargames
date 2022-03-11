@@ -155,13 +155,15 @@ public class ArmyFileManager {
             throw new FileFormatException("The supplied file is empty");
         }
 
-        // Parse the file line by line
+        // Parse the file line by line. ArmyTemplate uses the same format as stipulated by Army::parseArmyTemplate
         HashMap<Unit, Integer> armyTemplate = new HashMap<>();
         try {
             while (sc.hasNextLine()) {
-                ++lineNr;
+                ++lineNr; // lineNr is incremented before parseLine to avoid having to increment lineNr outside the loop
                 Map.Entry<Unit, Integer> entry = parseLine(sc.nextLine()); // throws FileFormatException
-                armyTemplate.put(entry.getKey(), entry.getValue());
+
+                // Sums the current count (the one currently in the template) with the count from the parsed line
+                armyTemplate.merge(entry.getKey(), entry.getValue(), Integer::sum);
             }
         }
         finally {
