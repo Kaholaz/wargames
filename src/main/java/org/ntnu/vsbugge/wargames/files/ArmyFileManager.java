@@ -12,10 +12,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
 
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A resource used to write and read armies from file
@@ -36,9 +33,8 @@ public class ArmyFileManager {
      * but all subsequent lines.
      * @param line A single line in the army file
      * @return A processed version of the line that consists of a unit and the number of that unit in the army.
-     * @throws FileFormatException Throws an exception if there is something wrong with the format of the line,
-     * or the type of unit is not recognized.
-     * @throws NumberFormatException Throws an exception if a field could not be parsed as an Integer
+     * @throws FileFormatException Throws an exception if there is something wrong with the format of the file, or
+     *                             if the unit type is not recognized, or if an integer field could not be parsed.
      */
     private AbstractMap.SimpleEntry<Unit, Integer> parseLine(String line) throws FileFormatException {
         String[] s_fields = line.split(",");
@@ -140,6 +136,7 @@ public class ArmyFileManager {
      *                     Throws FileFormatException if there is anything wrong with the format of the file.
      */
     public Army loadFromPath(File filePath) throws IOException {
+        // Open scanner
         Scanner sc;
         try {
             sc = new Scanner(filePath, CHARSET); // Throws FileNotFoundException
@@ -147,10 +144,18 @@ public class ArmyFileManager {
             throw new FileNotFoundException(String.format("%s (No such file)", filePath.getAbsoluteFile()));
         }
 
-
+        // Get the name of the army
         lineNr = 1;
-        String armyName =  sc.nextLine();
+        String armyName;
+        try {
+            armyName =  sc.nextLine();
+        }
+        catch (NoSuchElementException e) {
+            sc.close();
+            throw new FileFormatException("The supplied file is empty");
+        }
 
+        // Parse the file line by line
         HashMap<Unit, Integer> armyTemplate = new HashMap<>();
         try {
             while (sc.hasNextLine()) {
