@@ -132,6 +132,26 @@ public class ArmyFileManagerTest extends TestCase {
         }
     }
 
+    public void testLoadFromPathThrowsFileFormatExceptionIfFileIsEmpty() {
+        try {
+            armyFileManager.loadFromPath(new File("EmptyFile.army"), true);
+            fail("The method should throw an exception when trying to read empty file");
+        }
+        catch (FileFormatException e) {
+            assertEquals("The supplied file is empty", e.getMessage());
+        }
+        catch (IOException e) {
+            fail("The method should complain about the file being empty");
+        }
+    }
+
+    public void testLoadFromPathLoadsEmptyArmy() throws IOException {
+        Army fileArmy = armyFileManager.loadFromPath(new File("EmptyArmy.army"), true);
+        Army army = new Army("Empty Army");
+
+        assertEquals(army, fileArmy);
+    }
+
     public void testIsValidFilePath() {
         assertTrue(armyFileManager.isFileAtPathValid(new File("HumanArmy.army"), true));
         assertTrue(armyFileManager.isFileAtPathValid(new File("OrcishHorde.army"), true));
