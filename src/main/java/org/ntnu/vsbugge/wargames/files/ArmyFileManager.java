@@ -45,8 +45,9 @@ public class ArmyFileManager {
             int health = Integer.parseInt(s_fields[2]);
             Integer count = Integer.parseInt(s_fields[3]);
 
-            // Throws FileFormatException --------------V
-            return new AbstractMap.SimpleEntry<>(constructUnit(unitName, name, health), count);
+            // Throws IllegalArgumentException --------------V
+            UnitFactory unitFactory = new UnitFactory();
+            return new AbstractMap.SimpleEntry<>(unitFactory.getUnit(unitName, name, health), count);
         }
         catch (IndexOutOfBoundsException e) {
             throw new FileFormatException(String.format("Too few fields on line %d", lineNr));
@@ -54,24 +55,9 @@ public class ArmyFileManager {
         catch (NumberFormatException e) {
             throw new FileFormatException(String.format("Could not parse integer field on line %d", lineNr));
         }
-    }
-
-    /**
-     * Constructs a new instance of a unit given the type of the unit, and the unit properties
-     * @param unitType The type of the unit (e.g. 'CavalryUnit' or 'InfantryUnit')
-     * @param name The given name of the unit
-     * @param health The health of the unit
-     * @return A new Unit instance that reflects the passed parameters
-     * @throws FileFormatException Trows an exception if the type of the unit is not recognized
-     */
-    private Unit constructUnit(String unitType, String name, int health) throws FileFormatException {
-        return switch (unitType) {
-            case "CavalryUnit" -> new CavalryUnit(name, health);
-            case "CommanderUnit" -> new CommanderUnit(name, health);
-            case "InfantryUnit" -> new InfantryUnit(name, health);
-            case "RangedUnit" -> new RangedUnit(name, health);
-            default -> throw new FileFormatException(String.format("Unit type not recognized on line %d", lineNr));
-        };
+        catch (IllegalArgumentException e) {
+            throw new FileFormatException(String.format("One or more fields on line %d are invalid", lineNr));
+        }
     }
 
     /**

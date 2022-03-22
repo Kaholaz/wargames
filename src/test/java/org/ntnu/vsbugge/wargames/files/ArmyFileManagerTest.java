@@ -104,7 +104,7 @@ public class ArmyFileManagerTest extends TestCase {
             armyFileManager.loadFromPath(new File("UnrecognizedUnitType.army"), true);
             fail("Should throw FileFormatException");
         } catch (FileFormatException e) {
-            assertEquals("Unit type not recognized on line 2", e.getMessage());
+            assertEquals("One or more fields on line 2 is invalid", e.getMessage());
         } catch (IOException e) {
             fail("Should throw FileFormatException");
         }
