@@ -41,7 +41,11 @@ public class Battle {
         }
 
         Army attacker = armyOne;
+        armyOne.removeAllDeadUnits();
+
         Army defender = armyTwo;
+        armyTwo.removeAllDeadUnits();
+
         while (armyOne.hasUnits() && armyTwo.hasUnits()) {
             Unit attackerUnit =  attacker.getRandomUnit();
             Unit defenderUnit = defender.getRandomUnit();

@@ -37,6 +37,20 @@ public class ArmyTest extends TestCase {
         assertEquals(List.of(test1, test2), testObj.getAllUnits());
     }
 
+    public void testAddThrowsExceptionOnDeadUnits() {
+        Army army = new Army("Test");
+        try {
+            army.add(new InfantryUnit("Test Unit", 0));
+            fail("Adding a dead unit should throw an exception");
+        }
+        catch (IllegalArgumentException e) {
+            assertEquals("Cannot add a dead unit (A unit with 0 health) to a unit.", e.getMessage());
+        }
+        catch (Exception e) {
+            fail("Adding a dead unit should throw IllegalArgumentException");
+        }
+    }
+
     public void testAddMultiple() {
         Army testObj = new Army("TestObj");
         RangedUnit test = new RangedUnit("Test", 10);
@@ -46,6 +60,20 @@ public class ArmyTest extends TestCase {
         assertEquals(5, testObj.getAllUnits().size());
         for(Unit unit : testObj.getAllUnits()) {
             assertEquals(test, unit);
+        }
+    }
+
+    public void testAddMultipleThrowsExceptionOnDeadUnits() {
+        Army army = new Army("Test");
+        try {
+            army.add(new InfantryUnit("Test Unit", 0), 3);
+            fail("Adding a dead unit should throw an exception");
+        }
+        catch (IllegalArgumentException e) {
+            assertEquals("Cannot add a dead unit (A unit with 0 health) to a unit.", e.getMessage());
+        }
+        catch (Exception e) {
+            fail("Adding a dead unit should throw IllegalArgumentException");
         }
     }
 
@@ -215,7 +243,7 @@ public class ArmyTest extends TestCase {
 
     public void testToString() {
         Army testObj = new Army("TestObj");
-        assertEquals("Army{name='TestObj'}", testObj.toString());
+        assertEquals("Army{name='TestObj', armyTemplate={}}", testObj.toString());
     }
 
     public void testEqualsOnEmptyArmy() {
@@ -328,6 +356,16 @@ public class ArmyTest extends TestCase {
         assertFalse(army.equals(armyCopy));
     }
 
+    public void testParseArmyTemplateIgnoresDeadUnits() {
+        Army army = new Army("Test");
+        army.add(new InfantryUnit("Test Unit", 1));
+        army.getRandomUnit().takeDamage(1);
+
+        army = Army.parseArmyTemplate(army.getName(), army.getArmyTemplate());
+
+        assertFalse(army.hasUnits());
+    }
+
     public void testGetUnitsOfTypeCavalryUnit() {
         Army testArmy = Army.parseArmyTemplate("Test Army", sampleArmyTemplate);
         List<CavalryUnit> cavalryUnitList = testArmy.getUnitsOfType(CavalryUnit.class);
@@ -365,5 +403,16 @@ public class ArmyTest extends TestCase {
         List<Unit> unitList = testArmy.getUnitsOfType(Unit.class);
 
         assertEquals(0, unitList.size());
+    }
+
+    public void testRemoveAllDeadUnits() {
+        Army army = new Army("Test");
+        CommanderUnit testUnit = new CommanderUnit("Test Unit", 1);
+        army.add(testUnit, 2);
+        army.getRandomUnit().takeDamage(1);
+
+        army.removeAllDeadUnits();
+
+        assertEquals(List.of(testUnit), army.getAllUnits());
     }
 }

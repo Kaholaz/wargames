@@ -17,7 +17,7 @@ public class CommanderUnitTest extends TestCase {
         assertEquals(15, test2.getHealth());
 
         test2.attack(test1);
-        assertEquals(-5, test1.getHealth());
+        assertEquals(0, test1.getHealth());
         assertEquals(15, test2.getHealth());
 
     }

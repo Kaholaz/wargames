@@ -34,8 +34,13 @@ public class Army {
     /**
      * Adds a unit to the army the unit is copied before inserted into the object.
      * @param unit The unit to be added
+     *
+     * @throws IllegalArgumentException Throws an exception if it is attempted to add a dead unit to the army.
      */
-    public void add(Unit unit) {
+    public void add(Unit unit) throws IllegalArgumentException {
+        if (unit.getHealth() == 0) {
+            throw new IllegalArgumentException("Cannot add a dead unit (A unit with 0 health) to a unit.");
+        }
         this.units.add(unit.copy());
     }
 
@@ -43,6 +48,8 @@ public class Army {
      * Adds a given number of a unit into the army. The unit is copied before each add
      * @param unit The unit to be added
      * @param count The number of that unit
+     *
+     * @throws IllegalArgumentException Throws an exception if it is attempted to add a dead unit to the army.
      */
     public void add(Unit unit, int count) {
         for (int i = 0; i < count; i++){
@@ -51,11 +58,11 @@ public class Army {
     }
 
     /**
-     * Adds all given units to the army
+     * Adds all given non-dead units (health != 0) to the army
      * @param units The units to add
      */
     public void addAll(List<Unit> units) {
-        units.forEach(this::add);
+        units.stream().filter(unit -> unit.getHealth() > 0).forEach(this::add);
     }
 
     /**
@@ -64,6 +71,20 @@ public class Army {
      */
     public void remove(Unit unit) {
         units.remove(unit);
+    }
+
+    /**
+     * Removes all dead units (units with zero health) from an army.
+     */
+    public void removeAllDeadUnits() {
+        for (int i = 0; i < units.size();) {
+            if (units.get(i).getHealth() == 0) {
+                units.remove(i);
+            }
+            else {
+                ++i;
+            }
+        }
     }
 
     /**
@@ -105,12 +126,13 @@ public class Army {
 
     /**
      * Iterates over all units in the army and returns a list that only contains the units
-     * that are of the given class {@code tClass}.
+     * that are of the given class {@code tClass}. If the army does not contain any units of the supplied type,
+     * this method will return an empty list.
      *
      * <br><br>
      * This method is called using this syntax:<br>
      * {@code army.getUnitOfType(RangedUnit.class)}<br>
-     * This code will return a list of type {@code List&lt;RangedUnit&gt;}
+     * This specific piece of code will return a list of type {@code List&lt;RangedUnit&gt;}
      * @param tClass The class to filter for.
      * @param <T> The type of the supplied class has to be a subclass of {@code Unit}.
      * @return A complete list that contains all units in the army of the specified class.
@@ -173,13 +195,20 @@ public class Army {
      * are inadequate when an <i>exact</i> representation of an army is needed.
      * If this is the case, the getAllUnits method should be used instead.
      *
+     * <br><br>
+     * Dead units are removed during creation.
+     *
      * @param name The name of the army
      * @param template The template the army should be based on
      * @return An instance of Army based on the provided template
      */
     public static Army parseArmyTemplate(String name, Map<Unit, Integer> template) {
         Army army = new Army(name);
-        template.forEach(army::add); // Adds an amount of units to the army equal to the count
+        template.entrySet().stream()
+                .filter(entry -> entry.getKey().getHealth() > 0)
+                // Adds an amount of units to the army equal to the count
+                .forEach(entry -> army.add(entry.getKey(), entry.getValue()));
+
         return army;
     }
 
@@ -193,6 +222,7 @@ public class Army {
     public String toString() {
         return "Army{" +
                 "name='" + name + '\'' +
+                ", armyTemplate=" + getArmyTemplate() +
                 '}';
     }
 

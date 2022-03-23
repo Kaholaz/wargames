@@ -126,4 +126,70 @@ public class UnitTest extends TestCase {
 
         assertFalse(base.hashCode() == test.hashCode());
     }
+
+    public void testInitializeWithNegativeHealth() {
+        try {
+            Unit unit = new Unit("Test", -5, 1, 2){
+                public Unit copy() {return null;}
+                public void resetStats() {}
+                public int getAttackBonus() {return 0;}
+                public int getResistBonus() {return 0;}
+            };
+            fail("Negative health not allowed");
+        }
+        catch (IllegalArgumentException e) {
+            assertEquals("Health cannot be negative!", e.getMessage());
+        }
+        catch (Exception e) {
+            fail("Should throw an IllegalArgumentException");
+        }
+    }
+
+    public void testInitializeWithNegativeAttack() {
+        try {
+            Unit unit = new Unit("Test", 5, -13, 2){
+                public Unit copy() {return null;}
+                public void resetStats() {}
+                public int getAttackBonus() {return 0;}
+                public int getResistBonus() {return 0;}
+            };
+            fail("Negative health not allowed");
+        }
+        catch (IllegalArgumentException e) {
+            assertEquals("Attack cannot be negative!", e.getMessage());
+        }
+        catch (Exception e) {
+            fail("Should throw an IllegalArgumentException");
+        }
+    }
+
+    public void testInitializeWithNegativeArmor() {
+        try {
+            Unit unit = new Unit("Test", 23, 1, -69){
+                public Unit copy() {return null;}
+                public void resetStats() {}
+                public int getAttackBonus() {return 0;}
+                public int getResistBonus() {return 0;}
+            };
+            fail("Negative health not allowed");
+        }
+        catch (IllegalArgumentException e) {
+            assertEquals("Armor cannot be negative!", e.getMessage());
+        }
+        catch (Exception e) {
+            fail("Should throw an IllegalArgumentException");
+        }
+    }
+
+    public void testTakeDamageWhenDamageIsGreaterThanHealth() {
+        Unit unit = new Unit("Test", 10, 15, 20){
+            public Unit copy() {return null;}
+            public void resetStats() {}
+            public int getAttackBonus() {return 0;}
+            public int getResistBonus() {return 0;}
+        };
+        unit.takeDamage(100);
+
+        assertEquals(0, unit.getHealth());
+    }
 }

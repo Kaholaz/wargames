@@ -13,6 +13,8 @@ public class InfantryUnit extends Unit{
      * Shorthand constructor that sets attack and armor to default values (15 and 10)
      * @param name The name of the unit
      * @param health Total health of the unit
+     *
+     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
      */
     public InfantryUnit(String name, int health) {
         this(name, health, DEFAULT_ATTACK, DEFAULT_ARMOR);
@@ -24,6 +26,8 @@ public class InfantryUnit extends Unit{
      * @param health Total health of the unit
      * @param attack Total Attack-damage of the unit
      * @param armor Total armor of the unit
+     *
+     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
      */
     public InfantryUnit(String name, int health, int attack, int armor) {
         super(name, health, attack, armor);

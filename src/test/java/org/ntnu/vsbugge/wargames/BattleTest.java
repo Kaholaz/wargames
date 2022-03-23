@@ -52,6 +52,9 @@ public class BattleTest extends TestCase {
         Army armyTwo = new Army("ArmyTwo");
         Battle battle = new Battle(armyOne, armyTwo);
 
-        assertEquals("Battle{armyOne=Army{name='ArmyOne'}, armyTwo=Army{name='ArmyTwo'}}", battle.toString());
+        assertEquals(
+                "Battle{armyOne=Army{name='ArmyOne', armyTemplate={}}, armyTwo=Army{name='ArmyTwo', armyTemplate={}}}",
+                battle.toString()
+        );
     }
 }
