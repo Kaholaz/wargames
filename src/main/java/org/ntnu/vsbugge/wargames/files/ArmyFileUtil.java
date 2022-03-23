@@ -1,6 +1,7 @@
 package org.ntnu.vsbugge.wargames.files;
 
 import org.ntnu.vsbugge.wargames.Army;
+import org.ntnu.vsbugge.wargames.factories.UnitFactory;
 import org.ntnu.vsbugge.wargames.units.*;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import java.util.*;
 /**
  * A resource used to write and read armies from file
  */
-public class ArmyFileManager {
+public class ArmyFileUtil {
     private final Charset CHARSET = StandardCharsets.UTF_8;
     private File defaultPath = null;
 
@@ -26,7 +27,7 @@ public class ArmyFileManager {
     /**
      * Create a new instance of ArmyFileManager
      */
-    public ArmyFileManager(){}
+    public ArmyFileUtil(){}
 
     /**
      * Private method for parsing a single line. This method does not parse the first line (the name of the army),
@@ -39,14 +40,15 @@ public class ArmyFileManager {
     private AbstractMap.SimpleEntry<Unit, Integer> parseLine(String line) throws FileFormatException {
         String[] s_fields = line.split(",");
         try {
-            // Extract fields from line
+            // Extract fields from line (could throw IndexOutOfBoundsException)
             String unitName = s_fields[0];
             String name = s_fields[1];
+            // parseInt throws NumberFormatException
             int health = Integer.parseInt(s_fields[2]);
             Integer count = Integer.parseInt(s_fields[3]);
 
-            // Throws IllegalArgumentException --------------V
             UnitFactory unitFactory = new UnitFactory();
+            // Throws IllegalArgumentException ----------V
             return new AbstractMap.SimpleEntry<>(unitFactory.getUnit(unitName, name, health), count);
         }
         catch (IndexOutOfBoundsException e) {
@@ -56,7 +58,9 @@ public class ArmyFileManager {
             throw new FileFormatException(String.format("Could not parse integer field on line %d", lineNr));
         }
         catch (IllegalArgumentException e) {
-            throw new FileFormatException(String.format("One or more fields on line %d are invalid", lineNr));
+            throw new FileFormatException(
+                    String.format("One or more fields on line %d are invalid: '%s'", lineNr, e.getMessage())
+            );
         }
     }
 
@@ -127,7 +131,7 @@ public class ArmyFileManager {
         try {
             sc = new Scanner(filePath, CHARSET); // Throws FileNotFoundException
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException(String.format("%s (No such file)", filePath.getAbsoluteFile()));
+            throw new FileNotFoundException(String.format("File does not exist: '%s'", filePath.getAbsoluteFile()));
         }
 
         // Get the name of the army
@@ -142,6 +146,7 @@ public class ArmyFileManager {
         }
 
         // Parse the file line by line. ArmyTemplate uses the same format as stipulated by Army::parseArmyTemplate
+        // i.e. the key is a unit in an army, and the value is the number of that unit in that army.
         HashMap<Unit, Integer> armyTemplate = new HashMap<>();
         try {
             while (sc.hasNextLine()) {

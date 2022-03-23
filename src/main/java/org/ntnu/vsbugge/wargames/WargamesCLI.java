@@ -1,6 +1,6 @@
 package org.ntnu.vsbugge.wargames;
 
-import org.ntnu.vsbugge.wargames.files.ArmyFileManager;
+import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.units.*;
 
 import java.io.File;
@@ -19,11 +19,11 @@ public class WargamesCLI {
      * This function must be run before running the start method.
      */
     public void loadTestData() throws IOException {
-        ArmyFileManager armyFileManager = new ArmyFileManager();
-        armyFileManager.setDefaultPath(new File("src/main/resources/testFiles"));
+        ArmyFileUtil armyFileUtil = new ArmyFileUtil();
+        armyFileUtil.setDefaultPath(new File("src/main/resources/testFiles"));
 
-        Army humanArmy = armyFileManager.loadFromPath(new File("HumanArmy.army"), true);
-        Army orcishHorde = armyFileManager.loadFromPath(new File("OrcishHorde.army"), true);
+        Army humanArmy = armyFileUtil.loadFromPath(new File("HumanArmy.army"), true);
+        Army orcishHorde = armyFileUtil.loadFromPath(new File("OrcishHorde.army"), true);
 
         battle = new Battle(humanArmy, orcishHorde);
     }

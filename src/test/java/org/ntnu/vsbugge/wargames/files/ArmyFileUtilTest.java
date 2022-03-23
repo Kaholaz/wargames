@@ -11,10 +11,10 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ArmyFileManagerTest extends TestCase {
-    static private final ArmyFileManager armyFileManager = new ArmyFileManager();
+public class ArmyFileUtilTest extends TestCase {
+    static private final ArmyFileUtil ARMY_FILE_UTIL = new ArmyFileUtil();
     static {
-        armyFileManager.setDefaultPath(new File("src/main/resources/testFiles"));
+        ARMY_FILE_UTIL.setDefaultPath(new File("src/main/resources/testFiles"));
     }
 
     // Human Army
@@ -36,7 +36,7 @@ public class ArmyFileManagerTest extends TestCase {
     }
 
     public void testLoadFromPath() throws IOException {
-        Army fileHumanArmy = armyFileManager.loadFromPath(new File("src/main/resources/testFiles/HumanArmy.army"));
+        Army fileHumanArmy = ARMY_FILE_UTIL.loadFromPath(new File("src/main/resources/testFiles/HumanArmy.army"));
         Army templateHumanArmy = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
 
         assertEquals(templateHumanArmy, fileHumanArmy);
@@ -45,11 +45,11 @@ public class ArmyFileManagerTest extends TestCase {
     public void testGetDefaultPath() {
         File file = new File("src/main/resources/testFiles");
 
-        assertEquals(file, armyFileManager.getDefaultPath());
+        assertEquals(file, ARMY_FILE_UTIL.getDefaultPath());
     }
 
     public void testLoadFromPathUsingDefaultPath() throws IOException {
-        Army fileHumanArmy = armyFileManager.loadFromPath(new File("HumanArmy.army"), true);
+        Army fileHumanArmy = ARMY_FILE_UTIL.loadFromPath(new File("HumanArmy.army"), true);
         Army templateHumanArmy = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
 
         assertEquals(templateHumanArmy, fileHumanArmy);
@@ -57,10 +57,10 @@ public class ArmyFileManagerTest extends TestCase {
 
 
     public void testLoadFromPathThrowsExceptionIfDefaultPathIsNotSet() {
-        ArmyFileManager armyFileManager = new ArmyFileManager();
+        ArmyFileUtil armyFileUtil = new ArmyFileUtil();
 
         try {
-            armyFileManager.loadFromPath(new File("HumanArmy.army"), true);
+            armyFileUtil.loadFromPath(new File("HumanArmy.army"), true);
             fail("NullPointerException should have been thrown");
         }
         catch (NullPointerException e) {
@@ -72,7 +72,7 @@ public class ArmyFileManagerTest extends TestCase {
     }
 
     public void testLoadFromPathNonAsciiChars() throws IOException {
-        Army fileOnlyGuldan = armyFileManager.loadFromPath(new File("NonAscii.army"), true);
+        Army fileOnlyGuldan = ARMY_FILE_UTIL.loadFromPath(new File("NonAscii.army"), true);
         Army templateOrchishHorde = Army.parseArmyTemplate("Orcish Horde", orchishHordeTemplate);
 
         assertEquals(1, fileOnlyGuldan.getUnitsOfType(CommanderUnit.class).size());
@@ -80,7 +80,7 @@ public class ArmyFileManagerTest extends TestCase {
     }
 
     public void testLoadFromPathOrcishArmy() throws IOException {
-        Army fileOrcishHorde = armyFileManager.loadFromPath(new File("OrcishHorde.army"), true);
+        Army fileOrcishHorde = ARMY_FILE_UTIL.loadFromPath(new File("OrcishHorde.army"), true);
         Army templateOrchishHorde = Army.parseArmyTemplate("Orcish Horde", orchishHordeTemplate);
 
         assertEquals(templateOrchishHorde, fileOrcishHorde);
@@ -88,7 +88,7 @@ public class ArmyFileManagerTest extends TestCase {
 
     public void testLoadFromPathThrowsFileNotFoundException() {
         try {
-            armyFileManager.loadFromPath(new File("FileDoesNotExist.army"), true);
+            ARMY_FILE_UTIL.loadFromPath(new File("FileDoesNotExist.army"), true);
             fail("Should throw FileNotFoundException");
         }
         catch (FileNotFoundException e) {
@@ -101,10 +101,10 @@ public class ArmyFileManagerTest extends TestCase {
 
     public void testLoadFromPathThrowsFileFormatExceptionIfUnrecognizedUnitType() {
         try {
-            armyFileManager.loadFromPath(new File("UnrecognizedUnitType.army"), true);
+            ARMY_FILE_UTIL.loadFromPath(new File("UnrecognizedUnitType.army"), true);
             fail("Should throw FileFormatException");
         } catch (FileFormatException e) {
-            assertEquals("One or more fields on line 2 is invalid", e.getMessage());
+            assertEquals("One or more fields on line 2 are invalid: 'Unit type 'NotAUnitType' not found.'", e.getMessage());
         } catch (IOException e) {
             fail("Should throw FileFormatException");
         }
@@ -112,7 +112,7 @@ public class ArmyFileManagerTest extends TestCase {
 
     public void testLoadFromPathThrowsFileFormatExceptionIfTooFewFields() {
         try {
-            armyFileManager.loadFromPath(new File("TooFewFields.army"), true);
+            ARMY_FILE_UTIL.loadFromPath(new File("TooFewFields.army"), true);
             fail("Should throw FileFormatException");
         } catch (FileFormatException e) {
             assertEquals("Too few fields on line 2", e.getMessage());
@@ -123,7 +123,7 @@ public class ArmyFileManagerTest extends TestCase {
 
     public void testLoadFromPathThrowsNumberFormatExceptionIfFieldIsNotInteger() {
         try {
-            armyFileManager.loadFromPath(new File("NonNumberFields.army"), true);
+            ARMY_FILE_UTIL.loadFromPath(new File("NonNumberFields.army"), true);
             fail("Should throw FileFormatException");
         } catch (FileFormatException e) {
             assertEquals("Could not parse integer field on line 3", e.getMessage());
@@ -134,7 +134,7 @@ public class ArmyFileManagerTest extends TestCase {
 
     public void testLoadFromPathThrowsFileFormatExceptionIfFileIsEmpty() {
         try {
-            armyFileManager.loadFromPath(new File("EmptyFile.army"), true);
+            ARMY_FILE_UTIL.loadFromPath(new File("EmptyFile.army"), true);
             fail("The method should throw an exception when trying to read empty file");
         }
         catch (FileFormatException e) {
@@ -146,7 +146,7 @@ public class ArmyFileManagerTest extends TestCase {
     }
 
     public void testLoadFromPathLoadsEmptyArmy() throws IOException {
-        Army fileArmy = armyFileManager.loadFromPath(new File("EmptyArmy.army"), true);
+        Army fileArmy = ARMY_FILE_UTIL.loadFromPath(new File("EmptyArmy.army"), true);
         Army army = new Army("Empty Army");
 
         assertEquals(army, fileArmy);
@@ -156,52 +156,52 @@ public class ArmyFileManagerTest extends TestCase {
         Army army = new Army("Sum Army");
         army.add(new RangedUnit("Range", 20), 20);
 
-        Army fileArmy = armyFileManager.loadFromPath(new File("SumUnitCount.army"), true);
+        Army fileArmy = ARMY_FILE_UTIL.loadFromPath(new File("SumUnitCount.army"), true);
 
         assertEquals(army, fileArmy);
     }
 
     public void testIsValidFilePath() {
-        assertTrue(armyFileManager.isFileAtPathValid(new File("HumanArmy.army"), true));
-        assertTrue(armyFileManager.isFileAtPathValid(new File("OrcishHorde.army"), true));
-        assertTrue(armyFileManager.isFileAtPathValid(new File("EmptyArmy.army"), true));
-        assertFalse(armyFileManager.isFileAtPathValid(new File("FileDoesNotExist.army"), true));
-        assertFalse(armyFileManager.isFileAtPathValid(new File("UnrecognizedUnitType.army"), true));
-        assertFalse(armyFileManager.isFileAtPathValid(new File("TooFewFields.army"), true));
-        assertFalse(armyFileManager.isFileAtPathValid(new File("NonNumberFields.army"), true));
-        assertFalse(armyFileManager.isFileAtPathValid(new File("EmptyFile.army"), true));
+        assertTrue(ARMY_FILE_UTIL.isFileAtPathValid(new File("HumanArmy.army"), true));
+        assertTrue(ARMY_FILE_UTIL.isFileAtPathValid(new File("OrcishHorde.army"), true));
+        assertTrue(ARMY_FILE_UTIL.isFileAtPathValid(new File("EmptyArmy.army"), true));
+        assertFalse(ARMY_FILE_UTIL.isFileAtPathValid(new File("FileDoesNotExist.army"), true));
+        assertFalse(ARMY_FILE_UTIL.isFileAtPathValid(new File("UnrecognizedUnitType.army"), true));
+        assertFalse(ARMY_FILE_UTIL.isFileAtPathValid(new File("TooFewFields.army"), true));
+        assertFalse(ARMY_FILE_UTIL.isFileAtPathValid(new File("NonNumberFields.army"), true));
+        assertFalse(ARMY_FILE_UTIL.isFileAtPathValid(new File("EmptyFile.army"), true));
     }
 
     public void testIsValidFilePathBlankStringFields() {
-        assertTrue(armyFileManager.isFileAtPathValid(new File("BlankFields.army"), true));
+        assertTrue(ARMY_FILE_UTIL.isFileAtPathValid(new File("BlankFields.army"), true));
     }
 
     public void testIsValidFilePathSpacesInFileName() {
-        assertTrue(armyFileManager.isFileAtPathValid(new File("Space In File.army"), true));
+        assertTrue(ARMY_FILE_UTIL.isFileAtPathValid(new File("Space In File.army"), true));
     }
 
     public void testSaveArmyToPath() throws IOException {
         File filePath = new File("src/main/resources/testFiles/SaveFile.army");
         Army army = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
-        armyFileManager.saveArmyToPath(army,  filePath, true);
+        ARMY_FILE_UTIL.saveArmyToPath(army,  filePath, true);
 
-        assertEquals(army, armyFileManager.loadFromPath(filePath));
+        assertEquals(army, ARMY_FILE_UTIL.loadFromPath(filePath));
     }
 
     public void testSaveArmyToPathRelativeToDefaultPath() throws IOException {
         File filePath = new File("SaveFile.army");
         Army army = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
-        armyFileManager.saveArmyToPath(army, filePath, true, true);
+        ARMY_FILE_UTIL.saveArmyToPath(army, filePath, true, true);
 
-        assertEquals(army, armyFileManager.loadFromPath(filePath, true));
+        assertEquals(army, ARMY_FILE_UTIL.loadFromPath(filePath, true));
     }
 
     public void testSaveArmyToPathOrcishHorde() throws IOException {
         File filePath = new File("SaveFile.army");
         Army army = Army.parseArmyTemplate("Orcish Horde", orchishHordeTemplate);
-        armyFileManager.saveArmyToPath(army, filePath, true, true);
+        ARMY_FILE_UTIL.saveArmyToPath(army, filePath, true, true);
 
-        assertEquals(army, armyFileManager.loadFromPath(filePath, true));
+        assertEquals(army, ARMY_FILE_UTIL.loadFromPath(filePath, true));
     }
 
     public void testSaveArmyToPathThrowsFileAlreadyExistsIfOverwriteIsFalse() {
@@ -209,7 +209,7 @@ public class ArmyFileManagerTest extends TestCase {
         Army army = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
 
         try {
-            armyFileManager.saveArmyToPath(army, filePath, false, true);
+            ARMY_FILE_UTIL.saveArmyToPath(army, filePath, false, true);
             fail("Saving to a file that already exists should throw FileAlreadyExistsException");
         }
         catch (FileAlreadyExistsException e) {
@@ -225,8 +225,8 @@ public class ArmyFileManagerTest extends TestCase {
         Army army = Army.parseArmyTemplate("Human Army", humanArmyTemplate);
 
         filePath.delete();
-        armyFileManager.saveArmyToPath(army, filePath, false);
+        ARMY_FILE_UTIL.saveArmyToPath(army, filePath, false);
 
-        assertEquals(army, armyFileManager.loadFromPath(filePath));
+        assertEquals(army, ARMY_FILE_UTIL.loadFromPath(filePath));
     }
 }

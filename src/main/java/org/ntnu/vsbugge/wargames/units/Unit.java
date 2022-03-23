@@ -11,16 +11,24 @@ public abstract class Unit implements Comparable<Unit>{
     private int health;
 
     /**
-     * Constructor for the abstract class
+     * Constructor for the abstract class.
      * @param name Name of the unit
-     * @param health Total health of the unit
+     * @param health Total health of the unit. 0 health encodes a dead unit.
      * @param attack Total Attack-damage of the unit
      * @param armor Total armor of the unit
+     *
+     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
      */
-    public Unit(String name, int health, int attack, int armor) {
+    public Unit(String name, int health, int attack, int armor) throws IllegalArgumentException {
         this.name = name;
+
+        if (health < 0) throw new IllegalArgumentException("Health cannot be negative!");
         this.health = health;
+
+        if (attack < 0) throw new IllegalArgumentException("Attack cannot be negative!");
         this.attack = attack;
+
+        if (armor < 0) throw new IllegalArgumentException("Armor cannot be negative!");
         this.armor = armor;
     }
 
@@ -46,14 +54,14 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * @return The remaining health of the unit. A negative or zero health-value signifies that the unit is dead.
+     * @return The remaining health of the unit. Zero health signifies that the unit is dead.
      */
     public final int getHealth() {
         return health;
     }
 
     /**
-     * @return The attack of teh unit
+     * @return The attack of the unit
      */
     public final int getAttack() {
         return attack;
@@ -70,8 +78,8 @@ public abstract class Unit implements Comparable<Unit>{
      * Makes the unit take damage to health-points. A negative or zero health-value signifies that the unit is dead.
      *
      * <br><br>
-     * This method is included in favor of a setHealth method, to both encapsulate the health attribute and protect
-     * it form being changed in an unforeseen way; and to create an interface that makes it possible to track the
+     * This method is included in favor of a setHealth method; both to protect
+     * it form being changed in an unforeseen way, and to create an interface to make it possible to track the
      * number of times a unit has been attacked without introducing unexpected behaviour (ie incrementing a variable
      * tracking the number of times a unit has taken damage in a setHealth method, or in the getResistBonus method)
      *
@@ -81,10 +89,15 @@ public abstract class Unit implements Comparable<Unit>{
      * that setHealth (which arguably has a name that is more likely to get used if the user is not familiar with the
      * source code) is not used instead of takeDamage when dealing damage to a unit.
      *
-     * @param damage The damage inflicted on the unit
+     * <br><br>
+     * If the amount of damage dealt to this unit is greater than the remaining health, the unit's health wil be set
+     * to 0 instead of a negative number. This indicates that the unit is dead.
+     *
+     * @param damage The damage inflicted on the unit.
      */
     public void takeDamage(int damage) {
-        this.health = health - damage;
+        // No negative health
+        this.health = Integer.max(health - damage, 0);
     }
 
     /**
