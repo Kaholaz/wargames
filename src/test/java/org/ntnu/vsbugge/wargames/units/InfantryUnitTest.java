@@ -1,6 +1,9 @@
 package org.ntnu.vsbugge.wargames.units;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class InfantryUnitTest extends TestCase {
 
@@ -84,9 +87,23 @@ public class InfantryUnitTest extends TestCase {
         assertEquals(InfantryUnit.RESIST_BONUS, test.getResistBonus());
     }
 
+    public void testGetResistBonusTakesForrestTerrainIntoAccount() {
+        InfantryUnit test = new InfantryUnit("Test", 15);
+        test.setTerrain(TerrainEnum.FORREST);
+
+        assertEquals(InfantryUnit.RESIST_BONUS + 2, test.getResistBonus());
+    }
+
     public void testGetAttackBonus() {
         InfantryUnit test = new InfantryUnit("Test", 15);
         assertEquals(InfantryUnit.ATTACK_BONUS, test.getAttackBonus());
+    }
+
+    public void testGetAttackBonusTakesForrestTerrainIntoAccount() {
+        InfantryUnit test = new InfantryUnit("Test", 15);
+        test.setTerrain(TerrainEnum.FORREST);
+
+        assertEquals(InfantryUnit.ATTACK_BONUS + 2, test.getAttackBonus());
     }
 
     public void testCopyIsNotSame() {
@@ -110,6 +127,6 @@ public class InfantryUnitTest extends TestCase {
         InfantryUnit test2 = new InfantryUnit("Test2", 20, 25 ,30);
         InfantryUnit test2Copy = test2.copy();
 
-        assertFalse(test1Copy.equals(test2Copy));
+        assertNotEquals(test1Copy, test2Copy);
     }
 }

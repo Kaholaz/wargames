@@ -1,6 +1,9 @@
 package org.ntnu.vsbugge.wargames.units;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class CavalryUnitTest extends TestCase {
     
@@ -93,9 +96,16 @@ public class CavalryUnitTest extends TestCase {
         assertEquals(CavalryUnit.RESIST_BONUS, test.getResistBonus());
     }
 
+    public void testGetResistBonusTakesForrestTerrainIntoAccount() {
+        CavalryUnit test = new CavalryUnit("Test", 15);
+        test.setTerrain(TerrainEnum.FORREST);
+
+        assertEquals(0, test.getResistBonus());
+    }
+
     public void testGetAttackBonusBeforeUnitHasAttacked() {
         CavalryUnit test = new CavalryUnit("Test", 15);
-        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test.getAttackBonus());
+        assertEquals(CavalryUnit.INITIAL_ATTACK_BONUS, test.getAttackBonus());
     }
 
     public void testGetAttackBonusAfterHasAttacked() {
@@ -103,7 +113,14 @@ public class CavalryUnitTest extends TestCase {
         CavalryUnit rock = new CavalryUnit("Rock", 1000, 0, 1000);
 
         test.attack(rock);
-        assertEquals(CavalryUnit.ATTACK_BONUS, test.getAttackBonus());
+        assertEquals(CavalryUnit.MINIMUM_ATTACK_BONUS, test.getAttackBonus());
+    }
+
+    public void testGetAttackBonusTakesPlainsTerrainIntoAccount() {
+        CavalryUnit test = new CavalryUnit("Test", 15);
+        test.setTerrain(TerrainEnum.PLAINS);
+
+        assertEquals(CavalryUnit.INITIAL_ATTACK_BONUS + 2, test.getAttackBonus());
     }
 
     public void testCopyIsNotSame() {
@@ -127,7 +144,7 @@ public class CavalryUnitTest extends TestCase {
         CavalryUnit test2 = new CavalryUnit("Test2", 20, 25 ,30);
         CavalryUnit test2Copy = test2.copy();
 
-        assertFalse(test1Copy.equals(test2Copy));
+        assertNotEquals(test1Copy, test2Copy);
     }
 
     public void testCopyRetainsStats() {
@@ -137,13 +154,13 @@ public class CavalryUnitTest extends TestCase {
         test.attack(copy);
         copy = test.copy();
 
-        assertEquals(CavalryUnit.ATTACK_BONUS, copy.getAttackBonus());
+        assertEquals(CavalryUnit.MINIMUM_ATTACK_BONUS, copy.getAttackBonus());
     }
 
     public void testResetStatsWhenUnitHasNotAttacked() {
         CavalryUnit test = new CavalryUnit("Test", 100, 10, 5);
         test.resetStats();
-        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test.getAttackBonus());
+        assertEquals(CavalryUnit.INITIAL_ATTACK_BONUS, test.getAttackBonus());
     }
 
     public void testResetStatsWhenUnitHasAttacked() {
@@ -152,7 +169,7 @@ public class CavalryUnitTest extends TestCase {
 
         test.attack(rock);
         test.resetStats();
-        assertEquals(CavalryUnit.FIRST_ATTACK_BONUS, test.getAttackBonus());
+        assertEquals(CavalryUnit.INITIAL_ATTACK_BONUS, test.getAttackBonus());
     }
 
     public void testEqualsReturnsFalseWhenUnitsHaveAttackedDifferentAmountOfTimes(){
@@ -161,7 +178,7 @@ public class CavalryUnitTest extends TestCase {
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         copy.attack(punchingBag);
-        assertFalse(test.equals(copy));
+        assertNotEquals(test, copy);
     }
 
     public void testEqualsReturnsTrueWhenUnitsHaveAttackedTheSameAmountOfTimes() {

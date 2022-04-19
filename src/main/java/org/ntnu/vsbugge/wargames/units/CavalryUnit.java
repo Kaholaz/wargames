@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+
 /**
  * A class that represent a single cavalry unit
  */
@@ -69,8 +71,14 @@ public class CavalryUnit extends Unit {
         numberOfTimesAttacked = 0;
     }
 
+    /**
+     * @return The resist bonus of the unit. If the terrain of the unit is TerrainEnum.FORREST, the resist bonus is 0.
+     */
     @Override
     public int getResistBonus() {
+        if (getTerrain() == TerrainEnum.FORREST) {
+            return 0;
+        }
         return RESIST_BONUS;
     }
 
@@ -79,10 +87,16 @@ public class CavalryUnit extends Unit {
      * this returns the value of the private constant INITIAL_ATTACK_BONUS. Each time this unit attacks,
      * An attack value equal to ATTACK_BONUS_PENALTY is subtracted each time this unit attacks to a minimum of
      * MINIMUM_ATTACK_BONUS.
+     *
+     * If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
      * @return The attack bonus of the unit.
      */
     @Override
     public int getAttackBonus() {
-        return Integer.max(MINIMUM_ATTACK_BONUS, INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
+        int attackBonus = Integer.max(MINIMUM_ATTACK_BONUS, INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
+        return switch (getTerrain()) {
+            case PLAINS -> attackBonus + 2;
+            default -> attackBonus;
+        };
     }
 }

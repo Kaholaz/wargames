@@ -91,8 +91,16 @@ public class RangedUnit extends Unit{
     }
 
 
+    /**
+     * @return The attack bonus of the unit. If the terrain of the unit is TerrainEnum.HILL, the unit is given a bonus
+     *         of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is given a penalty of 2.
+     */
     @Override
     public int getAttackBonus() {
-        return ATTACK_BONUS;
+        return switch (getTerrain()) {
+            case HILL -> ATTACK_BONUS + 3;
+            case FORREST -> ATTACK_BONUS -2;
+            default -> ATTACK_BONUS;
+        };
     }
 }

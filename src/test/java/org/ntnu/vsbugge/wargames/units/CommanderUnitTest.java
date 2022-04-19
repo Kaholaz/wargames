@@ -2,6 +2,8 @@ package org.ntnu.vsbugge.wargames.units;
 
 import junit.framework.TestCase;
 
+import static org.junit.Assert.assertNotEquals;
+
 public class CommanderUnitTest extends TestCase {
 
     public void testAttack() {
@@ -89,7 +91,7 @@ public class CommanderUnitTest extends TestCase {
         CommanderUnit test2 = new CommanderUnit("Test2", 20, 25 ,30);
         CommanderUnit test2Copy = test2.copy();
 
-        assertFalse(test1Copy.equals(test2Copy));
+        assertNotEquals(test1Copy, test2Copy);
     }
 
     public void testCopyRetainsStats() {
@@ -99,14 +101,14 @@ public class CommanderUnitTest extends TestCase {
         test.attack(copy);
         copy = test.copy();
 
-        assertEquals(CommanderUnit.ATTACK_BONUS, copy.getAttackBonus());
+        assertEquals(CommanderUnit.MINIMUM_ATTACK_BONUS, copy.getAttackBonus());
     }
 
     public void testEqualsCommanderUnitIsNotEqualToCavalryUnit() {
         CommanderUnit test1 = new CommanderUnit("Test", 100, 10 ,5);
         CavalryUnit test2 = new CavalryUnit("Test", 100, 10,5); // same stats as test1
 
-        assertFalse(test1.equals(test2));
+        assertNotEquals(test1, test2);
     }
 
     public void testHashCodesDifferentForCommanderUnitAndCavalryUnit() {

@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+
 import java.util.Objects;
 
 /**
@@ -9,6 +11,7 @@ public abstract class Unit implements Comparable<Unit>{
     private final String name;
     private final int attack, armor;
     private int health;
+    private TerrainEnum terrain = TerrainEnum.DEFAULT;
 
     /**
      * Constructor for the abstract class.
@@ -72,6 +75,21 @@ public abstract class Unit implements Comparable<Unit>{
      */
     public final int getArmor() {
         return armor;
+    }
+
+    /**
+     * @return The current terrain of the unit.
+     */
+    public TerrainEnum getTerrain() {
+        return terrain;
+    }
+
+    /**
+     * Sets the current terrain of the unit.
+     * @param terrain The new terrain of the unit.
+     */
+    public void setTerrain(TerrainEnum terrain) {
+        this.terrain = terrain;
     }
 
     /**

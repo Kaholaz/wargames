@@ -55,13 +55,25 @@ public class InfantryUnit extends Unit{
     @Override
     public void resetStats() {}
 
+    /**
+     * @return The resist bonus of the unit. If the unit is fighting in a forrest, the unit is given a bonus of 2.
+     */
     @Override
     public int getResistBonus() {
-        return RESIST_BONUS;
+        return switch (getTerrain()) {
+            case FORREST -> RESIST_BONUS + 2;
+            default -> RESIST_BONUS;
+        };
     }
 
+    /**
+     * @return The attack bonus of the unit. If the unit is fighting in a forrest, the unit is given a bonus of 2.
+     */
     @Override
     public int getAttackBonus() {
-        return ATTACK_BONUS;
+        return switch (getTerrain()) {
+            case FORREST -> ATTACK_BONUS + 2;
+            default -> ATTACK_BONUS;
+        };
     }
 }

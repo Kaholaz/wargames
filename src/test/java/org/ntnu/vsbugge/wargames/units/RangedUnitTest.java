@@ -1,6 +1,10 @@
 package org.ntnu.vsbugge.wargames.units;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+import org.w3c.dom.ranges.Range;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class RangedUnitTest extends TestCase {
 
@@ -128,6 +132,20 @@ public class RangedUnitTest extends TestCase {
         assertEquals(RangedUnit.ATTACK_BONUS, test.getAttackBonus());
     }
 
+    public void testGetAttackBonusTakesHillTerrainIntoAccount() {
+        RangedUnit test = new RangedUnit("Test", 15);
+
+        test.setTerrain(TerrainEnum.HILL);
+        assertEquals(RangedUnit.ATTACK_BONUS + 3, test.getAttackBonus());
+    }
+
+    public void testGetAttackBonusTakesForrestTerrainIntoAccount() {
+        RangedUnit test = new RangedUnit("Test", 15);
+
+        test.setTerrain(TerrainEnum.FORREST);
+        assertEquals(RangedUnit.ATTACK_BONUS - 2, test.getAttackBonus());
+    }
+
     public void testCopyIsNotSame() {
         RangedUnit test = new RangedUnit("Test", 15, 10 ,5);
         RangedUnit copy =  test.copy();
@@ -149,7 +167,7 @@ public class RangedUnitTest extends TestCase {
         RangedUnit test2 = new RangedUnit("Test2", 20, 25 ,30);
         RangedUnit test2Copy =  test2.copy();
 
-        assertFalse(test1Copy.equals(test2Copy));
+        assertNotEquals(test1Copy, test2Copy);
     }
 
     public void testCopyRetainsStatsWhenUnitHasNotBeenAttacked() {
@@ -197,7 +215,7 @@ public class RangedUnitTest extends TestCase {
 
         copy.takeDamage(0);
 
-        assertFalse(test.equals(copy));
+        assertNotEquals(test, copy);
     }
 
     public void testHashCodeReturnsSameHashCodeWhenTheUnitHasBeenAttackedTheSameAmountOfTimes() {
@@ -231,7 +249,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testCompareToReturnsNonZeroForUnitsThatHasNotBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         test.takeDamage(0);
 
