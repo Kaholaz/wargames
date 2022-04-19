@@ -1,44 +1,52 @@
 package org.ntnu.vsbugge.wargames.factories;
 
+import org.ntnu.vsbugge.wargames.enums.UnitEnum;
 import org.ntnu.vsbugge.wargames.units.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UnitFactory {
 
     /**
-     * Creates a new Unit instance according to the given unit type
+     * Creates a new Unit instance according to the given unit type.
+     * To add support for new units, the Unit will need to be added to the UnitEnum enum.
      * @param unitType The name of the type of the Unit. This name must be a name of a subclass of the Unit class.
      * @param name The name of the unit.
      * @param health The health of the unit.
      * @return A unit created by the given parameters. The unit is created using the constructor of the subclass with
      *         the name that matches the supplied unitType.
+     * @throws IllegalArgumentException Throws an exception if the name of the class could not be found in UnitEnum.
+     * @throws IllegalStateException Throws an exception if the unit could not be constructed.
      */
     public Unit getUnit(String unitType, String name, int health) {
-        return switch (unitType) {
-            case "CavalryUnit" -> new CavalryUnit(name, health);
-            case "CommanderUnit" -> new CommanderUnit(name, health);
-            case "InfantryUnit" -> new InfantryUnit(name, health);
-            case "RangedUnit" -> new RangedUnit(name, health);
-            default -> throw new IllegalArgumentException(String.format("Unit type '%s' not found.", unitType));
-        };
+        // Reflection and the enum is used to make the application more scalable and expandable.
+        UnitEnum unit = UnitEnum.fromString(unitType);
+        try {
+            return unit.getUnitClass().getConstructor(String.class, int.class).newInstance(name, health);
+        }
+        catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Something wrong happened at unit construction!");
+        }
     }
 
     /**
-     * Creates a new Unit instance according to the given unit type
+     * Creates a new list of copies of a Unit according to the given unit type and parameters.
+     * To add support for new units, the Unit will need to be added to the UnitEnum enum.
      * @param unitType The name of the type of the Unit. This name must be a name of a subclass of the Unit class.
      * @param name The name of the unit.
      * @param health The health of the unit.
-     * @param attack The attack of the unit.
-     * @param armor The armor of the unit.
-     * @return A unit created by the given parameters. The unit is created using the constructor of the subclass with
-     *         the name that matches the supplied unitType.
+     * @param count How many copies of the unit in the list.
+     * @return A list of identical units created by the given parameters. The unit is created using the constructor of
+     *         the subclass of Unit with a name that matches the supplied unitType.
      */
-    public Unit getUnit(String unitType, String name, int health, int attack, int armor) {
-        return switch (unitType) {
-            case "CavalryUnit" -> new CavalryUnit(name, health, attack, armor);
-            case "CommanderUnit" -> new CommanderUnit(name, health, attack, armor);
-            case "InfantryUnit" -> new InfantryUnit(name, health, attack, armor);
-            case "RangedUnit" -> new RangedUnit(name, health, attack, armor);
-            default -> throw new IllegalArgumentException(String.format("Unit type '%s' not found.", unitType));
-        };
+    public List<Unit> getUnits(String unitType, String name, int health, int count) {
+        Unit unit = getUnit(unitType, name, health);
+        ArrayList<Unit> units = new ArrayList<>(count);
+        for (int i = 0; i < count; ++i) {
+            units.add(unit.copy());
+        }
+        return units;
     }
 }
