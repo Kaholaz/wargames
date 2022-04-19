@@ -20,7 +20,7 @@ public class UnitFactory {
      * @throws IllegalArgumentException Throws an exception if the name of the class could not be found in UnitEnum.
      * @throws IllegalStateException Throws an exception if the unit could not be constructed.
      */
-    public Unit getUnit(String unitType, String name, int health) {
+    public static Unit getUnit(String unitType, String name, int health) {
         // Reflection and the enum is used to make the application more scalable and expandable.
         UnitEnum unit = UnitEnum.fromString(unitType);
         try {
@@ -41,7 +41,7 @@ public class UnitFactory {
      * @return A list of identical units created by the given parameters. The unit is created using the constructor of
      *         the subclass of Unit with a name that matches the supplied unitType.
      */
-    public List<Unit> getUnits(String unitType, String name, int health, int count) {
+    public static List<Unit> getUnits(String unitType, String name, int health, int count) {
         Unit unit = getUnit(unitType, name, health);
         ArrayList<Unit> units = new ArrayList<>(count);
         for (int i = 0; i < count; ++i) {

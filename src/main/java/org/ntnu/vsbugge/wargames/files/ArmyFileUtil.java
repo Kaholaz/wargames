@@ -47,9 +47,8 @@ public class ArmyFileUtil {
             int health = Integer.parseInt(s_fields[2]);
             Integer count = Integer.parseInt(s_fields[3]);
 
-            UnitFactory unitFactory = new UnitFactory();
             // Throws IllegalArgumentException ----------V
-            return new AbstractMap.SimpleEntry<>(unitFactory.getUnit(unitName, name, health), count);
+            return new AbstractMap.SimpleEntry<>(UnitFactory.getUnit(unitName, name, health), count);
         }
         catch (IndexOutOfBoundsException e) {
             throw new FileFormatException(String.format("Too few fields on line %d", lineNr));
