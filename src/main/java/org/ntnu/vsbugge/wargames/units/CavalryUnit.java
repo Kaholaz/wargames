@@ -5,9 +5,11 @@ package org.ntnu.vsbugge.wargames.units;
  */
 public class CavalryUnit extends Unit {
     protected static final int RESIST_BONUS = 1;
-    protected static final int ATTACK_BONUS = 2; // The general attack bonus
-    protected static final int FIRST_ATTACK_BONUS = 6; // The attack bonus for the first strike
-    protected boolean hasAttacked = false;
+
+    protected static final int INITIAL_ATTACK_BONUS = 6; // The initial attack bonus.
+    protected static final int ATTACK_BONUS_PENALTY = 4; // A penalty that is applied each time this unit attacks.
+    protected static final int MINIMUM_ATTACK_BONUS = 2; // The minimum attack bonus.
+    protected int numberOfTimesAttacked;
 
     protected static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
 
@@ -47,14 +49,14 @@ public class CavalryUnit extends Unit {
                 cavalryUnit.getAttack(),
                 cavalryUnit.getArmor()
         );
-        this.hasAttacked = cavalryUnit.hasAttacked;
+        this.numberOfTimesAttacked = cavalryUnit.numberOfTimesAttacked;
     }
 
 
     @Override
     public void attack(Unit opponent) {
         super.attack(opponent);
-        hasAttacked = true;
+        ++numberOfTimesAttacked;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class CavalryUnit extends Unit {
 
     @Override
     public void resetStats() {
-        hasAttacked = false;
+        numberOfTimesAttacked = 0;
     }
 
     @Override
@@ -74,15 +76,13 @@ public class CavalryUnit extends Unit {
 
     /**
      * Calculates the attack bonus of the unit. If the unit has not attacked,
-     * this returns the value of the private constant FIRST_ATTACK_BONUS. If the unit already has attacked,
-     * the value of the private constant ATTACK_BONUS is returned instead.
-     * @return The attack bonus of the unit
+     * this returns the value of the private constant INITIAL_ATTACK_BONUS. Each time this unit attacks,
+     * An attack value equal to ATTACK_BONUS_PENALTY is subtracted each time this unit attacks to a minimum of
+     * MINIMUM_ATTACK_BONUS.
+     * @return The attack bonus of the unit.
      */
     @Override
     public int getAttackBonus() {
-        if (!hasAttacked) {
-            return FIRST_ATTACK_BONUS;
-        }
-        return ATTACK_BONUS;
+        return Integer.max(MINIMUM_ATTACK_BONUS, INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
     }
 }

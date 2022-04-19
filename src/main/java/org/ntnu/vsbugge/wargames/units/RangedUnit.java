@@ -10,7 +10,7 @@ public class RangedUnit extends Unit{
     protected static final int RESIST_BONUS_PENALTY = 2; // Penalty in resist bonus per time this unit has taken damage
     protected static final int MINIMUM_RESIST_BONUS = 2; // Minimum resist bonus
 
-    private int timesTakenDamage = 0;
+    private int numberOfTimesTakenDamage = 0;
 
     protected static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 8;
 
@@ -50,7 +50,7 @@ public class RangedUnit extends Unit{
                 rangedUnit.getAttack(),
                 rangedUnit.getArmor()
         );
-        this.timesTakenDamage = rangedUnit.timesTakenDamage;
+        this.numberOfTimesTakenDamage = rangedUnit.numberOfTimesTakenDamage;
     }
 
     /**
@@ -62,7 +62,7 @@ public class RangedUnit extends Unit{
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        timesTakenDamage += 1;
+        numberOfTimesTakenDamage += 1;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class RangedUnit extends Unit{
 
     @Override
     public void resetStats() {
-        timesTakenDamage = 0;
+        numberOfTimesTakenDamage = 0;
     }
 
     /**
@@ -86,7 +86,7 @@ public class RangedUnit extends Unit{
      */
     @Override
     public int getResistBonus() {
-        int calculatedResistBonus = INITIAL_RESIST_BONUS - timesTakenDamage * RESIST_BONUS_PENALTY;
+        int calculatedResistBonus = INITIAL_RESIST_BONUS - numberOfTimesTakenDamage * RESIST_BONUS_PENALTY;
         return Integer.max(calculatedResistBonus, MINIMUM_RESIST_BONUS);
     }
 

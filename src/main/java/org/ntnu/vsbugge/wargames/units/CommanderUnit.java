@@ -44,7 +44,7 @@ public class CommanderUnit extends CavalryUnit{
                 commanderUnit.getAttack(),
                 commanderUnit.getArmor()
         );
-        this.hasAttacked = commanderUnit.hasAttacked;
+        this.numberOfTimesAttacked = commanderUnit.numberOfTimesAttacked;
     }
 
     @Override
