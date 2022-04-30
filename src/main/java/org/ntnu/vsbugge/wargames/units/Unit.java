@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * An abstract class for all units
  */
-public abstract class Unit implements Comparable<Unit>{
+public abstract class Unit implements Comparable<Unit> {
     private final String name;
     private final int attack, armor;
     private int health;
@@ -15,39 +15,50 @@ public abstract class Unit implements Comparable<Unit>{
 
     /**
      * Constructor for the abstract class.
-     * @param name Name of the unit
-     * @param health Total health of the unit. 0 health encodes a dead unit.
-     * @param attack Total Attack-damage of the unit
-     * @param armor Total armor of the unit
      *
-     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
+     * @param name
+     *            Name of the unit
+     * @param health
+     *            Total health of the unit. 0 health encodes a dead unit.
+     * @param attack
+     *            Total Attack-damage of the unit
+     * @param armor
+     *            Total armor of the unit
+     *
+     * @throws IllegalArgumentException
+     *             Throws an exception if either health, attack, or armor is negative.
      */
     public Unit(String name, int health, int attack, int armor) throws IllegalArgumentException {
         this.name = name;
 
-        if (health < 0) throw new IllegalArgumentException("Health cannot be negative!");
+        if (health < 0)
+            throw new IllegalArgumentException("Health cannot be negative!");
         this.health = health;
 
-        if (attack < 0) throw new IllegalArgumentException("Attack cannot be negative!");
+        if (attack < 0)
+            throw new IllegalArgumentException("Attack cannot be negative!");
         this.attack = attack;
 
-        if (armor < 0) throw new IllegalArgumentException("Armor cannot be negative!");
+        if (armor < 0)
+            throw new IllegalArgumentException("Armor cannot be negative!");
         this.armor = armor;
     }
 
     /**
      * Simulates an engagement and deals damage to the opponent according to the stats of the unit and the opponent
      *
-     * <br><br>
+     * <br>
+     * <br>
      * Total damage is calculated by this formula: <br>
      * {@code ((this.getAttack() + this.getAttackBonus()) - (opponent.getArmor() + opponent.getResistBonus())}
-     * @param opponent The opposing unit in the engagement
+     *
+     * @param opponent
+     *            The opposing unit in the engagement
      */
     public void attack(Unit opponent) {
         int damage = (this.getAttack() + this.getAttackBonus()) - (opponent.getArmor() + opponent.getResistBonus());
         opponent.takeDamage(Integer.max(damage, 0)); // no negative damage
     }
-
 
     /**
      * @return The name of the unit
@@ -86,7 +97,9 @@ public abstract class Unit implements Comparable<Unit>{
 
     /**
      * Sets the current terrain of the unit.
-     * @param terrain The new terrain of the unit.
+     *
+     * @param terrain
+     *            The new terrain of the unit.
      */
     public void setTerrain(TerrainEnum terrain) {
         this.terrain = terrain;
@@ -95,23 +108,27 @@ public abstract class Unit implements Comparable<Unit>{
     /**
      * Makes the unit take damage to health-points. A negative or zero health-value signifies that the unit is dead.
      *
-     * <br><br>
-     * This method is included in favor of a setHealth method; both to protect
-     * it form being changed in an unforeseen way, and to create an interface to make it possible to track the
-     * number of times a unit has been attacked without introducing unexpected behaviour (ie incrementing a variable
-     * tracking the number of times a unit has taken damage in a setHealth method, or in the getResistBonus method)
+     * <br>
+     * <br>
+     * This method is included in favor of a setHealth method; both to protect it form being changed in an unforeseen
+     * way, and to create an interface to make it possible to track the number of times a unit has been attacked without
+     * introducing unexpected behaviour (ie incrementing a variable tracking the number of times a unit has taken damage
+     * in a setHealth method, or in the getResistBonus method)
      *
-     * <br><br>
+     * <br>
+     * <br>
      * If there exists a need to change the health of a unit in other ways (ie healing or resetting health), other
      * methods should be added to deal with these actions instead of implementing a setHealth method. This is to ensure
      * that setHealth (which arguably has a name that is more likely to get used if the user is not familiar with the
      * source code) is not used instead of takeDamage when dealing damage to a unit.
      *
-     * <br><br>
-     * If the amount of damage dealt to this unit is greater than the remaining health, the unit's health wil be set
-     * to 0 instead of a negative number. This indicates that the unit is dead.
+     * <br>
+     * <br>
+     * If the amount of damage dealt to this unit is greater than the remaining health, the unit's health wil be set to
+     * 0 instead of a negative number. This indicates that the unit is dead.
      *
-     * @param damage The damage inflicted on the unit.
+     * @param damage
+     *            The damage inflicted on the unit.
      */
     public void takeDamage(int damage) {
         // No negative health
@@ -119,41 +136,44 @@ public abstract class Unit implements Comparable<Unit>{
     }
 
     /**
-     * This method should be used for debugging purposes only. {@code WargamesCLI.unitToSimpleString(Unit unit)}
-     * should be used to create a human-readable representation of a unit, ready to be printed to console.
+     * This method should be used for debugging purposes only. {@code WargamesCLI.unitToSimpleString(Unit unit)} should
+     * be used to create a human-readable representation of a unit, ready to be printed to console.
+     *
      * @return A string representation of an instance (used for debugging)
      */
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "{" +
-                "name='" + name + '\'' +
-                ", health=" + health +
-                ", attack=" + attack +
-                ", armor=" + armor +
-                '}';
+        return this.getClass().getSimpleName() + "{" + "name='" + name + '\'' + ", health=" + health + ", attack="
+                + attack + ", armor=" + armor + '}';
     }
 
     /**
-     * Check if a Unit equals another instance of Unit.
-     * This does not take into account subclass specific traits such as
+     * Check if a Unit equals another instance of Unit. This does not take into account subclass specific traits such as
      * number of times attacked, or how many times the unit has been attacked.
      *
-     * <br><br>
+     * <br>
+     * <br>
      * If a subclass has specific traits. These should be compared in using a subclass-specific .equals
-     * @param o The object to compare to.
+     *
+     * @param o
+     *            The object to compare to.
+     *
      * @return True if the objects are equal, false if not.
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Unit unit = (Unit) o;
-        return attack == unit.attack && armor == unit.armor && health == unit.health && name.equals(unit.name) &&
-                getAttackBonus() == unit.getAttackBonus() && getResistBonus() == unit.getResistBonus();
+        return attack == unit.attack && armor == unit.armor && health == unit.health && name.equals(unit.name)
+                && getAttackBonus() == unit.getAttackBonus() && getResistBonus() == unit.getResistBonus();
     }
 
     /**
      * This method hashes name, attack, armor, health, and class name
+     *
      * @return The hashcode of the Unit.
      */
     @Override
@@ -164,21 +184,24 @@ public abstract class Unit implements Comparable<Unit>{
     /**
      * Compares two units according to the specification of Comparable.compareTo()
      *
-     * <br><br>
+     * <br>
+     * <br>
      * This is the order of the comparisons:
      * <ol>
-     *   <li>Class name (lexically ascending)</li>
-     *   <li>Given name (lexically ascending)</li>
-     *   <li>Attack (ascending)</li>
-     *   <li>Armor (ascending)</li>
-     *   <li>Health (ascending)</li>
-     *   <li>Attack Bonus (descending)</li>
-     *   <li>Resist Bonus (descending)</li>
+     * <li>Class name (lexically ascending)</li>
+     * <li>Given name (lexically ascending)</li>
+     * <li>Attack (ascending)</li>
+     * <li>Armor (ascending)</li>
+     * <li>Health (ascending)</li>
+     * <li>Attack Bonus (descending)</li>
+     * <li>Resist Bonus (descending)</li>
      * </ol>
      *
-     * @param other The Unit to compare to
-     * @return A value less than 0 if this is deemed less than other, 0 if the objects are equivalent,
-     * and a value more than 0 if other is deemed greater than 0
+     * @param other
+     *            The Unit to compare to
+     *
+     * @return A value less than 0 if this is deemed less than other, 0 if the objects are equivalent, and a value more
+     *         than 0 if other is deemed greater than 0
      */
     @Override
     public int compareTo(Unit other) {

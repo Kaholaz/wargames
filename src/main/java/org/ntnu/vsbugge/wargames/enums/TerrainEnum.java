@@ -7,7 +7,5 @@ package org.ntnu.vsbugge.wargames.enums;
  */
 public enum TerrainEnum {
     DEFAULT, // Default indicates no terrain considerations
-    HILL,
-    PLAINS,
-    FORREST
+    HILL, PLAINS, FORREST
 }

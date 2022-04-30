@@ -3,7 +3,7 @@ package org.ntnu.vsbugge.wargames.units;
 /**
  * A class that represent a single ranged unit
  */
-public class RangedUnit extends Unit{
+public class RangedUnit extends Unit {
     protected static final int ATTACK_BONUS = 3;
 
     protected static final int INITIAL_RESIST_BONUS = 6; // Initial resist bonus
@@ -16,10 +16,14 @@ public class RangedUnit extends Unit{
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)
-     * @param name The name of the unit
-     * @param health Total health of the unit
      *
-     * @throws IllegalArgumentException Throws an exception if either health is negative.
+     * @param name
+     *            The name of the unit
+     * @param health
+     *            Total health of the unit
+     *
+     * @throws IllegalArgumentException
+     *             Throws an exception if either health is negative.
      */
     public RangedUnit(String name, int health) {
         this(name, health, DEFAULT_ATTACK, DEFAULT_ARMOR);
@@ -27,12 +31,18 @@ public class RangedUnit extends Unit{
 
     /**
      * Calls the Unit constructor function
-     * @param name Name of the unit
-     * @param health Total health of the unit
-     * @param attack Total Attack-damage of the unit
-     * @param armor Total armor of the unit
      *
-     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
+     * @param name
+     *            Name of the unit
+     * @param health
+     *            Total health of the unit
+     * @param attack
+     *            Total Attack-damage of the unit
+     * @param armor
+     *            Total armor of the unit
+     *
+     * @throws IllegalArgumentException
+     *             Throws an exception if either health, attack, or armor is negative.
      */
     public RangedUnit(String name, int health, int attack, int armor) {
         super(name, health, attack, armor);
@@ -41,23 +51,21 @@ public class RangedUnit extends Unit{
     /**
      * Takes an existing RangedUnit instance and creates a new instance with the same attributes.
      *
-     * @param rangedUnit An instance of RangedUnit
+     * @param rangedUnit
+     *            An instance of RangedUnit
      */
     public RangedUnit(RangedUnit rangedUnit) {
-        this(
-                rangedUnit.getName(),
-                rangedUnit.getHealth(),
-                rangedUnit.getAttack(),
-                rangedUnit.getArmor()
-        );
+        this(rangedUnit.getName(), rangedUnit.getHealth(), rangedUnit.getAttack(), rangedUnit.getArmor());
         this.numberOfTimesTakenDamage = rangedUnit.numberOfTimesTakenDamage;
     }
 
     /**
      * When this method is called, {@code super.takeDamage} is first called, then the private field
-     * {@code timesTakenDamage} is incremented by one. This is important for the calculation of resist bonus,
-     * which is variable depending on the number of times the unit has taken damage.
-     * @param damage The damage inflicted on the unit
+     * {@code timesTakenDamage} is incremented by one. This is important for the calculation of resist bonus, which is
+     * variable depending on the number of times the unit has taken damage.
+     *
+     * @param damage
+     *            The damage inflicted on the unit
      */
     @Override
     public void takeDamage(int damage) {
@@ -78,10 +86,12 @@ public class RangedUnit extends Unit{
     /**
      * Calculates the resist bonus of this unit.
      *
-     * <br><br>
+     * <br>
+     * <br>
      * This is the formula used: {@code INITIAL_RESIST_BONUS - timesTakenDamage * RESIST_BONUS_PENALTY}<br>
-     * The resist bonus is first set to an initial value. After each time this unit takes damage, the resist bonus
-     * is lowered by a set amount until the minimum resist bonus is reached.
+     * The resist bonus is first set to an initial value. After each time this unit takes damage, the resist bonus is
+     * lowered by a set amount until the minimum resist bonus is reached.
+     *
      * @return The resist bonus of the unit
      */
     @Override
@@ -90,7 +100,6 @@ public class RangedUnit extends Unit{
         return Integer.max(calculatedResistBonus, MINIMUM_RESIST_BONUS);
     }
 
-
     /**
      * @return The attack bonus of the unit. If the terrain of the unit is TerrainEnum.HILL, the unit is given a bonus
      *         of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is given a penalty of 2.
@@ -98,9 +107,9 @@ public class RangedUnit extends Unit{
     @Override
     public int getAttackBonus() {
         return switch (getTerrain()) {
-            case HILL -> ATTACK_BONUS + 3;
-            case FORREST -> ATTACK_BONUS -2;
-            default -> ATTACK_BONUS;
+        case HILL -> ATTACK_BONUS + 3;
+        case FORREST -> ATTACK_BONUS - 2;
+        default -> ATTACK_BONUS;
         };
     }
 }

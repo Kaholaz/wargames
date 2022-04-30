@@ -17,10 +17,14 @@ public class CavalryUnit extends Unit {
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)
-     * @param name The name of the unit
-     * @param health Total health of the unit
      *
-     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
+     * @param name
+     *            The name of the unit
+     * @param health
+     *            Total health of the unit
+     *
+     * @throws IllegalArgumentException
+     *             Throws an exception if either health, attack, or armor is negative.
      */
     public CavalryUnit(String name, int health) {
         this(name, health, DEFAULT_ATTACK, DEFAULT_ARMOR);
@@ -28,12 +32,18 @@ public class CavalryUnit extends Unit {
 
     /**
      * Calls the Unit constructor function
-     * @param name Name of the unit
-     * @param health Total health of the unit
-     * @param attack Total Attack-damage of the unit
-     * @param armor Total armor of the unit
      *
-     * @throws IllegalArgumentException Throws an exception if either health, attack, or armor is negative.
+     * @param name
+     *            Name of the unit
+     * @param health
+     *            Total health of the unit
+     * @param attack
+     *            Total Attack-damage of the unit
+     * @param armor
+     *            Total armor of the unit
+     *
+     * @throws IllegalArgumentException
+     *             Throws an exception if either health, attack, or armor is negative.
      */
     public CavalryUnit(String name, int health, int attack, int armor) {
         super(name, health, attack, armor);
@@ -42,18 +52,13 @@ public class CavalryUnit extends Unit {
     /**
      * Takes an existing CavalryUnit instance and creates a new instance with the same attributes.
      *
-     * @param cavalryUnit An instance of CavalryUnit
+     * @param cavalryUnit
+     *            An instance of CavalryUnit
      */
     public CavalryUnit(CavalryUnit cavalryUnit) {
-        this(
-                cavalryUnit.getName(),
-                cavalryUnit.getHealth(),
-                cavalryUnit.getAttack(),
-                cavalryUnit.getArmor()
-        );
+        this(cavalryUnit.getName(), cavalryUnit.getHealth(), cavalryUnit.getAttack(), cavalryUnit.getArmor());
         this.numberOfTimesAttacked = cavalryUnit.numberOfTimesAttacked;
     }
-
 
     @Override
     public void attack(Unit opponent) {
@@ -83,20 +88,21 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * Calculates the attack bonus of the unit. If the unit has not attacked,
-     * this returns the value of the private constant INITIAL_ATTACK_BONUS. Each time this unit attacks,
-     * An attack value equal to ATTACK_BONUS_PENALTY is subtracted each time this unit attacks to a minimum of
-     * MINIMUM_ATTACK_BONUS.
+     * Calculates the attack bonus of the unit. If the unit has not attacked, this returns the value of the private
+     * constant INITIAL_ATTACK_BONUS. Each time this unit attacks, An attack value equal to ATTACK_BONUS_PENALTY is
+     * subtracted each time this unit attacks to a minimum of MINIMUM_ATTACK_BONUS.
      *
      * If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
+     *
      * @return The attack bonus of the unit.
      */
     @Override
     public int getAttackBonus() {
-        int attackBonus = Integer.max(MINIMUM_ATTACK_BONUS, INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
+        int attackBonus = Integer.max(MINIMUM_ATTACK_BONUS,
+                INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
         return switch (getTerrain()) {
-            case PLAINS -> attackBonus + 2;
-            default -> attackBonus;
+        case PLAINS -> attackBonus + 2;
+        default -> attackBonus;
         };
     }
 }

@@ -121,10 +121,10 @@ public class InfantryUnitTest extends TestCase {
     }
 
     public void testCopyDifferentUnitsAreNotEqual() {
-        InfantryUnit test1 = new InfantryUnit("Test1", 15, 10 ,5);
+        InfantryUnit test1 = new InfantryUnit("Test1", 15, 10, 5);
         InfantryUnit test1Copy = test1.copy();
 
-        InfantryUnit test2 = new InfantryUnit("Test2", 20, 25 ,30);
+        InfantryUnit test2 = new InfantryUnit("Test2", 20, 25, 30);
         InfantryUnit test2Copy = test2.copy();
 
         assertNotEquals(test1Copy, test2Copy);

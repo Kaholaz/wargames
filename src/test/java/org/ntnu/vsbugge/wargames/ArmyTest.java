@@ -42,11 +42,9 @@ public class ArmyTest extends TestCase {
         try {
             army.add(new InfantryUnit("Test Unit", 0));
             fail("Adding a dead unit should throw an exception");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Cannot add a dead unit (A unit with 0 health) to a unit.", e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("Adding a dead unit should throw IllegalArgumentException");
         }
     }
@@ -58,7 +56,7 @@ public class ArmyTest extends TestCase {
 
         // Check count and equals
         assertEquals(5, testObj.getAllUnits().size());
-        for(Unit unit : testObj.getAllUnits()) {
+        for (Unit unit : testObj.getAllUnits()) {
             assertEquals(test, unit);
         }
     }
@@ -68,11 +66,9 @@ public class ArmyTest extends TestCase {
         try {
             army.add(new InfantryUnit("Test Unit", 0), 3);
             fail("Adding a dead unit should throw an exception");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertEquals("Cannot add a dead unit (A unit with 0 health) to a unit.", e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("Adding a dead unit should throw IllegalArgumentException");
         }
     }
@@ -138,7 +134,7 @@ public class ArmyTest extends TestCase {
         assertFalse(testArmy.hasUnits());
     }
 
-    public void testRemoveUniqueRangedUnit(){
+    public void testRemoveUniqueRangedUnit() {
         RangedUnit test = new RangedUnit("Test", 100);
         Army testArmy = new Army("TestArmy");
 

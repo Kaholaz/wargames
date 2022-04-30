@@ -100,14 +100,17 @@ public class RangedUnitTest extends TestCase {
     public void testGetResistBonusAfterTakingDamageTwice() {
         RangedUnit test = new RangedUnit("Test", 15);
 
-        test.takeDamage(2);test.takeDamage(2);
+        test.takeDamage(2);
+        test.takeDamage(2);
         assertEquals(RangedUnit.INITIAL_RESIST_BONUS - 2 * RangedUnit.RESIST_BONUS_PENALTY, test.getResistBonus());
     }
 
     public void testGetResistBonusAfterTakingDamageThrice() {
         RangedUnit test = new RangedUnit("Test", 15);
 
-        test.takeDamage(2); test.takeDamage(2); test.takeDamage(2);
+        test.takeDamage(2);
+        test.takeDamage(2);
+        test.takeDamage(2);
         assertEquals(RangedUnit.MINIMUM_RESIST_BONUS, test.getResistBonus());
     }
 
@@ -115,7 +118,7 @@ public class RangedUnitTest extends TestCase {
         RangedUnit test = new RangedUnit("Test", 15);
 
         test.takeDamage(0);
-        assertEquals(RangedUnit.INITIAL_RESIST_BONUS- RangedUnit.RESIST_BONUS_PENALTY, test.getResistBonus());
+        assertEquals(RangedUnit.INITIAL_RESIST_BONUS - RangedUnit.RESIST_BONUS_PENALTY, test.getResistBonus());
     }
 
     public void testGetAttackBonusBeforeTheUnitHasAttacked() {
@@ -147,41 +150,41 @@ public class RangedUnitTest extends TestCase {
     }
 
     public void testCopyIsNotSame() {
-        RangedUnit test = new RangedUnit("Test", 15, 10 ,5);
-        RangedUnit copy =  test.copy();
+        RangedUnit test = new RangedUnit("Test", 15, 10, 5);
+        RangedUnit copy = test.copy();
 
         assertNotSame(test, copy);
     }
 
     public void testCopyIsEqual() {
-        RangedUnit test = new RangedUnit("Test", 15, 10 ,5);
-        RangedUnit copy =  test.copy();
+        RangedUnit test = new RangedUnit("Test", 15, 10, 5);
+        RangedUnit copy = test.copy();
 
         assertEquals(test, copy);
     }
 
     public void testCopyDifferentUnitsAreNotEqual() {
-        RangedUnit test1 = new RangedUnit("Test1", 15, 10 ,5);
-        RangedUnit test1Copy =  test1.copy();
+        RangedUnit test1 = new RangedUnit("Test1", 15, 10, 5);
+        RangedUnit test1Copy = test1.copy();
 
-        RangedUnit test2 = new RangedUnit("Test2", 20, 25 ,30);
-        RangedUnit test2Copy =  test2.copy();
+        RangedUnit test2 = new RangedUnit("Test2", 20, 25, 30);
+        RangedUnit test2Copy = test2.copy();
 
         assertNotEquals(test1Copy, test2Copy);
     }
 
     public void testCopyRetainsStatsWhenUnitHasNotBeenAttacked() {
         RangedUnit test = new RangedUnit("Test", 15, 10, 5);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         assertEquals(RangedUnit.INITIAL_RESIST_BONUS, copy.getResistBonus());
     }
 
     public void testCopyRetainsStatsWhenUnitHasBeenAttacked() {
         RangedUnit test = new RangedUnit("Test", 15, 10, 5);
-        test.takeDamage(0); test.takeDamage(0);
-        RangedUnit copy =  test.copy();
-
+        test.takeDamage(0);
+        test.takeDamage(0);
+        RangedUnit copy = test.copy();
 
         assertEquals(RangedUnit.MINIMUM_RESIST_BONUS, copy.getResistBonus());
     }
@@ -201,7 +204,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testEqualsReturnsTrueWhenTheUnitsHasBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         test.takeDamage(0);
         copy.takeDamage(0);
@@ -211,7 +214,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testEqualsReturnsFalseWhenTheUnitsHasNotBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         copy.takeDamage(0);
 
@@ -220,7 +223,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testHashCodeReturnsSameHashCodeWhenTheUnitHasBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         copy.takeDamage(0);
         test.takeDamage(0);
@@ -230,7 +233,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testHashCodeReturnsDifferentHashCodeWhenTheUnitHasNotBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         copy.takeDamage(0);
 
@@ -239,7 +242,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testCompareToReturnsZeroForUnitsThatHasBeenAttackedTheSameAmountOfTimes() {
         RangedUnit test = new RangedUnit("Test", 100);
-        RangedUnit copy =  test.copy();
+        RangedUnit copy = test.copy();
 
         test.takeDamage(0);
         copy.takeDamage(0);

@@ -11,8 +11,11 @@ public class Battle {
 
     /**
      * The constructor for an instance of the Battle class
-     * @param armyOne The fist army
-     * @param armyTwo The second army
+     *
+     * @param armyOne
+     *            The fist army
+     * @param armyTwo
+     *            The second army
      */
     public Battle(Army armyOne, Army armyTwo) {
         this.armyOne = armyOne;
@@ -22,18 +25,19 @@ public class Battle {
     /**
      * Used to simulate a battle between two armies,
      *
-     * <br><br>
-     * When one army attacks the other, a random unit from
-     * the attacking army, is picked to attack a random unit
-     * from the defending army. Whenever a unit falls bellow 1 health,
-     * the unit is removed from its army.
+     * <br>
+     * <br>
+     * When one army attacks the other, a random unit from the attacking army, is picked to attack a random unit from
+     * the defending army. Whenever a unit falls bellow 1 health, the unit is removed from its army.
      *
-     * <br><br>
-     * The first army attacks first, then the second army attacks.
-     * This continues unit an army is left with 0 units.
+     * <br>
+     * <br>
+     * The first army attacks first, then the second army attacks. This continues unit an army is left with 0 units.
+     *
      * @return The army that won the battle
-     * @throws IllegalStateException Throws an exception if one of the armies
-     * does not have any units at the start of the simulation.
+     *
+     * @throws IllegalStateException
+     *             Throws an exception if one of the armies does not have any units at the start of the simulation.
      */
     public Army simulate() throws IllegalStateException {
         if (!armyOne.hasUnits() || !armyTwo.hasUnits()) {
@@ -47,7 +51,7 @@ public class Battle {
         armyTwo.removeAllDeadUnits();
 
         while (armyOne.hasUnits() && armyTwo.hasUnits()) {
-            Unit attackerUnit =  attacker.getRandomUnit();
+            Unit attackerUnit = attacker.getRandomUnit();
             Unit defenderUnit = defender.getRandomUnit();
 
             attackerUnit.attack(defenderUnit);
@@ -71,9 +75,6 @@ public class Battle {
      */
     @Override
     public String toString() {
-        return "Battle{" +
-                "armyOne=" + armyOne +
-                ", armyTwo=" + armyTwo +
-                '}';
+        return "Battle{" + "armyOne=" + armyOne + ", armyTwo=" + armyTwo + '}';
     }
 }

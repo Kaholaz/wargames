@@ -9,9 +9,10 @@ import org.ntnu.vsbugge.wargames.gui.GUI;
 public class Main {
 
     /**
-     * Entry point for this java application.
-     * Launches the GUI.
-     * @param args This function takes no args.
+     * Entry point for this java application. Launches the GUI.
+     *
+     * @param args
+     *            This function takes no args.
      */
     public static void main(String[] args) {
         Application.launch(GUI.class, args);

@@ -85,17 +85,17 @@ public class CommanderUnitTest extends TestCase {
     }
 
     public void testCopyDifferentUnitsAreNotEqual() {
-        CommanderUnit test1 = new CommanderUnit("Test1", 15, 10 ,5);
+        CommanderUnit test1 = new CommanderUnit("Test1", 15, 10, 5);
         CommanderUnit test1Copy = test1.copy();
 
-        CommanderUnit test2 = new CommanderUnit("Test2", 20, 25 ,30);
+        CommanderUnit test2 = new CommanderUnit("Test2", 20, 25, 30);
         CommanderUnit test2Copy = test2.copy();
 
         assertNotEquals(test1Copy, test2Copy);
     }
 
     public void testCopyRetainsStats() {
-        CommanderUnit test = new CommanderUnit("Test", 100, 10 ,5);
+        CommanderUnit test = new CommanderUnit("Test", 100, 10, 5);
         CommanderUnit copy = test.copy();
 
         test.attack(copy);
@@ -105,15 +105,15 @@ public class CommanderUnitTest extends TestCase {
     }
 
     public void testEqualsCommanderUnitIsNotEqualToCavalryUnit() {
-        CommanderUnit test1 = new CommanderUnit("Test", 100, 10 ,5);
-        CavalryUnit test2 = new CavalryUnit("Test", 100, 10,5); // same stats as test1
+        CommanderUnit test1 = new CommanderUnit("Test", 100, 10, 5);
+        CavalryUnit test2 = new CavalryUnit("Test", 100, 10, 5); // same stats as test1
 
         assertNotEquals(test1, test2);
     }
 
     public void testHashCodesDifferentForCommanderUnitAndCavalryUnit() {
-        CommanderUnit test1 = new CommanderUnit("Test", 100, 10 ,5);
-        CavalryUnit test2 = new CavalryUnit("Test", 100, 10,5); // same stats as test1
+        CommanderUnit test1 = new CommanderUnit("Test", 100, 10, 5);
+        CavalryUnit test2 = new CavalryUnit("Test", 100, 10, 5); // same stats as test1
 
         assertFalse(test1.hashCode() == test2.hashCode());
     }

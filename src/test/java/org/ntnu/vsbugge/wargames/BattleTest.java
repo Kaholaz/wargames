@@ -54,7 +54,6 @@ public class BattleTest extends TestCase {
 
         assertEquals(
                 "Battle{armyOne=Army{name='ArmyOne', armyTemplate={}}, armyTwo=Army{name='ArmyTwo', armyTemplate={}}}",
-                battle.toString()
-        );
+                battle.toString());
     }
 }

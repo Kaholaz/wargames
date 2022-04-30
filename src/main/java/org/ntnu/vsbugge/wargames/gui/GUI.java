@@ -34,7 +34,10 @@ public class GUI extends Application {
 
     /**
      * Returns the url to a file inside the views root directory specified by the VIEWS_ROOT_DIRECTORY constant.
-     * @param resourcePath A name of a resource (FXML document) in the directory specified by the VIEWS_ROOT_DIRECTORY constant.
+     *
+     * @param resourcePath
+     *            A name of a resource (FXML document) in the directory specified by the VIEWS_ROOT_DIRECTORY constant.
+     *
      * @return The url to a file inside the views root directory specified by the VIEWS_ROOT_DIRECTORY constant.
      */
     private static URL getViewResource(String resourcePath) {
@@ -42,12 +45,14 @@ public class GUI extends Application {
     }
 
     /**
-     * Sets a scene by getting the current stage from a given nod and replacing the scene. The path should be expressed relative to the 'views' directory.
+     * Sets a scene by getting the current stage from a given nod and replacing the scene. The path should be expressed
+     * relative to the 'views' directory.
      *
      * @param node
      *            A node that can extract the current stage.
      * @param fxmlDocumentName
-     *            The path for the FXML sheet for the next scene relative to the directory specified by the VIEWS_ROOT_DIRECTORY constant.
+     *            The path for the FXML sheet for the next scene relative to the directory specified by the
+     *            VIEWS_ROOT_DIRECTORY constant.
      */
     public static void setSceneFromNode(Node node, String fxmlDocumentName) {
         // Creates the FXML loader.
@@ -71,7 +76,8 @@ public class GUI extends Application {
      * @param actionEvent
      *            A javaFX event to extract the stage from.
      * @param fxmlDocumentName
-     *            The path for the FXML sheet for the next scene relative to the directory specified by the VIEWS_ROOT_DIRECTORY constant.
+     *            The path for the FXML sheet for the next scene relative to the directory specified by the
+     *            VIEWS_ROOT_DIRECTORY constant.
      */
     public static void setSceneFromActionEvent(ActionEvent actionEvent, String fxmlDocumentName) {
         // Creates the FXML loader.
@@ -94,7 +100,8 @@ public class GUI extends Application {
      * @param stage
      *            The stage to swap the scene of.
      * @param fxmlDocumentName
-     *            The path for the FXML sheet for the next scene relative to the directory specified by the VIEWS_ROOT_DIRECTORY constant.
+     *            The path for the FXML sheet for the next scene relative to the directory specified by the
+     *            VIEWS_ROOT_DIRECTORY constant.
      */
     public static void setInitialSceneOfStage(Stage stage, String fxmlDocumentName, boolean startMaximized) {
         FXMLLoader loader = new FXMLLoader();
@@ -116,8 +123,6 @@ public class GUI extends Application {
         stage.show();
     }
 
-
-
     /**
      * This is a helper method that checks the loader for exceptions and returns the Parent if successful. This makes it
      * easier to troubleshoot errors. This method should not produce errors unless something is worng with the FXMl page
@@ -127,7 +132,9 @@ public class GUI extends Application {
      *            the FXMLLoader that is being loaded.
      *
      * @return The loaded Parent.
-     * @throws IllegalStateException Throws an exception if something went wrong during the loading of the FXML page.
+     *
+     * @throws IllegalStateException
+     *             Throws an exception if something went wrong during the loading of the FXML page.
      */
     protected static Parent checkedFXMLLoader(FXMLLoader loader) throws IllegalArgumentException {
         Parent root = null;

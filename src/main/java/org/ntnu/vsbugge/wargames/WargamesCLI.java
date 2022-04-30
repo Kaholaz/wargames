@@ -15,8 +15,7 @@ public class WargamesCLI {
     private Battle battle;
 
     /**
-     * Loads two predetermined armies into memory.
-     * This function must be run before running the start method.
+     * Loads two predetermined armies into memory. This function must be run before running the start method.
      */
     public void loadTestData() throws IOException {
         ArmyFileUtil armyFileUtil = new ArmyFileUtil();
@@ -28,19 +27,20 @@ public class WargamesCLI {
         battle = new Battle(humanArmy, orcishHorde);
     }
 
-
     /**
      * Starts the CLI. Data needs to be loaded into {@code battle} before this function is called
-     * @throws IllegalStateException If start is called without data loaded, or if a simulation is started
-     * where one or both of the armies contains 0 units.
+     *
+     * @throws IllegalStateException
+     *             If start is called without data loaded, or if a simulation is started where one or both of the armies
+     *             contains 0 units.
      */
-    public void start() throws IllegalStateException{
+    public void start() throws IllegalStateException {
         if (battle == null) {
             throw new IllegalStateException("Data was not loaded before starting the battle");
         }
 
         boolean playing = true;
-        while (playing){
+        while (playing) {
             System.out.println("Welcome to the CLI for the battle simulator Wargames!");
             System.out.println("Press enter to start...");
 
@@ -64,8 +64,7 @@ public class WargamesCLI {
                 // Reload test data before a reset
                 try {
                     loadTestData();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println(e.getMessage());
                     System.exit(20);
                 }
@@ -78,20 +77,23 @@ public class WargamesCLI {
     /**
      * Creates a simple text based representation of a unit
      *
-     * The string is based on this format:
-     * {unit.getName}({unit.getClass().getSimpleName()}) at {unit.getHealth()} hp
-     * @param unit A Unit instance
+     * The string is based on this format: {unit.getName}({unit.getClass().getSimpleName()}) at {unit.getHealth()} hp
+     *
+     * @param unit
+     *            A Unit instance
+     *
      * @return A simple text based representation of a unit
      */
     protected static String unitToSimpleString(Unit unit) {
-        return unit.getName() + "(" + unit.getClass().getSimpleName() +
-                ")" +  " at " +
-                unit.getHealth() + " hp";
+        return unit.getName() + "(" + unit.getClass().getSimpleName() + ")" + " at " + unit.getHealth() + " hp";
     }
 
     /**
      * Creates a simple text based representation of an army based on its current template
-     * @param army An army instance
+     *
+     * @param army
+     *            An army instance
+     *
      * @return A simple text based representation.
      */
     protected static String armyToSimpleString(Army army) {

@@ -23,11 +23,9 @@ public class UnitEnumTest extends TestCase {
         try {
             UnitEnum.fromString("NotAUnit");
             fail("fromString should throw an exception.");
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // success!
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             fail("fromString should throw IllegalArgumentException");
         }
     }
