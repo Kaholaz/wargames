@@ -9,70 +9,70 @@ import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.gui.factories.IconLabelFactory;
 
 public abstract class AbstractInfoElement extends VBox {
-        protected Label healthLabel;
-        protected Label attackLabel;
-        protected Label armorLabel;
-        protected Label countLabel;
+    protected Label healthLabel;
+    protected Label attackLabel;
+    protected Label armorLabel;
+    protected Label countLabel;
 
-        public AbstractInfoElement() {
-            super();
+    public AbstractInfoElement() {
+        super();
 
-            // Populate element
-            createTopRow();
-            createBottomRow();
+        // Populate element
+        createTopRow();
+        createBottomRow();
 
-            // Add style
-            this.getStyleClass().add("bordered-box");
-            PaddingDecorator.padMedium(this);
+        // Add style
+        this.getStyleClass().add("bordered-box");
+        PaddingDecorator.padMedium(this);
+    }
+
+    protected abstract void createTopRow();
+
+    private void createTopRow(Node... nodes) {
+        // Add padding
+        for (Node node : nodes) {
+            PaddingDecorator.padLight(node);
         }
 
-        protected abstract void createTopRow();
+        // Add to VBox
+        HBox top = GUIElementFactory.createHBoxWithCenteredElements(true, nodes);
+        this.getChildren().add(0, top);
+    }
 
-        private void createTopRow(Node... nodes) {
-            // Add padding
-            for (Node node : nodes) {
-                PaddingDecorator.padLight(node);
-            }
+    protected void createBottomRow() {
+        // Create labels
+        healthLabel = IconLabelFactory.createIconLabel("", "health");
+        PaddingDecorator.padLight(healthLabel);
 
-            // Add to VBox
-            HBox top = GUIElementFactory.createHBoxWithCenteredElements(true, nodes);
-            this.getChildren().add(0, top);
-        }
+        attackLabel = IconLabelFactory.createIconLabel("", "attack");
+        PaddingDecorator.padLight(attackLabel);
 
-        protected void createBottomRow() {
-            // Create labels
-            healthLabel = IconLabelFactory.createIconLabel("", "health");
-            PaddingDecorator.padLight(healthLabel);
+        armorLabel = IconLabelFactory.createIconLabel("", "armor");
+        PaddingDecorator.padLight(armorLabel);
 
-            attackLabel = IconLabelFactory.createIconLabel("", "attack");
-            PaddingDecorator.padLight(attackLabel);
+        countLabel = new Label();
+        PaddingDecorator.padLight(countLabel);
 
-            armorLabel = IconLabelFactory.createIconLabel("", "armor");
-            PaddingDecorator.padLight(armorLabel);
+        // Add to VBox
+        HBox bottom = GUIElementFactory.createHBoxWithCenteredElements(true, healthLabel, attackLabel, armorLabel,
+                countLabel);
 
-            countLabel = new Label();
-            PaddingDecorator.padLight(countLabel);
+        this.getChildren().add(bottom);
+    }
 
-            // Add to VBox
-            HBox bottom = GUIElementFactory.createHBoxWithCenteredElements(true, healthLabel, attackLabel, armorLabel,
-                    countLabel);
+    public void setHealth(int health) {
+        healthLabel.setText(String.format("%d hp", health));
+    }
 
-            this.getChildren().add(bottom);
-        }
+    public void setAttack(int attack) {
+        attackLabel.setText(String.format("%d atk", attack));
+    }
 
-        public void setHealth(int health) {
-            healthLabel.setText(String.format("%d hp", health));
-        }
+    public void setArmor(int armor) {
+        armorLabel.setText(String.format("%d arm", armor));
+    }
 
-        public void setAttack(int attack) {
-            attackLabel.setText(String.format("%d atk", attack));
-        }
-
-        public void setArmor(int armor) {
-            armorLabel.setText(String.format("%d arm", armor));
-        }
-
-        public void setCount(int count) {
-            countLabel.setText(String.format("x%d", count));
-        }
+    public void setCount(int count) {
+        countLabel.setText(String.format("x%d", count));
+    }
 }

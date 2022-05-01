@@ -23,7 +23,6 @@ public class UnitInfoElement extends AbstractInfoElement {
         setAttack(unit.getAttack());
         setCount(count);
 
-
         this.getStyleClass().add("unit-info-element");
     }
 
@@ -44,10 +43,10 @@ public class UnitInfoElement extends AbstractInfoElement {
     private void setUnitType(String simpleName) {
         UnitEnum unitEnum = UnitEnum.fromString(simpleName);
         String unitIcon = switch (unitEnum) {
-            case CavalryUnit -> "cavalry";
-            case CommanderUnit -> "commander";
-            case InfantryUnit -> "infantry";
-            case RangedUnit -> "ranged";
+        case CavalryUnit -> "cavalry";
+        case CommanderUnit -> "commander";
+        case InfantryUnit -> "infantry";
+        case RangedUnit -> "ranged";
         };
 
         unitTypeLabel.setText(unitEnum.getProperName());

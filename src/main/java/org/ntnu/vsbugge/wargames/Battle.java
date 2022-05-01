@@ -99,7 +99,8 @@ public class Battle {
 
         Army winner;
         // simulateStep returns null as long as no winner has been determined.
-        while ((winner = simulateStep()) == null) {}
+        while ((winner = simulateStep()) == null) {
+        }
 
         return winner;
     }

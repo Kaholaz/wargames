@@ -63,7 +63,6 @@ public class SimulateBattlePageController {
         animateCheck.setDisable(true);
         animateCheck.setVisible(false);
 
-
         if (animateCheck.isSelected()) {
             animateBattle(1, 0);
             return;

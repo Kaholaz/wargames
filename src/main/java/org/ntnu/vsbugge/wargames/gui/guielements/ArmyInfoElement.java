@@ -7,7 +7,8 @@ import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 public class ArmyInfoElement extends AbstractInfoElement {
-    private  Army army;
+    private Army army;
+
     public ArmyInfoElement(Army army) {
         super();
         this.army = army;

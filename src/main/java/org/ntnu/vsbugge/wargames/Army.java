@@ -205,8 +205,11 @@ public class Army {
     /**
      * Returns an army template where units that only differ in stats that change during combat are grouped together.
      *
-     * <br><br>
-     * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the parseArmyTemplate method.
+     * <br>
+     * <br>
+     * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the
+     * parseArmyTemplate method.
+     *
      * @return An amry template where units that only differ in stats that change during combat are grouped together.
      */
     public Map<Unit, Integer> getCondensedArmyTemplate() {
@@ -214,7 +217,8 @@ public class Army {
         Map<Unit, Integer> returnTemplate = new HashMap<>();
 
         // The units are sorted and reversed so that the unit with the highest health comes first
-        List<Unit> reversedUnits = originalTemplate.keySet().stream().sorted((a, b) -> -a.compareTo(b)) // Reversed order
+        List<Unit> reversedUnits = originalTemplate.keySet().stream().sorted((a, b) -> -a.compareTo(b)) // Reversed
+                                                                                                        // order
                 .toList();
 
         Unit last = null;
@@ -234,8 +238,11 @@ public class Army {
      * Returns an army template where units that only differ in stats that change during combat are grouped together,
      * and where those units are converted to non combat units by using the Unit.getNonCombatUnit method.
      *
-     * <br><br>
-     * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the parseArmyTemplate method.
+     * <br>
+     * <br>
+     * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the
+     * parseArmyTemplate method.
+     *
      * @return An amry template where units that only differ in stats that change during combat are grouped together.
      */
     public Map<Unit, Integer> getCondensedNonCombatUnitArmyTemplate() {

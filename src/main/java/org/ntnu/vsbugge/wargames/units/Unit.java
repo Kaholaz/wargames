@@ -138,6 +138,7 @@ public abstract class Unit implements Comparable<Unit> {
 
     /**
      * Returns a similar unit to the unit instance just with zero health and reset resist and attack bonus.
+     *
      * @return A similar unit to the unit instance just with zero health and reset resist and attack bonus.
      */
     public Unit getNonCombatUnit() {
@@ -169,9 +170,9 @@ public abstract class Unit implements Comparable<Unit> {
     /**
      * Check if a Unit equals another instance of Unit.
      *
-     * This method does not take into account subclass specific traits such as
-     * number of times attacked, or how many times the unit has been attacked. Unit specific stats are compared by comparing
-     * the resist and attack bonuses.
+     * This method does not take into account subclass specific traits such as number of times attacked, or how many
+     * times the unit has been attacked. Unit specific stats are compared by comparing the resist and attack bonuses.
+     *
      * @param o
      *            The object to compare to.
      *
