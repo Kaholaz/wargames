@@ -56,6 +56,10 @@
     -fx-background-color: #ffffdb;
 }
 
+.army-info-element {
+    -fx-background-color: #ffd9d1;
+}
+
 .scroll-pane {
     -fx-background-color: transparent;
 }

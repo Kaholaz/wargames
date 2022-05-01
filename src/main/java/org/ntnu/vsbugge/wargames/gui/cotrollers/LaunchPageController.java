@@ -3,6 +3,7 @@ package org.ntnu.vsbugge.wargames.gui.cotrollers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.ntnu.vsbugge.wargames.gui.GUI;
+import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 
 public class LaunchPageController {
 
@@ -13,6 +14,6 @@ public class LaunchPageController {
 
     @FXML
     void onEditArmies(ActionEvent event) {
-        GUI.setSceneFromActionEvent(event, "editArmies.fxml");
+        AlertFactory.createWarning("This page has not yet been implemented", "Not implemented!").show();
     }
 }
