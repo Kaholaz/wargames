@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.enums.UnitEnum;
+import org.ntnu.vsbugge.wargames.factories.UnitFactory;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.gui.factories.IconLabelFactory;
@@ -20,8 +21,14 @@ public class UnitInfoElement extends VBox {
     private Label armorLabel;
     private Label countLabel;
 
+    /**
+     * A unit where health is set to 0 and attack and resist bonus is default;
+     */
+    private final Unit noCombatUnit;
+
     public UnitInfoElement(Unit unit, int count) {
         super();
+        noCombatUnit = UnitFactory.getUnit(unit.getClass().getSimpleName(), unit.getName(), 0);
 
         // Populate element
         createTopRow(unit);
@@ -114,5 +121,13 @@ public class UnitInfoElement extends VBox {
     public void setCount(int count) {
         this.count = count;
         countLabel.setText(String.format("x%d", count));
+    }
+
+    /**
+     * Gets the unit represented by this element with health set to 0 and combat altered stats rest (resist and attack bonus)
+     * @return The unit represented by this element.
+     */
+    public Unit getNoCombatUnit() {
+        return noCombatUnit;
     }
 }

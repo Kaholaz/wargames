@@ -9,7 +9,7 @@ public class UnitTest extends TestCase {
     public void testCompareToNUnitSpecificStats() {
         RangedUnit ranged1 = new RangedUnit("Test1", 20, 10, 10);
         RangedUnit ranged2 = ranged1.copy();
-        ranged2.takeDamage(0); // different unit specific stat
+        ranged1.takeDamage(0); // different unit specific stat
         InfantryUnit infantryUnit1 = new InfantryUnit("Test2", 20, 10, 10);
         InfantryUnit infantryUnit2 = new InfantryUnit("Test1", 20, 11, 10);
         InfantryUnit infantryUnit3 = new InfantryUnit("Test1", 20, 10, 12);

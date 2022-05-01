@@ -58,6 +58,7 @@ public class ArmyFileUtilTest extends TestCase {
 
     public void testLoadFromPathThrowsExceptionIfDefaultPathIsNotSet() {
         ArmyFileUtil armyFileUtil = new ArmyFileUtil();
+        armyFileUtil.setDefaultPath(null);
 
         try {
             armyFileUtil.loadFromPath(new File("HumanArmy.army"), true);
@@ -234,6 +235,7 @@ public class ArmyFileUtilTest extends TestCase {
 
     public void testGetArmiesFromDefaultPathThrowsExceptionIfNoDefaultPathIsSet() {
         ArmyFileUtil armyFileUtil = new ArmyFileUtil();
+        armyFileUtil.setDefaultPath(null);
 
         try {
             armyFileUtil.getArmiesFromDefaultPath();

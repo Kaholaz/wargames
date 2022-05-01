@@ -8,11 +8,19 @@ import org.ntnu.vsbugge.wargames.units.Unit;
 public class Battle {
     private Army armyOne;
     private Army armyTwo;
+    private int attackTurn = 0; // Zero for army one and two for armyTwos
 
     /**
      * Constructs a battle. This constructor creates an object where both armyOne og armyTwo are null.
      */
     public Battle() {
+
+    }
+
+    public Battle(Battle battle) {
+        armyOne = new Army(battle.armyOne);
+        armyTwo = new Army(battle.armyTwo);
+        attackTurn = battle.attackTurn;
     }
 
     /**
@@ -27,6 +35,44 @@ public class Battle {
         this();
         this.armyOne = armyOne;
         this.armyTwo = armyTwo;
+    }
+
+    public Army simulateStep() {
+        // Check if any army is empty
+        if (!armyTwo.hasUnits()) {
+            return armyOne;
+        }
+        if (!armyOne.hasUnits()) {
+            return armyTwo;
+        }
+
+        // Sets attacker and defender
+        Army attacker = attackTurn == 0 ? armyOne : armyTwo;
+        Army defender = attackTurn == 0 ? armyTwo : armyOne;
+
+        // Gets random unit and removes dead unit if a dead unit was picked
+        Unit attackUnit = attacker.getRandomUnit();
+        if (attackUnit.getHealth() == 0) {
+            attacker.removeAllDeadUnits();
+            return simulateStep(); // Recursion to check if the army is empty again
+        }
+
+        // Gets random unit and removes dead unit if a dead unit was picked
+        Unit defenderUnit = attacker.getRandomUnit();
+        if (defenderUnit.getHealth() == 0) {
+            defender.removeAllDeadUnits();
+            return simulateStep(); // Recursion to check if the army is empty again
+        }
+
+        // Pit the two units against each other and remove the defender if it is killed.
+        attackUnit.attack(defenderUnit);
+        if (defenderUnit.getHealth() <= 0) {
+            defender.remove(defenderUnit);
+        }
+
+        attackTurn = (attackTurn + 1) % 2;
+
+        return null;
     }
 
     /**
@@ -51,30 +97,11 @@ public class Battle {
             throw new IllegalStateException("Both armies need to have units to simulate a battle");
         }
 
-        Army attacker = armyOne;
-        armyOne.removeAllDeadUnits();
+        Army winner;
+        // simulateStep returns null as long as no winner has been determined.
+        while ((winner = simulateStep()) == null) {}
 
-        Army defender = armyTwo;
-        armyTwo.removeAllDeadUnits();
-
-        while (armyOne.hasUnits() && armyTwo.hasUnits()) {
-            Unit attackerUnit = attacker.getRandomUnit();
-            Unit defenderUnit = defender.getRandomUnit();
-
-            attackerUnit.attack(defenderUnit);
-            if (defenderUnit.getHealth() <= 0) {
-                defender.remove(defenderUnit);
-            }
-
-            // Swaps attacked and defender
-            Army temp = attacker;
-            attacker = defender;
-            defender = temp;
-        }
-
-        // The reassignment at the end of the while loop, makes the defender
-        // the army that last attacked; ie the victor
-        return defender;
+        return winner;
     }
 
     public Army getArmyOne() {

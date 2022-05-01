@@ -1,6 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
 import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+import org.ntnu.vsbugge.wargames.factories.UnitFactory;
 
 import java.util.Objects;
 
@@ -136,6 +137,24 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * Returns a similar unit to the unit instance just with zero health and reset resist and attack bonus.
+     * @return A similar unit to the unit instance just with zero health and reset resist and attack bonus.
+     */
+    public Unit getNonCombatUnit() {
+        return UnitFactory.getUnit(this.getClass().getSimpleName(), this.getName(), 0);
+    }
+
+    public boolean differsOnlyInCombatState(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Unit unit = (Unit) o;
+        return this.getNonCombatUnit().equals(unit.getNonCombatUnit());
+    }
+
+    /**
      * This method should be used for debugging purposes only. {@code WargamesCLI.unitToSimpleString(Unit unit)} should
      * be used to create a human-readable representation of a unit, ready to be printed to console.
      *
@@ -148,13 +167,11 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
-     * Check if a Unit equals another instance of Unit. This does not take into account subclass specific traits such as
-     * number of times attacked, or how many times the unit has been attacked.
+     * Check if a Unit equals another instance of Unit.
      *
-     * <br>
-     * <br>
-     * If a subclass has specific traits. These should be compared in using a subclass-specific .equals
-     *
+     * This method does not take into account subclass specific traits such as
+     * number of times attacked, or how many times the unit has been attacked. Unit specific stats are compared by comparing
+     * the resist and attack bonuses.
      * @param o
      *            The object to compare to.
      *
@@ -221,10 +238,10 @@ public abstract class Unit implements Comparable<Unit> {
             return Integer.compare(this.getHealth(), other.getHealth());
         }
         if (this.getAttackBonus() != other.getAttackBonus()) {
-            return Integer.compare(other.getAttackBonus(), this.getAttackBonus());
+            return Integer.compare(this.getAttackBonus(), other.getAttackBonus());
         }
         if (this.getResistBonus() != other.getResistBonus()) {
-            return Integer.compare(other.getResistBonus(), this.getResistBonus());
+            return Integer.compare(this.getResistBonus(), other.getResistBonus());
         }
         return 0;
     }

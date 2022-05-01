@@ -28,7 +28,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#onStart" styleClass="padded-medium" text="Start" />
+                              <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" styleClass="padded-medium" text="Start" />
                               <Button mnemonicParsing="false" onAction="#onHome" styleClass="padded-medium" text="Home" />
                            </children>
                         </HBox>
@@ -66,9 +66,9 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <ScrollPane fitToWidth="true" prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
                      <content>
-                        <VBox fx:id="attackerUnitWindow" prefHeight="0.0" prefWidth="0.0">
+                        <VBox fx:id="attackerUnitWindowParent" prefHeight="0.0" prefWidth="0.0">
                            <children>
                               <VBox styleClass="bordered-box" VBox.vgrow="ALWAYS">
                                  <children>
@@ -123,9 +123,9 @@
                         <String fx:value="padded-medium" />
                      </styleClass>
                   </ScrollPane>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
                      <content>
-                        <VBox fx:id="defenderUnitWindow" prefHeight="200.0" prefWidth="100.0" />
+                        <VBox fx:id="defenderUnitWindowParent" prefHeight="0.0" prefWidth="0.0" />
                      </content>
                      <styleClass>
                         <String fx:value="bordered-box" />

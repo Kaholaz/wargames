@@ -216,7 +216,7 @@ public class CavalryUnitTest extends TestCase {
         CavalryUnit punchingBag = new CavalryUnit("PunchingBag", 1000);
 
         copy.attack(punchingBag);
-        assertEquals(-1, test.compareTo(copy));
+        assertEquals(1, test.compareTo(copy));
     }
 
     public void testCompareToReturnsZeroWhenUnitsHaveAttackedTheSameAmountOfTimes() {

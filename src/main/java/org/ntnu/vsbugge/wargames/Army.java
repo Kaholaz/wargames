@@ -3,6 +3,7 @@ package org.ntnu.vsbugge.wargames;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A class that represents a single army
@@ -19,6 +20,11 @@ public class Army {
      */
     public Army(String name) {
         this(name, new ArrayList<>());
+    }
+
+    public Army(Army army) {
+        this(army.getName());
+        addAll(army.getAllUnits());
     }
 
     /**
@@ -46,7 +52,7 @@ public class Army {
      */
     public void add(Unit unit) throws IllegalArgumentException {
         if (unit.getHealth() == 0) {
-            throw new IllegalArgumentException("Cannot add a dead unit (A unit with 0 health) to a unit.");
+            throw new IllegalArgumentException("Cannot add a dead unit (A unit with 0 health) to an army.");
         }
         this.units.add(unit.copy());
     }
@@ -194,6 +200,53 @@ public class Army {
         });
 
         return template;
+    }
+
+    /**
+     * Returns an army template where units that only differ in stats that change during combat are grouped together.
+     *
+     * <br><br>
+     * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the parseArmyTemplate method.
+     * @return An amry template where units that only differ in stats that change during combat are grouped together.
+     */
+    public Map<Unit, Integer> getCondensedArmyTemplate() {
+        Map<Unit, Integer> originalTemplate = getArmyTemplate();
+        Map<Unit, Integer> returnTemplate = new HashMap<>();
+
+        // The units are sorted and reversed so that the unit with the highest health comes first
+        List<Unit> reversedUnits = originalTemplate.keySet().stream().sorted((a, b) -> -a.compareTo(b)) // Reversed order
+                .toList();
+
+        Unit last = null;
+        for (Unit current : reversedUnits) {
+            if (current.differsOnlyInCombatState(last)) {
+                returnTemplate.merge(last, originalTemplate.get(current), Integer::sum);
+            } else {
+                returnTemplate.put(current, originalTemplate.get(current));
+                last = current;
+            }
+        }
+
+        return returnTemplate;
+    }
+
+    /**
+     * Returns an army template where units that only differ in stats that change during combat are grouped together,
+     * and where those units are converted to non combat units by using the Unit.getNonCombatUnit method.
+     *
+     * <br><br>
+     * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the parseArmyTemplate method.
+     * @return An amry template where units that only differ in stats that change during combat are grouped together.
+     */
+    public Map<Unit, Integer> getCondensedNonCombatUnitArmyTemplate() {
+        Map<Unit, Integer> condensedArmyTemplate = getCondensedArmyTemplate();
+
+        return condensedArmyTemplate.entrySet().stream()
+                // Convert key to non combat unit.
+                .map(entry -> Map.entry(entry.getKey().getNonCombatUnit(), entry.getValue()))
+                // Convert to Map.
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
     }
 
     /**

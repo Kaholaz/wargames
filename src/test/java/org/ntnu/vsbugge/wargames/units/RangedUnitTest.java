@@ -256,6 +256,6 @@ public class RangedUnitTest extends TestCase {
 
         test.takeDamage(0);
 
-        assertEquals(1, test.compareTo(copy));
+        assertEquals(-1, test.compareTo(copy));
     }
 }
