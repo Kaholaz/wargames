@@ -1,11 +1,14 @@
 package org.ntnu.vsbugge.wargames;
 
 import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
-import org.ntnu.vsbugge.wargames.units.*;
+import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**

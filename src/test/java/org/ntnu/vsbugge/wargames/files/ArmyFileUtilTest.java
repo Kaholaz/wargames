@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ArmyFileUtilTest extends TestCase {
@@ -222,5 +223,25 @@ public class ArmyFileUtilTest extends TestCase {
         ARMY_FILE_UTIL.saveArmyToPath(army, filePath, false);
 
         assertEquals(army, ARMY_FILE_UTIL.loadFromPath(filePath));
+    }
+
+    public void testGetArmiesFromDefaultPath() {
+        List<Army> armyList = ARMY_FILE_UTIL.getArmiesFromDefaultPath();
+
+        // There are nine readable army files
+        assertEquals(9, armyList.size());
+    }
+
+    public void testGetArmiesFromDefaultPathThrowsExceptionIfNoDefaultPathIsSet() {
+        ArmyFileUtil armyFileUtil = new ArmyFileUtil();
+
+        try {
+            armyFileUtil.getArmiesFromDefaultPath();
+            fail("getArmiesFromDefaultPath should throw exception.");
+        } catch (RuntimeException ignored) {
+        } catch (Exception e) {
+            fail("getArmiesFromDefaultPath should throw exception.");
+        }
+
     }
 }

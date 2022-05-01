@@ -2,17 +2,15 @@ package org.ntnu.vsbugge.wargames.files;
 
 import org.ntnu.vsbugge.wargames.Army;
 import org.ntnu.vsbugge.wargames.factories.UnitFactory;
-import org.ntnu.vsbugge.wargames.units.*;
+import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
-
 import java.util.*;
 
 /**
@@ -20,7 +18,7 @@ import java.util.*;
  */
 public class ArmyFileUtil {
     private final Charset CHARSET = StandardCharsets.UTF_8;
-    private File defaultPath = null;
+    private File defaultPath = new File("src/main/resources/armies");
 
     private int lineNr;
 
@@ -281,6 +279,32 @@ public class ArmyFileUtil {
                     .append("\n");
         }
         writer.close();
+    }
+
+    /**
+     * Returns a list of armies that were found in the default directory.
+     *
+     * Any army that results in exceptions when read are ignored.
+     *
+     * @return All armies that could be read from the specified folder.
+     */
+    public List<Army> getArmiesFromDefaultPath() {
+        if (defaultPath == null) {
+            throw new RuntimeException("The default path has not yet been set");
+        }
+
+        ArmyFileUtil armyFileUtil = new ArmyFileUtil();
+        ArrayList<Army> armies = new ArrayList<>();
+        for (File file : Objects.requireNonNull(defaultPath.listFiles())) {
+            try {
+                Army army = armyFileUtil.loadFromPath(file);
+                armies.add(army);
+            } catch (IOException ignored) {
+                // Ignore files that are not readable.
+            }
+        }
+
+        return armies;
     }
 
     /**

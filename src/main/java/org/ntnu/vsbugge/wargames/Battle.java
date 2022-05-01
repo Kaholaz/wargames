@@ -6,8 +6,14 @@ import org.ntnu.vsbugge.wargames.units.Unit;
  * A class that represents a battle between two armies.
  */
 public class Battle {
-    private final Army armyOne;
-    private final Army armyTwo;
+    private Army armyOne;
+    private Army armyTwo;
+
+    /**
+     * Constructs a battle. This constructor creates an object where both armyOne og armyTwo are null.
+     */
+    public Battle() {
+    }
 
     /**
      * The constructor for an instance of the Battle class
@@ -18,6 +24,7 @@ public class Battle {
      *            The second army
      */
     public Battle(Army armyOne, Army armyTwo) {
+        this();
         this.armyOne = armyOne;
         this.armyTwo = armyTwo;
     }
@@ -68,6 +75,22 @@ public class Battle {
         // The reassignment at the end of the while loop, makes the defender
         // the army that last attacked; ie the victor
         return defender;
+    }
+
+    public Army getArmyOne() {
+        return armyOne;
+    }
+
+    public void setArmyOne(Army armyOne) {
+        this.armyOne = armyOne;
+    }
+
+    public Army getArmyTwo() {
+        return armyTwo;
+    }
+
+    public void setArmyTwo(Army armyTwo) {
+        this.armyTwo = armyTwo;
     }
 
     /**

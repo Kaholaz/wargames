@@ -1,0 +1,65 @@
+.root {
+    -fx-font-family: Junicode;
+    -fx-font-size: 20px;
+    -fx-background-color: #F5F5DC;
+}
+
+.title {
+    -fx-font-size: 50px;
+}
+
+.sub-title {
+    -fx-font-size: 30px;
+}
+
+.bordered-box {
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+}
+
+.padded-medium {
+    -fx-border-insets: 5px;
+    -fx-padding: 5px;
+    -fx-background-insets: 5px;
+}
+
+.padded-light {
+    -fx-border-insets: 2px;
+    -fx-padding: 2px;
+    -fx-background-insets: 2px;
+}
+
+.button {
+    -fx-border-color: black;
+    -fx-background-color: #ffffdb;
+}
+
+.button:hover {
+    -fx-background-color: #c2c2a1;
+}
+
+.button:pressed {
+    -fx-background-color: #ffffdb;
+}
+
+.check-box .box {
+    -fx-border-color: black;
+    -fx-background-color: #ffffdb;
+    -fx-padding: 3px;
+}
+
+.check-box .box .mark {
+    -fx-padding: 6px;
+}
+
+.unit-info-element {
+    -fx-background-color: #ffffdb;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

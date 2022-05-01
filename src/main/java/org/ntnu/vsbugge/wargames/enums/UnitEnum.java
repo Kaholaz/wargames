@@ -1,6 +1,6 @@
 package org.ntnu.vsbugge.wargames.enums;
 
-import org.ntnu.vsbugge.wargames.units.*;
+import org.ntnu.vsbugge.wargames.units.Unit;
 
 /**
  * This is an enum to keep track of all valid subclasses of Unit. This enum is created to make expanding the number of
@@ -8,13 +8,14 @@ import org.ntnu.vsbugge.wargames.units.*;
  * to add it to this enum.
  */
 public enum UnitEnum {
-    CavalryUnit(org.ntnu.vsbugge.wargames.units.CavalryUnit.class),
-    CommanderUnit(org.ntnu.vsbugge.wargames.units.CommanderUnit.class),
-    InfantryUnit(org.ntnu.vsbugge.wargames.units.InfantryUnit.class),
-    RangedUnit(org.ntnu.vsbugge.wargames.units.RangedUnit.class);
+    CavalryUnit(org.ntnu.vsbugge.wargames.units.CavalryUnit.class, "Cavalry unit"),
+    CommanderUnit(org.ntnu.vsbugge.wargames.units.CommanderUnit.class, "Commander unit"),
+    InfantryUnit(org.ntnu.vsbugge.wargames.units.InfantryUnit.class, "Infantry unit"),
+    RangedUnit(org.ntnu.vsbugge.wargames.units.RangedUnit.class, "Ranged unit");
 
     // The corresponding Unit subclass.
     final Class<? extends Unit> unitClass;
+    final String properName;
 
     /**
      * Specifies the corresponding Unit subclass for the enum constant.
@@ -22,8 +23,9 @@ public enum UnitEnum {
      * @param unitClass
      *            The corresponding Unit subclass.
      */
-    UnitEnum(Class<? extends Unit> unitClass) {
+    UnitEnum(Class<? extends Unit> unitClass, String properName) {
         this.unitClass = unitClass;
+        this.properName = properName;
     }
 
     /**
@@ -32,6 +34,10 @@ public enum UnitEnum {
      */
     public Class<? extends Unit> getUnitClass() {
         return unitClass;
+    }
+
+    public String getProperName() {
+        return properName;
     }
 
     /**

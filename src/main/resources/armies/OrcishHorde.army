@@ -1,0 +1,5 @@
+Orcish Horde
+InfantryUnit,Grunt,100,500
+CavalryUnit,Raider,100,100
+RangedUnit,Spearman,100,200
+CommanderUnit,Gul ́dan,180,1

@@ -1,0 +1,34 @@
+.icon-text {
+    -fx-background-size: 30px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 0%;
+    -fx-padding: 0 0 0 30px;
+}
+
+.armor-icon {
+    -fx-background-image: url('../icons/armor.png');
+}
+
+.attack-icon {
+    -fx-background-image: url('../icons/attack.png');
+}
+
+.cavalry-icon {
+    -fx-background-image: url('../icons/cavalry.png');
+}
+
+.commander-icon {
+    -fx-background-image: url('../icons/commander.png');
+}
+
+.health-icon {
+    -fx-background-image: url('../icons/health.png');
+}
+
+.infantry-icon {
+    -fx-background-image: url('../icons/infantry.png');
+}
+
+.ranged-icon {
+    -fx-background-image: url('../icons/ranged.png');
+}

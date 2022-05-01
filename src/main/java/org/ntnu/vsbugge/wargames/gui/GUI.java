@@ -18,7 +18,7 @@ public class GUI extends Application {
 
     private static final int STAGE_MIN_HEIGHT = 450;
     private static final int STAGE_MIN_WIDTH = 600;
-    private static final String VIEWS_ROOT_DIRECTORY = "/views/";
+    private static final String VIEWS_ROOT_DIRECTORY = "/gui/views/";
 
     /**
      * Main method of the gui. This method starts the GUI application and sends the user to the launch page.
