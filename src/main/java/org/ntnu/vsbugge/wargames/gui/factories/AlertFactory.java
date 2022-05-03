@@ -31,7 +31,10 @@ public class AlertFactory {
 
     /**
      * Creates an alert that notifies about an exception.
-     * @param e The exception to notify of.
+     *
+     * @param e
+     *            The exception to notify of.
+     *
      * @return The alert.
      */
     public static Alert createExceptionErrorAlert(Exception e) {

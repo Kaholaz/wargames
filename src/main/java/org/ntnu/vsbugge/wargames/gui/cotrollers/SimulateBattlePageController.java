@@ -100,12 +100,13 @@ public class SimulateBattlePageController {
 
         ButtonDecorator.makeDisabled(homeButton);
 
-
+        // Animate the battle.
         if (animateCheck.isSelected()) {
             animateBattle(1, 0);
             return;
         }
 
+        // Simulate without animation.
         try {
             announceWinner(battle.simulate());
         } catch (RuntimeException e) {
