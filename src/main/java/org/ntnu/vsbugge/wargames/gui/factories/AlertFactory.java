@@ -28,4 +28,13 @@ public class AlertFactory {
         alert.setContentText(alertMessage);
         return alert;
     }
+
+    /**
+     * Creates an alert that notifies about an exception.
+     * @param e The exception to notify of.
+     * @return The alert.
+     */
+    public static Alert createExceptionErrorAlert(Exception e) {
+        return AlertFactory.createAlert(Alert.AlertType.ERROR, e.getMessage(), e.getClass().getSimpleName());
+    }
 }

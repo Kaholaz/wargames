@@ -100,11 +100,19 @@ public class SimulateBattlePageController {
 
         ButtonDecorator.makeDisabled(homeButton);
 
+
         if (animateCheck.isSelected()) {
             animateBattle(1, 0);
-        } else {
-            announceWinner(battle.simulate());
+            return;
         }
+
+        try {
+            announceWinner(battle.simulate());
+        } catch (RuntimeException e) {
+            AlertFactory.createExceptionErrorAlert(e).show();
+            resetButtons();
+        }
+
     }
 
     /**
@@ -118,6 +126,13 @@ public class SimulateBattlePageController {
         attackerUnitWindow.setArmy(battle.getArmyOne());
         defenderUnitWindow.setArmy(battle.getArmyTwo());
 
+        resetButtons();
+    }
+
+    /**
+     * Reset the startButton, homeButton, animationCheck and the import buttons to their original values.
+     */
+    void resetButtons() {
         // Show animate check box
         animateCheck.setDisable(false);
         animateCheck.setVisible(true);
@@ -129,6 +144,9 @@ public class SimulateBattlePageController {
         homeButton.setText("Home");
         homeButton.setOnAction(this::onHome);
 
+        // Enable buttons.
+        ButtonDecorator.makeEnabled(startButton);
+        ButtonDecorator.makeEnabled(homeButton);
         ButtonDecorator.makeEnabled(importAttacker);
         ButtonDecorator.makeEnabled(importDefender);
     }
@@ -161,7 +179,17 @@ public class SimulateBattlePageController {
         new Thread(() -> {
             Army winner = null;
             for (int i = 0; winner == null && !pauseAnimation; i = (i + 1) % animationRenderFrequency) {
-                winner = battle.simulateStep();
+                try {
+                    winner = battle.simulateStep();
+                } catch (RuntimeException e) {
+                    Platform.runLater(() -> {
+                        AlertFactory.createExceptionErrorAlert(e).show();
+                        resetButtons();
+                    });
+                    pauseAnimation = true;
+                    break; // Exit loop if there is something wrong with the battle being simulated.
+                }
+
                 try {
                     Thread.sleep(ms, ns);
                 } catch (InterruptedException e) {
@@ -188,6 +216,9 @@ public class SimulateBattlePageController {
      */
     void announceWinner(Army winner) {
         updateUnits();
+
+        ButtonDecorator.makeDisabled(startButton);
+        ButtonDecorator.makeEnabled(homeButton);
 
         AlertFactory
                 .createAlert(Alert.AlertType.INFORMATION, String.format("%s won!", winner.getName()), "Battle results")
@@ -248,8 +279,7 @@ public class SimulateBattlePageController {
             File armyFile = fileChooser.showOpenDialog(animateCheck.getScene().getWindow());
             return files.loadFromPath(armyFile);
         } catch (IOException e) {
-            AlertFactory.createAlert(Alert.AlertType.ERROR, "Could not parse army file!\n" + e.getMessage(),
-                    e.getClass().getSimpleName()).show();
+            AlertFactory.createExceptionErrorAlert(e).show();
             return null;
         } catch (NullPointerException ignore) {
             return null;
