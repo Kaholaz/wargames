@@ -29,7 +29,7 @@
                         <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Button fx:id="startButton" mnemonicParsing="false" onAction="#onStart" styleClass="padded-medium" text="Start" />
-                              <Button mnemonicParsing="false" onAction="#onHome" styleClass="padded-medium" text="Home" />
+                              <Button fx:id="homeButton" mnemonicParsing="false" onAction="#onHome" styleClass="padded-medium" text="Home" />
                            </children>
                         </HBox>
                         <CheckBox fx:id="animateCheck" alignment="CENTER" mnemonicParsing="false" styleClass="padded-light" text="Animate battle" />

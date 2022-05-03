@@ -6,6 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * A class used to create various UI elements.
+ */
 public class GUIElementFactory {
     /**
      * The class is static so constructor is made private.
@@ -13,6 +16,12 @@ public class GUIElementFactory {
     private GUIElementFactory() {
     }
 
+    /**
+     * Creates a pane with a set prefSize of 0 that will always try to hgrow and vgro. This pane can be used as a
+     * divider pane to create dynamically scaling UI elements.
+     *
+     * @return A pane that can be used to space other elements.
+     */
     public static Pane createDividerPane() {
         Pane pane = new Pane();
         pane.setPrefSize(0, 0);
@@ -22,6 +31,16 @@ public class GUIElementFactory {
         return pane;
     }
 
+    /**
+     * This metod takes an array of UI elements and spaces them evenly through an HBox.
+     *
+     * @param padSides
+     *            If this is set to true, a devider pane will be added before and after the first and last ui elements.
+     * @param nodes
+     *            The ui elements to populate the vbox with.
+     *
+     * @return An HBox that contains evenly spaced UI elements.
+     */
     public static HBox createHBoxWithCenteredElements(boolean padSides, Node... nodes) {
         HBox hBox = new HBox();
         if (nodes.length == 0) {

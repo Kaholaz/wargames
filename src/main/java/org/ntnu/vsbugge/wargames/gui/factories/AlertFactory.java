@@ -2,32 +2,30 @@ package org.ntnu.vsbugge.wargames.gui.factories;
 
 import javafx.scene.control.Alert;
 
+/**
+ * This class is used to create alerts.
+ */
 public class AlertFactory {
     private AlertFactory() {
     }
 
-    public static Alert createError(String errorMsg, String errorTitle) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(errorTitle);
-        alert.setHeaderText(errorTitle);
-        alert.setContentText(errorMsg);
+    /**
+     * Creates an alert created by the given parameters.
+     *
+     * @param alertType
+     *            The type of the alert.
+     * @param alertMessage
+     *            The alert message.
+     * @param alertTitle
+     *            The alert title. This will also be used for the alert header.
+     *
+     * @return The alert.
+     */
+    public static Alert createAlert(Alert.AlertType alertType, String alertMessage, String alertTitle) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(alertTitle);
+        alert.setHeaderText(alertTitle);
+        alert.setContentText(alertMessage);
         return alert;
     }
-
-    public static Alert createWarning(String errorMsg, String errorTitle) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(errorTitle);
-        alert.setHeaderText(errorTitle);
-        alert.setContentText(errorMsg);
-        return alert;
-    }
-
-    public static Alert createInfo(String errorMsg, String errorTitle) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(errorTitle);
-        alert.setHeaderText(errorTitle);
-        alert.setContentText(errorMsg);
-        return alert;
-    }
-
 }
