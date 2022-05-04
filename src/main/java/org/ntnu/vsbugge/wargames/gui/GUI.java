@@ -55,12 +55,8 @@ public class GUI extends Application {
      *            VIEWS_ROOT_DIRECTORY constant.
      */
     public static void setSceneFromNode(Node node, String fxmlDocumentName) {
-        // Creates the FXML loader.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getViewResource(fxmlDocumentName));
-
         // Prepares the new scene.
-        Parent root = GUI.checkedFXMLLoader(loader);
+        Parent root = GUI.checkedFXMLLoader(getViewResource(fxmlDocumentName));
         Scene prev = node.getScene();
         Stage stage = (Stage) node.getScene().getWindow();
 
@@ -80,18 +76,7 @@ public class GUI extends Application {
      *            VIEWS_ROOT_DIRECTORY constant.
      */
     public static void setSceneFromActionEvent(ActionEvent actionEvent, String fxmlDocumentName) {
-        // Creates the FXML loader.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getViewResource(fxmlDocumentName));
-
-        // Prepares the new scene.
-        Parent root = checkedFXMLLoader(loader);
-        Scene prev = ((Node) actionEvent.getSource()).getScene();
-        Stage stage = (Stage) prev.getWindow();
-
-        // Creates the new scene and show it
-        Scene scene = new Scene(root, prev.getWidth(), prev.getHeight());
-        stage.setScene(scene);
+        setSceneFromNode((Node) actionEvent.getSource(), fxmlDocumentName);
     }
 
     /**
@@ -104,11 +89,8 @@ public class GUI extends Application {
      *            VIEWS_ROOT_DIRECTORY constant.
      */
     public static void setInitialSceneOfStage(Stage stage, String fxmlDocumentName, boolean startMaximized) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getViewResource(fxmlDocumentName));
-
         // Prepares the new scene
-        Parent root = checkedFXMLLoader(loader);
+        Parent root = checkedFXMLLoader(getViewResource(fxmlDocumentName));
 
         // Sets scene
         Scene scene = new Scene(root);
@@ -128,19 +110,19 @@ public class GUI extends Application {
      * easier to troubleshoot errors. This method should not produce errors unless something is worng with the FXMl page
      * or the connected controller.
      *
-     * @param loader
-     *            the FXMLLoader that is being loaded.
+     * @param url
+     *            The url of an FXML page.
      *
      * @return The loaded Parent.
      *
      * @throws IllegalStateException
      *             Throws an exception if something went wrong during the loading of the FXML page.
      */
-    protected static Parent checkedFXMLLoader(FXMLLoader loader) throws IllegalArgumentException {
+    protected static Parent checkedFXMLLoader(URL url) throws IllegalArgumentException {
         Parent root = null;
 
         try {
-            root = loader.load();
+            root = FXMLLoader.load(url);
         } catch (java.io.IOException e) {
             System.out.println("Could not load XML file... Check the controller class for " + e.getMessage());
             System.out.println("Stack Trace:");

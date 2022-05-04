@@ -273,6 +273,7 @@ public abstract class Unit implements Comparable<Unit> {
     public int getAttackBonus(TerrainEnum terrain) {
         return getResistBonus();
     }
+
     /**
      * Calculates the resist bonus of the unit.
      *

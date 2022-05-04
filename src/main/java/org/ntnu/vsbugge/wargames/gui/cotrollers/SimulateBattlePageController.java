@@ -7,7 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.ntnu.vsbugge.wargames.Army;
@@ -26,10 +25,8 @@ import java.io.IOException;
  * The controller for to simulate battle page.
  */
 public class SimulateBattlePageController {
-    private Battle battle = new Battle();
+    private final Battle battle = new Battle();
     private Battle originalBattle = new Battle();
-
-    private static int animationRenderFrequency = 10;
 
     @FXML
     private CheckBox animateCheck;
@@ -107,7 +104,7 @@ public class SimulateBattlePageController {
 
         new Thread(() -> {
             if (animateCheck.isSelected()) {
-                battle.simulate(1, 0);
+                battle.simulate(2, 0);
             } else {
                 battle.simulate();
             }
@@ -123,10 +120,10 @@ public class SimulateBattlePageController {
     void onReset(ActionEvent event) {
         battle.setArmyOne(originalBattle.getArmyOne());
         battle.setArmyTwo(originalBattle.getArmyTwo());
+        battle.setAttackTurn(originalBattle.getAttackTurn());
 
         defenderUnitWindow.setArmy(battle.getArmyTwo());
         attackerUnitWindow.setArmy(battle.getArmyOne());
-
 
         resetButtons();
     }
@@ -275,8 +272,8 @@ public class SimulateBattlePageController {
 
         battle.attach(eventType -> {
             switch (eventType) {
-                case UPDATE -> Platform.runLater(this::updateUnits);
-                case FINISH -> Platform.runLater(this::announceWinner);
+            case UPDATE -> Platform.runLater(this::updateUnits);
+            case FINISH -> Platform.runLater(this::announceWinner);
             }
         });
     }

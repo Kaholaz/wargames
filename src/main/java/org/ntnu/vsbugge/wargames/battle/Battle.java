@@ -113,7 +113,7 @@ public class Battle extends Subject {
 
     private void prepareSimulation() throws RuntimeException {
         // Throws a RunTimeException if one of the armies has not been added, or if neither of the armies has any units.
-        if (armyOne == null || armyTwo == null){
+        if (armyOne == null || armyTwo == null) {
             throw new RuntimeException("Both armies need to be set to simulate a battle battle");
         }
 
@@ -143,13 +143,21 @@ public class Battle extends Subject {
     }
 
     private void sleep(int msDelay, int nsDelay) throws RuntimeException {
-        if (msDelay != 0 || nsDelay != 0){
+        if (msDelay != 0 || nsDelay != 0) {
             try {
                 Thread.sleep(msDelay, nsDelay);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public int getAttackTurn() {
+        return attackTurn;
+    }
+
+    public void setAttackTurn(int attackTurn) {
+        this.attackTurn = attackTurn;
     }
 
     public Army getArmyOne() {
