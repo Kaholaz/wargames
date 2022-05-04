@@ -1,6 +1,7 @@
 package org.ntnu.vsbugge.wargames;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.battle.Battle;
 import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 
 public class BattleTest extends TestCase {
@@ -12,28 +13,11 @@ public class BattleTest extends TestCase {
 
         try {
             battle.simulate();
-            fail("Should throw IllegalStateException if one of the armies does not have units");
-        } catch (IllegalStateException e) {
-            assertEquals("Both armies need to have units to simulate a battle", e.getMessage());
+            fail("Should throw RuntimeException if one of the armies does not have units");
+        } catch (RuntimeException e) {
+            assertEquals("Both armies cannot be empty when simulating a battle.", e.getMessage());
         } catch (Exception e) {
-            fail("Should throw IllegalStateException if one of the armies does not have units");
-        }
-    }
-
-    public void testSimulateThrowsExceptionIfOneArmyIsEmpty() {
-        Army armyOne = new Army("ArmyOne");
-        Army armyTwo = new Army("ArmyTwo");
-        Battle battle = new Battle(armyOne, armyTwo);
-
-        armyTwo.add(new InfantryUnit("TestInfantry", 1));
-
-        try {
-            battle.simulate();
-            fail("Should throw IllegalStateException if one of the armies does not have units");
-        } catch (IllegalStateException e) {
-            assertEquals("Both armies need to have units to simulate a battle", e.getMessage());
-        } catch (Exception e) {
-            fail("Should throw IllegalStateException if one of the armies does not have units");
+            fail("Should throw RuntimeException if one of the armies does not have units");
         }
     }
 

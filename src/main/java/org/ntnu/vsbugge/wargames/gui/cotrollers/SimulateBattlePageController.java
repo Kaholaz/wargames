@@ -7,10 +7,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.ntnu.vsbugge.wargames.Army;
-import org.ntnu.vsbugge.wargames.Battle;
+import org.ntnu.vsbugge.wargames.battle.Battle;
 import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
@@ -27,7 +28,7 @@ import java.io.IOException;
 public class SimulateBattlePageController {
     private Battle battle = new Battle();
     private Battle originalBattle = new Battle();
-    private static boolean pauseAnimation = false;
+
     private static int animationRenderFrequency = 10;
 
     @FXML
@@ -95,8 +96,6 @@ public class SimulateBattlePageController {
      *            The action event from the button press.
      */
     void onResume(ActionEvent event) {
-        pauseAnimation = false;
-
         // Hide animate check box
         animateCheck.setDisable(true);
         animateCheck.setVisible(false);
@@ -106,20 +105,13 @@ public class SimulateBattlePageController {
 
         StatusDecorator.makeDisabled(homeButton);
 
-        // Animate the battle.
-        if (animateCheck.isSelected()) {
-            animateBattle(1, 0);
-            return;
-        }
-
-        // Simulate without animation.
-        try {
-            announceWinner(battle.simulate());
-        } catch (RuntimeException e) {
-            AlertFactory.createExceptionErrorAlert(e).show();
-            resetButtons();
-        }
-
+        new Thread(() -> {
+            if (animateCheck.isSelected()) {
+                battle.simulate(1, 0);
+            } else {
+                battle.simulate();
+            }
+        }).start();
     }
 
     /**
@@ -129,9 +121,12 @@ public class SimulateBattlePageController {
      *            The action event from the button press.
      */
     void onReset(ActionEvent event) {
-        battle = originalBattle;
-        attackerUnitWindow.setArmy(battle.getArmyOne());
+        battle.setArmyOne(originalBattle.getArmyOne());
+        battle.setArmyTwo(originalBattle.getArmyTwo());
+
         defenderUnitWindow.setArmy(battle.getArmyTwo());
+        attackerUnitWindow.setArmy(battle.getArmyOne());
+
 
         resetButtons();
     }
@@ -166,7 +161,7 @@ public class SimulateBattlePageController {
      *            The action event from the button press.
      */
     void onPause(ActionEvent event) {
-        pauseAnimation = true;
+        battle.pauseSimulation();
 
         startButton.setText("Resume");
         startButton.setOnAction(this::onResume);
@@ -180,55 +175,16 @@ public class SimulateBattlePageController {
     }
 
     /**
-     * Starts a thread that simulates an army battle, step by step. The simulation is stopped when the
-     * {@code pauseAnimation} boolean is set to true, or if the simulation concludes.
-     *
-     * @param ms
-     *            The millisecond delay between each simulation step.
-     * @param ns
-     *            The nanosecond delay between each simulation step.
-     */
-    void animateBattle(int ms, int ns) {
-        new Thread(() -> {
-            Army winner = null;
-            for (int i = 0; winner == null && !pauseAnimation; i = (i + 1) % animationRenderFrequency) {
-                try {
-                    winner = battle.simulateStep();
-                } catch (RuntimeException e) {
-                    Platform.runLater(() -> {
-                        AlertFactory.createExceptionErrorAlert(e).show();
-                        resetButtons();
-                    });
-                    pauseAnimation = true;
-                    break; // Exit loop if there is something wrong with the battle being simulated.
-                }
-
-                try {
-                    Thread.sleep(ms, ns);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                if (i == 0) {
-                    Platform.runLater(this::updateUnits);
-                }
-            }
-
-            if (!pauseAnimation) {
-                Army finalWinner = winner;
-                Platform.runLater(() -> announceWinner(finalWinner));
-            }
-        }).start();
-    }
-
-    /**
      * Creates and shows an information alert announcing the winner of a battle.
-     *
-     * @param winner
-     *            The winner of the battle to announce.
      */
-    void announceWinner(Army winner) {
+    void announceWinner() {
         updateUnits();
+
+        Army winner = battle.getWinner();
+        if (battle.getWinner() == null) {
+            Exception e = new RuntimeException("Could not announce winner as there is no winner.");
+            AlertFactory.createExceptionErrorAlert(e).show();
+        }
 
         StatusDecorator.makeDisabled(startButton);
         StatusDecorator.makeEnabled(homeButton);
@@ -247,7 +203,6 @@ public class SimulateBattlePageController {
     @FXML
     void onImportAttacker(ActionEvent event) {
         Army army = pickArmy();
-
         if (army == null) {
             return;
         }
@@ -267,7 +222,6 @@ public class SimulateBattlePageController {
     @FXML
     void onImportDefender(ActionEvent event) {
         Army army = pickArmy();
-
         if (army == null) {
             return;
         }
@@ -318,6 +272,13 @@ public class SimulateBattlePageController {
 
         terrainDropDown.getItems().addAll(TerrainEnum.values());
         terrainDropDown.getSelectionModel().select(TerrainEnum.DEFAULT);
+
+        battle.attach(eventType -> {
+            switch (eventType) {
+                case UPDATE -> Platform.runLater(this::updateUnits);
+                case FINISH -> Platform.runLater(this::announceWinner);
+            }
+        });
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.ntnu.vsbugge.wargames;
 
+import org.ntnu.vsbugge.wargames.battle.Battle;
 import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
