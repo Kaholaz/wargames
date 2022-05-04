@@ -145,6 +145,7 @@ public class Battle {
 
     /**
      * Gets the terrain of the battle.
+     *
      * @return THe terrain of the battle.
      */
     public TerrainEnum getTerrain() {
@@ -152,8 +153,11 @@ public class Battle {
     }
 
     /**
-     * Sets the terrain the battle will be conducted in. This will apply potential attack / resist bonuses to attacks during the simulation.
-     * @param terrain The terrain of the battle.
+     * Sets the terrain the battle will be conducted in. This will apply potential attack / resist bonuses to attacks
+     * during the simulation.
+     *
+     * @param terrain
+     *            The terrain of the battle.
      */
     public void setTerrain(TerrainEnum terrain) {
         this.terrain = terrain;

@@ -16,7 +16,8 @@ public class StatusDecorator {
     /**
      * Sets the state of an element to 'disabled'.
      *
-     * @param node The button to change.
+     * @param node
+     *            The button to change.
      */
     public static void makeDisabled(Node node) {
         node.setDisable(true);
@@ -25,7 +26,8 @@ public class StatusDecorator {
     /**
      * Sets the state of an element to 'enabled'.
      *
-     * @param node The button to change.
+     * @param node
+     *            The button to change.
      */
     public static void makeEnabled(Node node) {
         node.setDisable(false);

@@ -86,8 +86,12 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * The resist bonus of the unit after terrain considerations.If the terrain of the unit is TerrainEnum.FORREST, the resist bonus is 0.
-     * @param terrain The terrain.
+     * The resist bonus of the unit after terrain considerations.If the terrain of the unit is TerrainEnum.FORREST, the
+     * resist bonus is 0.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The resist bonus.
      */
     @Override
@@ -109,13 +113,16 @@ public class CavalryUnit extends Unit {
      */
     @Override
     public int getAttackBonus() {
-        return Integer.max(MINIMUM_ATTACK_BONUS,
-                INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
+        return Integer.max(MINIMUM_ATTACK_BONUS, INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
     }
 
     /**
-     * Calculates the attack bonus of the unit after terrain considerations. This method uses getAttackBonus() as a baseline. If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
-     * @param terrain The terrain.
+     * Calculates the attack bonus of the unit after terrain considerations. This method uses getAttackBonus() as a
+     * baseline. If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The attack bonus of the unit.
      */
     @Override

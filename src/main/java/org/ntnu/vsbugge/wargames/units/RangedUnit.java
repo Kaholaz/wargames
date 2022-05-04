@@ -104,6 +104,7 @@ public class RangedUnit extends Unit {
 
     /**
      * Calculates the base attack bonus of the unit.
+     *
      * @return The base attack bonus of the unit.
      */
     @Override
@@ -112,9 +113,13 @@ public class RangedUnit extends Unit {
     }
 
     /**
-     * Calculates the attack bonus of the unit with the terrain taken into account. If the terrain of the unit is TerrainEnum.HILL, the unit is given a bonus
-     * of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is given a penalty of 2.
-     * @param terrain The terrain.
+     * Calculates the attack bonus of the unit with the terrain taken into account. If the terrain of the unit is
+     * TerrainEnum.HILL, the unit is given a bonus of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is
+     * given a penalty of 2.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The updated attack bonus.
      */
     @Override

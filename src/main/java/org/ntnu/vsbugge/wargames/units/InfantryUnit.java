@@ -66,6 +66,7 @@ public class InfantryUnit extends Unit {
 
     /**
      * The base resist bonus of the unit without taking the terrain into account.
+     *
      * @return The resist bonus of the unit.
      */
     @Override
@@ -74,8 +75,12 @@ public class InfantryUnit extends Unit {
     }
 
     /**
-     * The resist bonus with terrain considerations. If the unit is fighting in a forrest, the unit is given a bonus of 2.
-     * @param terrain The terrain.
+     * The resist bonus with terrain considerations. If the unit is fighting in a forrest, the unit is given a bonus of
+     * 2.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The resist bonus.
      */
     @Override
@@ -88,6 +93,7 @@ public class InfantryUnit extends Unit {
 
     /**
      * The base attack bonus of the unit without taking the terrain into account.
+     *
      * @return The attack bonus of the unit.
      */
     @Override
@@ -97,15 +103,19 @@ public class InfantryUnit extends Unit {
     }
 
     /**
-     * The attack bonus of the unit with terrain considerations. If the unit is fighting in a forrest, the unit is given a bonus of 2.
-     * @param terrain The terrain.
+     * The attack bonus of the unit with terrain considerations. If the unit is fighting in a forrest, the unit is given
+     * a bonus of 2.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The attack bonus.
      */
     @Override
     public int getAttackBonus(TerrainEnum terrain) {
         return switch (terrain) {
-            case FORREST -> getAttackBonus() + 2;
-            default -> getAttackBonus();
+        case FORREST -> getAttackBonus() + 2;
+        default -> getAttackBonus();
         };
     }
 }

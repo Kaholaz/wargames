@@ -66,10 +66,12 @@ public class ArmyWindowElement extends VBox {
             // Unit in both unitElements and army
             if (unitElements.containsKey(unit) && nonCombatArmyTemplate.containsKey(unit)) {
                 updateElementCount(unit, nonCombatArmyTemplate.get(unit));
+                continue;
             }
             // Unit in unitElements not in army
-            else if (!nonCombatArmyTemplate.containsKey(unit)) {
+            if (!nonCombatArmyTemplate.containsKey(unit)) {
                 updateElementCount(unit, 0);
+                continue;
             }
             // Unit in army not in unitElements
             else if (!unitElements.containsKey(unit)) {

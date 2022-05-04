@@ -46,8 +46,11 @@ public abstract class Unit implements Comparable<Unit> {
 
     /**
      * Simulates an engagement and deals damage to the opponent according to the stats of the unit and the opponent.
-     * This method uses the attack(Unit, TerrainEnum) with the terrain enum set to DEFAULT. This method is kept for backwards compatibility.
-     * @param opponent The opposing unit in the engagement.
+     * This method uses the attack(Unit, TerrainEnum) with the terrain enum set to DEFAULT. This method is kept for
+     * backwards compatibility.
+     *
+     * @param opponent
+     *            The opposing unit in the engagement.
      */
     public void attack(Unit opponent) {
         this.attack(opponent, TerrainEnum.DEFAULT);
@@ -65,7 +68,8 @@ public abstract class Unit implements Comparable<Unit> {
      *            The opposing unit in the engagement
      */
     public void attack(Unit opponent, TerrainEnum terrain) {
-        int damage = (this.getAttack() + this.getAttackBonus(terrain)) - (opponent.getArmor() + opponent.getResistBonus(terrain));
+        int damage = (this.getAttack() + this.getAttackBonus(terrain))
+                - (opponent.getArmor() + opponent.getResistBonus(terrain));
         opponent.takeDamage(Integer.max(damage, 0)); // no negative damage
     }
 
@@ -240,6 +244,7 @@ public abstract class Unit implements Comparable<Unit> {
 
     /**
      * Copies a class using its copy constructor.
+     *
      * @return A copy of the instance using the class' copy constructor
      */
     public abstract Unit copy();
@@ -251,26 +256,36 @@ public abstract class Unit implements Comparable<Unit> {
 
     /**
      * Calculates the attack bonus of the unit.
+     *
      * @return The attack bonus of the unit
      */
     public abstract int getAttackBonus();
 
     /**
-     * Calculates the attack bonus of a unit with the terrain taken into account. The default method of any unit does not apply any penalties or bonuses to the resist bonus.
-     * @param terrain The terrain.
+     * Calculates the attack bonus of a unit with the terrain taken into account. The default method of any unit does
+     * not apply any penalties or bonuses to the resist bonus.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The updated resist bonus.
      */
     public abstract int getAttackBonus(TerrainEnum terrain);
 
     /**
      * Calculates the resist bonus of the unit.
+     *
      * @return The resist bonus of the unit
      */
     public abstract int getResistBonus();
 
     /**
-     * Calculates the resist bonus of a unit with the terrain taken int account. The default method of any unit does not apply any penalties or bonuses to the resist bonus.
-     * @param terrain The terrain.
+     * Calculates the resist bonus of a unit with the terrain taken int account. The default method of any unit does not
+     * apply any penalties or bonuses to the resist bonus.
+     *
+     * @param terrain
+     *            The terrain.
+     *
      * @return The updated resist bonus.
      */
     public int getResistBonus(TerrainEnum terrain) {
