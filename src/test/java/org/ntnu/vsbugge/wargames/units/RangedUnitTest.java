@@ -138,15 +138,12 @@ public class RangedUnitTest extends TestCase {
     public void testGetAttackBonusTakesHillTerrainIntoAccount() {
         RangedUnit test = new RangedUnit("Test", 15);
 
-        test.setTerrain(TerrainEnum.HILL);
-        assertEquals(RangedUnit.ATTACK_BONUS + 3, test.getAttackBonus());
+        assertEquals(RangedUnit.ATTACK_BONUS + 3, test.getAttackBonus(TerrainEnum.HILL));
     }
 
     public void testGetAttackBonusTakesForrestTerrainIntoAccount() {
         RangedUnit test = new RangedUnit("Test", 15);
-
-        test.setTerrain(TerrainEnum.FORREST);
-        assertEquals(RangedUnit.ATTACK_BONUS - 2, test.getAttackBonus());
+        assertEquals(RangedUnit.ATTACK_BONUS - 2, test.getAttackBonus(TerrainEnum.FORREST));
     }
 
     public void testCopyIsNotSame() {

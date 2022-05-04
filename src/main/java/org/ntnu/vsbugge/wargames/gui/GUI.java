@@ -16,8 +16,8 @@ import java.net.URL;
  */
 public class GUI extends Application {
 
-    private static final int STAGE_MIN_HEIGHT = 450;
-    private static final int STAGE_MIN_WIDTH = 600;
+    private static final int STAGE_MIN_HEIGHT = 700;
+    private static final int STAGE_MIN_WIDTH = 1000;
     private static final String VIEWS_ROOT_DIRECTORY = "/gui/views/";
 
     /**

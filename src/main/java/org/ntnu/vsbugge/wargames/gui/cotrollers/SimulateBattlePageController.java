@@ -6,13 +6,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.ntnu.vsbugge.wargames.Army;
 import org.ntnu.vsbugge.wargames.Battle;
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
-import org.ntnu.vsbugge.wargames.gui.decorators.ButtonDecorator;
+import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.battlesimulation.ArmyWindowElement;
 
@@ -53,6 +55,9 @@ public class SimulateBattlePageController {
     @FXML
     private Button homeButton;
 
+    @FXML
+    private ComboBox<TerrainEnum> terrainDropDown;
+
     /**
      * The event listener for when the 'home' button is pressed.
      *
@@ -72,8 +77,9 @@ public class SimulateBattlePageController {
      */
     @FXML
     void onStart(ActionEvent event) {
-        ButtonDecorator.makeDisabled(importAttacker);
-        ButtonDecorator.makeDisabled(importDefender);
+        StatusDecorator.makeDisabled(importAttacker);
+        StatusDecorator.makeDisabled(importDefender);
+        StatusDecorator.makeDisabled(terrainDropDown);
 
         homeButton.setText("Reset");
         homeButton.setOnAction(this::onReset);
@@ -98,7 +104,7 @@ public class SimulateBattlePageController {
         startButton.setText("Pause");
         startButton.setOnAction(this::onPause);
 
-        ButtonDecorator.makeDisabled(homeButton);
+        StatusDecorator.makeDisabled(homeButton);
 
         // Animate the battle.
         if (animateCheck.isSelected()) {
@@ -146,10 +152,11 @@ public class SimulateBattlePageController {
         homeButton.setOnAction(this::onHome);
 
         // Enable buttons.
-        ButtonDecorator.makeEnabled(startButton);
-        ButtonDecorator.makeEnabled(homeButton);
-        ButtonDecorator.makeEnabled(importAttacker);
-        ButtonDecorator.makeEnabled(importDefender);
+        StatusDecorator.makeEnabled(startButton);
+        StatusDecorator.makeEnabled(homeButton);
+        StatusDecorator.makeEnabled(importAttacker);
+        StatusDecorator.makeEnabled(importDefender);
+        StatusDecorator.makeEnabled(terrainDropDown);
     }
 
     /**
@@ -164,7 +171,12 @@ public class SimulateBattlePageController {
         startButton.setText("Resume");
         startButton.setOnAction(this::onResume);
 
-        ButtonDecorator.makeEnabled(homeButton);
+        StatusDecorator.makeEnabled(homeButton);
+    }
+
+    @FXML
+    void onTerrainChange(ActionEvent event) {
+        battle.setTerrain(terrainDropDown.getSelectionModel().getSelectedItem());
     }
 
     /**
@@ -218,8 +230,8 @@ public class SimulateBattlePageController {
     void announceWinner(Army winner) {
         updateUnits();
 
-        ButtonDecorator.makeDisabled(startButton);
-        ButtonDecorator.makeEnabled(homeButton);
+        StatusDecorator.makeDisabled(startButton);
+        StatusDecorator.makeEnabled(homeButton);
 
         AlertFactory
                 .createAlert(Alert.AlertType.INFORMATION, String.format("%s won!", winner.getName()), "Battle results")
@@ -240,9 +252,10 @@ public class SimulateBattlePageController {
             return;
         }
 
-        battle.setArmyOne(army);
         importAttacker.setText(army.getName());
-        attackerUnitWindow.setArmy(army);
+
+        battle.setArmyOne(army);
+        attackerUnitWindow.setArmy(battle.getArmyOne());
     }
 
     /**
@@ -259,9 +272,10 @@ public class SimulateBattlePageController {
             return;
         }
 
-        battle.setArmyTwo(army);
         importDefender.setText(army.getName());
-        defenderUnitWindow.setArmy(army);
+
+        battle.setArmyTwo(army);
+        defenderUnitWindow.setArmy(battle.getArmyTwo());
     }
 
     /**
@@ -301,6 +315,9 @@ public class SimulateBattlePageController {
         defenderUnitWindowParent.getChildren().clear();
         defenderUnitWindow = new ArmyWindowElement();
         defenderUnitWindowParent.getChildren().add(defenderUnitWindow);
+
+        terrainDropDown.getItems().addAll(TerrainEnum.values());
+        terrainDropDown.getSelectionModel().select(TerrainEnum.DEFAULT);
     }
 
     /**

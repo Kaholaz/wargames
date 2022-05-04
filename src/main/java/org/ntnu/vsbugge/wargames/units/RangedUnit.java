@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+
 /**
  * A class that represent a single ranged unit
  */
@@ -101,15 +103,26 @@ public class RangedUnit extends Unit {
     }
 
     /**
-     * @return The attack bonus of the unit. If the terrain of the unit is TerrainEnum.HILL, the unit is given a bonus
-     *         of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is given a penalty of 2.
+     * Calculates the base attack bonus of the unit.
+     * @return The base attack bonus of the unit.
      */
     @Override
     public int getAttackBonus() {
-        return switch (getTerrain()) {
-        case HILL -> ATTACK_BONUS + 3;
-        case FORREST -> ATTACK_BONUS - 2;
-        default -> ATTACK_BONUS;
+        return ATTACK_BONUS;
+    }
+
+    /**
+     * Calculates the attack bonus of the unit with the terrain taken into account. If the terrain of the unit is TerrainEnum.HILL, the unit is given a bonus
+     * of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is given a penalty of 2.
+     * @param terrain The terrain.
+     * @return The updated attack bonus.
+     */
+    @Override
+    public int getAttackBonus(TerrainEnum terrain) {
+        return switch (terrain) {
+        case HILL -> getAttackBonus() + 3;
+        case FORREST -> getAttackBonus() - 2;
+        default -> getAttackBonus();
         };
     }
 }

@@ -61,8 +61,8 @@ public class CavalryUnit extends Unit {
     }
 
     @Override
-    public void attack(Unit opponent) {
-        super.attack(opponent);
+    public void attack(Unit opponent, TerrainEnum terrain) {
+        super.attack(opponent, terrain);
         ++numberOfTimesAttacked;
     }
 
@@ -77,18 +77,29 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * @return The resist bonus of the unit. If the terrain of the unit is TerrainEnum.FORREST, the resist bonus is 0.
+     * @return The base resist bonus of the unit without terrain considerations.
      */
     @Override
     public int getResistBonus() {
-        if (getTerrain() == TerrainEnum.FORREST) {
-            return 0;
-        }
         return RESIST_BONUS;
+
     }
 
     /**
-     * Calculates the attack bonus of the unit. If the unit has not attacked, this returns the value of the private
+     * The resist bonus of the unit after terrain considerations.If the terrain of the unit is TerrainEnum.FORREST, the resist bonus is 0.
+     * @param terrain The terrain.
+     * @return The resist bonus.
+     */
+    @Override
+    public int getResistBonus(TerrainEnum terrain) {
+        if (terrain == TerrainEnum.FORREST) {
+            return 0;
+        }
+        return getResistBonus();
+    }
+
+    /**
+     * Calculates the base attack bonus of the unit. If the unit has not attacked, this returns the value of the private
      * constant INITIAL_ATTACK_BONUS. Each time this unit attacks, An attack value equal to ATTACK_BONUS_PENALTY is
      * subtracted each time this unit attacks to a minimum of MINIMUM_ATTACK_BONUS.
      *
@@ -98,11 +109,20 @@ public class CavalryUnit extends Unit {
      */
     @Override
     public int getAttackBonus() {
-        int attackBonus = Integer.max(MINIMUM_ATTACK_BONUS,
+        return Integer.max(MINIMUM_ATTACK_BONUS,
                 INITIAL_ATTACK_BONUS - numberOfTimesAttacked * ATTACK_BONUS_PENALTY);
-        return switch (getTerrain()) {
-        case PLAINS -> attackBonus + 2;
-        default -> attackBonus;
-        };
+    }
+
+    /**
+     * Calculates the attack bonus of the unit after terrain considerations. This method uses getAttackBonus() as a baseline. If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
+     * @param terrain The terrain.
+     * @return The attack bonus of the unit.
+     */
+    @Override
+    public int getAttackBonus(TerrainEnum terrain) {
+        if (terrain == TerrainEnum.PLAINS) {
+            return getAttackBonus() + 2;
+        }
+        return getAttackBonus();
     }
 }

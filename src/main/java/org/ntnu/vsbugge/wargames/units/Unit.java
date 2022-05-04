@@ -12,7 +12,6 @@ public abstract class Unit implements Comparable<Unit> {
     private final String name;
     private final int attack, armor;
     private int health;
-    private TerrainEnum terrain = TerrainEnum.DEFAULT;
 
     /**
      * Constructor for the abstract class.
@@ -46,7 +45,16 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
-     * Simulates an engagement and deals damage to the opponent according to the stats of the unit and the opponent
+     * Simulates an engagement and deals damage to the opponent according to the stats of the unit and the opponent.
+     * This method uses the attack(Unit, TerrainEnum) with the terrain enum set to DEFAULT. This method is kept for backwards compatibility.
+     * @param opponent The opposing unit in the engagement.
+     */
+    public void attack(Unit opponent) {
+        this.attack(opponent, TerrainEnum.DEFAULT);
+    }
+
+    /**
+     * Simulates an engagement and deals damage to the opponent according to the stats of the unit and the opponent.
      *
      * <br>
      * <br>
@@ -56,8 +64,8 @@ public abstract class Unit implements Comparable<Unit> {
      * @param opponent
      *            The opposing unit in the engagement
      */
-    public void attack(Unit opponent) {
-        int damage = (this.getAttack() + this.getAttackBonus()) - (opponent.getArmor() + opponent.getResistBonus());
+    public void attack(Unit opponent, TerrainEnum terrain) {
+        int damage = (this.getAttack() + this.getAttackBonus(terrain)) - (opponent.getArmor() + opponent.getResistBonus(terrain));
         opponent.takeDamage(Integer.max(damage, 0)); // no negative damage
     }
 
@@ -90,28 +98,11 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
-     * @return The current terrain of the unit.
-     */
-    public TerrainEnum getTerrain() {
-        return terrain;
-    }
-
-    /**
-     * Sets the current terrain of the unit.
-     *
-     * @param terrain
-     *            The new terrain of the unit.
-     */
-    public void setTerrain(TerrainEnum terrain) {
-        this.terrain = terrain;
-    }
-
-    /**
      * Makes the unit take damage to health-points. A negative or zero health-value signifies that the unit is dead.
      *
      * <br>
      * <br>
-     * This method is included in favor of a setHealth method; both to protect it form being changed in an unforeseen
+     * This method is included in favor of a setHealth method; both to protect it from being changed in an unforeseen
      * way, and to create an interface to make it possible to track the number of times a unit has been attacked without
      * introducing unexpected behaviour (ie incrementing a variable tracking the number of times a unit has taken damage
      * in a setHealth method, or in the getResistBonus method)
@@ -248,6 +239,7 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * Copies a class using its copy constructor.
      * @return A copy of the instance using the class' copy constructor
      */
     public abstract Unit copy();
@@ -258,12 +250,30 @@ public abstract class Unit implements Comparable<Unit> {
     public abstract void resetStats();
 
     /**
+     * Calculates the attack bonus of the unit.
      * @return The attack bonus of the unit
      */
     public abstract int getAttackBonus();
 
     /**
+     * Calculates the attack bonus of a unit with the terrain taken into account. The default method of any unit does not apply any penalties or bonuses to the resist bonus.
+     * @param terrain The terrain.
+     * @return The updated resist bonus.
+     */
+    public abstract int getAttackBonus(TerrainEnum terrain);
+
+    /**
+     * Calculates the resist bonus of the unit.
      * @return The resist bonus of the unit
      */
     public abstract int getResistBonus();
+
+    /**
+     * Calculates the resist bonus of a unit with the terrain taken int account. The default method of any unit does not apply any penalties or bonuses to the resist bonus.
+     * @param terrain The terrain.
+     * @return The updated resist bonus.
+     */
+    public int getResistBonus(TerrainEnum terrain) {
+        return getResistBonus();
+    }
 }

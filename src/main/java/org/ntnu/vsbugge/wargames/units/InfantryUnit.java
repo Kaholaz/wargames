@@ -1,5 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
+
 /**
  * A class that represent a single infantry unit
  */
@@ -63,24 +65,47 @@ public class InfantryUnit extends Unit {
     }
 
     /**
-     * @return The resist bonus of the unit. If the unit is fighting in a forrest, the unit is given a bonus of 2.
+     * The base resist bonus of the unit without taking the terrain into account.
+     * @return The resist bonus of the unit.
      */
     @Override
     public int getResistBonus() {
-        return switch (getTerrain()) {
-        case FORREST -> RESIST_BONUS + 2;
-        default -> RESIST_BONUS;
-        };
+        return RESIST_BONUS;
     }
 
     /**
-     * @return The attack bonus of the unit. If the unit is fighting in a forrest, the unit is given a bonus of 2.
+     * The resist bonus with terrain considerations. If the unit is fighting in a forrest, the unit is given a bonus of 2.
+     * @param terrain The terrain.
+     * @return The resist bonus.
+     */
+    @Override
+    public int getResistBonus(TerrainEnum terrain) {
+        if (terrain == TerrainEnum.FORREST) {
+            return getResistBonus() + 2;
+        }
+        return getResistBonus();
+    }
+
+    /**
+     * The base attack bonus of the unit without taking the terrain into account.
+     * @return The attack bonus of the unit.
      */
     @Override
     public int getAttackBonus() {
-        return switch (getTerrain()) {
-        case FORREST -> ATTACK_BONUS + 2;
-        default -> ATTACK_BONUS;
+        return ATTACK_BONUS;
+
+    }
+
+    /**
+     * The attack bonus of the unit with terrain considerations. If the unit is fighting in a forrest, the unit is given a bonus of 2.
+     * @param terrain The terrain.
+     * @return The attack bonus.
+     */
+    @Override
+    public int getAttackBonus(TerrainEnum terrain) {
+        return switch (terrain) {
+            case FORREST -> getAttackBonus() + 2;
+            default -> getAttackBonus();
         };
     }
 }

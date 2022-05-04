@@ -89,9 +89,8 @@ public class InfantryUnitTest extends TestCase {
 
     public void testGetResistBonusTakesForrestTerrainIntoAccount() {
         InfantryUnit test = new InfantryUnit("Test", 15);
-        test.setTerrain(TerrainEnum.FORREST);
 
-        assertEquals(InfantryUnit.RESIST_BONUS + 2, test.getResistBonus());
+        assertEquals(InfantryUnit.RESIST_BONUS + 2, test.getResistBonus(TerrainEnum.FORREST));
     }
 
     public void testGetAttackBonus() {
@@ -101,9 +100,8 @@ public class InfantryUnitTest extends TestCase {
 
     public void testGetAttackBonusTakesForrestTerrainIntoAccount() {
         InfantryUnit test = new InfantryUnit("Test", 15);
-        test.setTerrain(TerrainEnum.FORREST);
 
-        assertEquals(InfantryUnit.ATTACK_BONUS + 2, test.getAttackBonus());
+        assertEquals(InfantryUnit.ATTACK_BONUS + 2, test.getAttackBonus(TerrainEnum.FORREST));
     }
 
     public void testCopyIsNotSame() {

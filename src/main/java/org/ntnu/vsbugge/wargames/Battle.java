@@ -1,5 +1,6 @@
 package org.ntnu.vsbugge.wargames;
 
+import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 /**
@@ -8,6 +9,7 @@ import org.ntnu.vsbugge.wargames.units.Unit;
 public class Battle {
     private Army armyOne;
     private Army armyTwo;
+    private TerrainEnum terrain = TerrainEnum.DEFAULT;
     private int attackTurn = 0; // Zero for army one and two for armyTwos
 
     /**
@@ -28,6 +30,7 @@ public class Battle {
         armyOne = (battle.armyOne == null) ? null : new Army(battle.armyOne);
         armyTwo = (battle.armyTwo == null) ? null : new Army(battle.armyTwo);
         attackTurn = battle.attackTurn;
+        terrain = battle.terrain;
     }
 
     /**
@@ -89,7 +92,7 @@ public class Battle {
         }
 
         // Pit the two units against each other and remove the defender if it is killed.
-        attackUnit.attack(defenderUnit);
+        attackUnit.attack(defenderUnit, terrain);
         if (defenderUnit.getHealth() <= 0) {
             defender.remove(defenderUnit);
         }
@@ -129,7 +132,7 @@ public class Battle {
     }
 
     public void setArmyOne(Army armyOne) {
-        this.armyOne = armyOne;
+        this.armyOne = (armyOne == null) ? null : new Army(armyOne);
     }
 
     public Army getArmyTwo() {
@@ -137,7 +140,23 @@ public class Battle {
     }
 
     public void setArmyTwo(Army armyTwo) {
-        this.armyTwo = armyTwo;
+        this.armyTwo = (armyTwo == null) ? null : new Army(armyTwo);
+    }
+
+    /**
+     * Gets the terrain of the battle.
+     * @return THe terrain of the battle.
+     */
+    public TerrainEnum getTerrain() {
+        return terrain;
+    }
+
+    /**
+     * Sets the terrain the battle will be conducted in. This will apply potential attack / resist bonuses to attacks during the simulation.
+     * @param terrain The terrain of the battle.
+     */
+    public void setTerrain(TerrainEnum terrain) {
+        this.terrain = terrain;
     }
 
     /**

@@ -98,9 +98,8 @@ public class CavalryUnitTest extends TestCase {
 
     public void testGetResistBonusTakesForrestTerrainIntoAccount() {
         CavalryUnit test = new CavalryUnit("Test", 15);
-        test.setTerrain(TerrainEnum.FORREST);
 
-        assertEquals(0, test.getResistBonus());
+        assertEquals(0, test.getResistBonus(TerrainEnum.FORREST));
     }
 
     public void testGetAttackBonusBeforeUnitHasAttacked() {
@@ -118,9 +117,8 @@ public class CavalryUnitTest extends TestCase {
 
     public void testGetAttackBonusTakesPlainsTerrainIntoAccount() {
         CavalryUnit test = new CavalryUnit("Test", 15);
-        test.setTerrain(TerrainEnum.PLAINS);
 
-        assertEquals(CavalryUnit.INITIAL_ATTACK_BONUS + 2, test.getAttackBonus());
+        assertEquals(CavalryUnit.INITIAL_ATTACK_BONUS + 2, test.getAttackBonus(TerrainEnum.PLAINS));
     }
 
     public void testCopyIsNotSame() {
