@@ -1,6 +1,6 @@
 package org.ntnu.vsbugge.wargames.battle;
 
-import org.ntnu.vsbugge.wargames.Army;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.eventlisteners.EventType;
 import org.ntnu.vsbugge.wargames.eventlisteners.Subject;
@@ -20,7 +20,20 @@ public class Battle extends Subject {
      * Constructs a battle. This constructor creates an object where both armyOne og armyTwo are null.
      */
     public Battle() {
+    }
 
+    /**
+     * The constructor for an instance of the Battle class
+     *
+     * @param armyOne
+     *            The fist army
+     * @param armyTwo
+     *            The second army
+     */
+    public Battle(Army armyOne, Army armyTwo) {
+        this();
+        this.armyOne = armyOne;
+        this.armyTwo = armyTwo;
     }
 
     /**
@@ -39,17 +52,24 @@ public class Battle extends Subject {
     }
 
     /**
-     * The constructor for an instance of the Battle class
+     * Used to simulate a battle between two armies,
      *
-     * @param armyOne
-     *            The fist army
-     * @param armyTwo
-     *            The second army
+     * <br>
+     * <br>
+     * When one army attacks the other, a random unit from the attacking army, is picked to attack a random unit from
+     * the defending army. Whenever a unit falls bellow 1 health, the unit is removed from its army.
+     *
+     * <br>
+     * <br>
+     * The first army attacks first, then the second army attacks. This continues until an army is left with 0 units.
+     *
+     * @return The army that won the battle
+     *
+     * @throws RuntimeException
+     *             Throws an exception if neither of the armies have any units, or if one of the armies are set to null.
      */
-    public Battle(Army armyOne, Army armyTwo) {
-        this();
-        this.armyOne = armyOne;
-        this.armyTwo = armyTwo;
+    public Army simulate() throws RuntimeException {
+        return simulate(0, 0);
     }
 
     /**
@@ -62,17 +82,18 @@ public class Battle extends Subject {
      *
      * <br>
      * <br>
-     * The first army attacks first, then the second army attacks. This continues unit an army is left with 0 units.
+     * The first army attacks first, then the second army attacks. This continues until an army is left with 0 units.
+     *
+     * @param msDelay
+     *            The delay (in milliseconds) between each attack.
+     * @param nsDelay
+     *            The delay (in nanoseconds) between each attack.
      *
      * @return The army that won the battle
      *
      * @throws RuntimeException
      *             Throws an exception if neither of the armies have any units, or if one of the armies are set to null.
      */
-    public Army simulate() throws RuntimeException {
-        return simulate(0, 0);
-    }
-
     public Army simulate(int msDelay, int nsDelay) throws RuntimeException {
         prepareSimulation();
 
@@ -96,14 +117,36 @@ public class Battle extends Subject {
         return null;
     }
 
+    /**
+     * Pauses an ongoing simulation. The simulation can be restarted using the simulate method.
+     */
+    public void pauseSimulation() {
+        simulationPaused = true;
+    }
+
+    /**
+     * Gets the army that will attack in the next simulation step.
+     *
+     * @return The army that will attack in the next simulation step.
+     */
     private Army getAttacker() {
         return attackTurn == 0 ? armyOne : armyTwo;
     }
 
+    /**
+     * Gets the army that will defend in the next simulation step.
+     *
+     * @return The army that will defend in the next simulation step.
+     */
     private Army getDefender() {
         return attackTurn == 0 ? armyTwo : armyOne;
     }
 
+    /**
+     * Returns the winning army of the simulation if the simulation has concluded, otherwise it returns null.
+     *
+     * @return The winning army of the simulation if the simulation has concluded, otherwise it returns null.
+     */
     public Army getWinner() {
         if (armyOne.hasUnits() && armyTwo.hasUnits()) {
             return null;
@@ -111,6 +154,12 @@ public class Battle extends Subject {
         return armyOne.hasUnits() ? armyOne : armyTwo;
     }
 
+    /**
+     * Checks if the battle is in a valid state before a simulation, and removes all dead units from both armies.
+     *
+     * @throws RuntimeException
+     *             Throws an exception if either of the armies are null, or if both of the armies are empty.
+     */
     private void prepareSimulation() throws RuntimeException {
         // Throws a RunTimeException if one of the armies has not been added, or if neither of the armies has any units.
         if (armyOne == null || armyTwo == null) {
@@ -125,6 +174,19 @@ public class Battle extends Subject {
         armyTwo.removeAllDeadUnits();
     }
 
+    /**
+     * Pits an army against another army in one attack. This is done by picking one random unit from the attacking army
+     * and make it attack a random unit from the defending unit. If the defending unit's health hits zero, the unit is
+     * removed form its army.
+     *
+     * @param attacker
+     *            The attacking army.
+     * @param defender
+     *            The defending army.
+     *
+     * @return If the attacking army attacked and killed the last unit in the defending unit, the attacking army is
+     *         returned. Otherwise, null is returned.
+     */
     private Army attack(Army attacker, Army defender) {
         Unit attackUnit = attacker.getRandomUnit();
         Unit defenderUnit = defender.getRandomUnit();
@@ -142,6 +204,18 @@ public class Battle extends Subject {
         return null;
     }
 
+    /**
+     * Wraps the Thread.sleep(millis, nanos) method to ignore a delay of zero and catch InterruptedException and throw a
+     * RuntimeException in stead.
+     *
+     * @param msDelay
+     *            The delay (in milliseconds) to sleep for.
+     * @param nsDelay
+     *            The delay (in nanoseconds) to sleep for.
+     *
+     * @throws RuntimeException
+     *             Throws RuntimeException if Thred.sleep produces a InterruptedException.
+     */
     private void sleep(int msDelay, int nsDelay) throws RuntimeException {
         if (msDelay != 0 || nsDelay != 0) {
             try {
@@ -152,26 +226,59 @@ public class Battle extends Subject {
         }
     }
 
+    /**
+     * Gets the attackTurn variable. This variable dictates whose turn it is to attack during the simulation.
+     *
+     * @return The attackTurn variable.
+     */
     public int getAttackTurn() {
         return attackTurn;
     }
 
+    /**
+     * Sets the attackTurn variable. This variable dictates whose turn it is to attack during the simulation.
+     *
+     * @param attackTurn
+     *            The new attackTurn variable.
+     */
     public void setAttackTurn(int attackTurn) {
         this.attackTurn = attackTurn;
     }
 
+    /**
+     * Gets armyOne.
+     *
+     * @return armyOne.
+     */
     public Army getArmyOne() {
         return armyOne;
     }
 
+    /**
+     * Sets armyOne.
+     *
+     * @param armyOne
+     *            The new armyOne.
+     */
     public void setArmyOne(Army armyOne) {
         this.armyOne = (armyOne == null) ? null : new Army(armyOne);
     }
 
+    /**
+     * Gets armyTwo.
+     *
+     * @return armyTwo.
+     */
     public Army getArmyTwo() {
         return armyTwo;
     }
 
+    /**
+     * Sets armyTwo.
+     *
+     * @param armyTwo
+     *            The new armyTwo.
+     */
     public void setArmyTwo(Army armyTwo) {
         this.armyTwo = (armyTwo == null) ? null : new Army(armyTwo);
     }
@@ -188,14 +295,12 @@ public class Battle extends Subject {
     }
 
     /**
-     * @return A string representation of and instance of Battle.
+     * Creates a string representation of an instance of Battle.
+     *
+     * @return A string representation of an instance of Battle.
      */
     @Override
     public String toString() {
         return "Battle{" + "armyOne=" + armyOne + ", armyTwo=" + armyTwo + '}';
-    }
-
-    public void pauseSimulation() {
-        simulationPaused = true;
     }
 }

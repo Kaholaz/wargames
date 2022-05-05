@@ -2,7 +2,7 @@ package org.ntnu.vsbugge.wargames.gui.guielements.battlesimulation;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import org.ntnu.vsbugge.wargames.Army;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 

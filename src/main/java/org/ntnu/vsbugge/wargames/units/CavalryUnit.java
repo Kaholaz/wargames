@@ -86,7 +86,7 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * The resist bonus of the unit after terrain considerations.If the terrain of the unit is TerrainEnum.FORREST, the
+     * The resist bonus of the unit after terrain considerations.If the terrain of the unit is TerrainEnum.FOREST, the
      * resist bonus is 0.
      *
      * @param terrain
@@ -96,7 +96,7 @@ public class CavalryUnit extends Unit {
      */
     @Override
     public int getResistBonus(TerrainEnum terrain) {
-        if (terrain == TerrainEnum.FORREST) {
+        if (terrain == TerrainEnum.FOREST) {
             return 0;
         }
         return getResistBonus();

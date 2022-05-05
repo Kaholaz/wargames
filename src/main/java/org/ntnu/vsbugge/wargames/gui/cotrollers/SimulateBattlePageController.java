@@ -9,7 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import org.ntnu.vsbugge.wargames.Army;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.battle.Battle;
 import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
@@ -20,6 +20,7 @@ import org.ntnu.vsbugge.wargames.gui.guielements.battlesimulation.ArmyWindowElem
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * The controller for to simulate battle page.
@@ -27,6 +28,8 @@ import java.io.IOException;
 public class SimulateBattlePageController {
     private final Battle battle = new Battle();
     private Battle originalBattle = new Battle();
+    private long lastUpdate = new Date().getTime();
+    private int updateDelta = 33;
 
     @FXML
     private CheckBox animateCheck;
@@ -253,6 +256,14 @@ public class SimulateBattlePageController {
     }
 
     /**
+     * Updates the UnitInfoElements and ArmyInfoElements of both armies' ArmyWindowElement.
+     */
+    void updateUnits() {
+        attackerUnitWindow.update();
+        defenderUnitWindow.update();
+    }
+
+    /**
      * Sets the initial state of the 'simulate battle' page.
      */
     @FXML
@@ -272,17 +283,15 @@ public class SimulateBattlePageController {
 
         battle.attach(eventType -> {
             switch (eventType) {
-            case UPDATE -> Platform.runLater(this::updateUnits);
+            case UPDATE -> {
+                long now = new Date().getTime();
+                if (now - updateDelta >= lastUpdate) {
+                    Platform.runLater(this::updateUnits);
+                    lastUpdate = now;
+                }
+            }
             case FINISH -> Platform.runLater(this::announceWinner);
             }
         });
-    }
-
-    /**
-     * Updates the UnitInfoElements and ArmyInfoElements of both armies' ArmyWindowElement.
-     */
-    void updateUnits() {
-        attackerUnitWindow.update();
-        defenderUnitWindow.update();
     }
 }

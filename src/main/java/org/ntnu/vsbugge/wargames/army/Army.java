@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames;
+package org.ntnu.vsbugge.wargames.army;
 
 import org.ntnu.vsbugge.wargames.units.Unit;
 

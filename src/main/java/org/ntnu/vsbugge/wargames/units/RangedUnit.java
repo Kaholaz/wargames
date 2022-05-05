@@ -114,7 +114,7 @@ public class RangedUnit extends Unit {
 
     /**
      * Calculates the attack bonus of the unit with the terrain taken into account. If the terrain of the unit is
-     * TerrainEnum.HILL, the unit is given a bonus of 3. If the terrain of the unit is TerrainEnum.FORREST, the unit is
+     * TerrainEnum.HILL, the unit is given a bonus of 3. If the terrain of the unit is TerrainEnum.FOREST, the unit is
      * given a penalty of 2.
      *
      * @param terrain
@@ -126,7 +126,7 @@ public class RangedUnit extends Unit {
     public int getAttackBonus(TerrainEnum terrain) {
         return switch (terrain) {
         case HILL -> getAttackBonus() + 3;
-        case FORREST -> getAttackBonus() - 2;
+        case FOREST -> getAttackBonus() - 2;
         default -> getAttackBonus();
         };
     }

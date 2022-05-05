@@ -2,7 +2,6 @@ package org.ntnu.vsbugge.wargames.units;
 
 import junit.framework.TestCase;
 import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
-import org.w3c.dom.ranges.Range;
 
 import static org.junit.Assert.assertNotEquals;
 
@@ -143,7 +142,7 @@ public class RangedUnitTest extends TestCase {
 
     public void testGetAttackBonusTakesForrestTerrainIntoAccount() {
         RangedUnit test = new RangedUnit("Test", 15);
-        assertEquals(RangedUnit.ATTACK_BONUS - 2, test.getAttackBonus(TerrainEnum.FORREST));
+        assertEquals(RangedUnit.ATTACK_BONUS - 2, test.getAttackBonus(TerrainEnum.FOREST));
     }
 
     public void testCopyIsNotSame() {

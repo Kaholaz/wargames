@@ -99,7 +99,7 @@ public class CavalryUnitTest extends TestCase {
     public void testGetResistBonusTakesForrestTerrainIntoAccount() {
         CavalryUnit test = new CavalryUnit("Test", 15);
 
-        assertEquals(0, test.getResistBonus(TerrainEnum.FORREST));
+        assertEquals(0, test.getResistBonus(TerrainEnum.FOREST));
     }
 
     public void testGetAttackBonusBeforeUnitHasAttacked() {

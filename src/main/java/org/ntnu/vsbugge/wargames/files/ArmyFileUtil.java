@@ -1,6 +1,6 @@
 package org.ntnu.vsbugge.wargames.files;
 
-import org.ntnu.vsbugge.wargames.Army;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.factories.UnitFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
@@ -142,28 +142,14 @@ public class ArmyFileUtil {
      *             Throws FileFormatException if there is anything wrong with the format of the file.
      */
     public Army loadFromPath(File filePath) throws IOException {
-        // Open scanner
-        Scanner sc;
-        try {
-            sc = new Scanner(filePath, CHARSET); // Throws FileNotFoundException
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException(String.format("File does not exist: '%s'", filePath.getAbsoluteFile()));
-        }
+        try (Scanner sc = new Scanner(filePath, CHARSET)) {
+            lineNr = 1;
+            String armyName = sc.nextLine();
 
-        // Get the name of the army
-        lineNr = 1;
-        String armyName;
-        try {
-            armyName = sc.nextLine();
-        } catch (NoSuchElementException e) {
-            sc.close();
-            throw new FileFormatException("The supplied file is empty");
-        }
+            // Parse the file line by line. ArmyTemplate uses the same format as stipulated by Army::parseArmyTemplate
+            // i.e. the key is a unit in an army, and the value is the number of that unit in that army.
+            HashMap<Unit, Integer> armyTemplate = new HashMap<>();
 
-        // Parse the file line by line. ArmyTemplate uses the same format as stipulated by Army::parseArmyTemplate
-        // i.e. the key is a unit in an army, and the value is the number of that unit in that army.
-        HashMap<Unit, Integer> armyTemplate = new HashMap<>();
-        try {
             while (sc.hasNextLine()) {
                 ++lineNr; // lineNr is incremented before parseLine to avoid having to increment lineNr outside the loop
                 Map.Entry<Unit, Integer> entry = parseLine(sc.nextLine()); // throws FileFormatException
@@ -171,10 +157,12 @@ public class ArmyFileUtil {
                 // Sums the current count (the one currently in the template) with the count from the parsed line
                 armyTemplate.merge(entry.getKey(), entry.getValue(), Integer::sum);
             }
-        } finally {
-            sc.close();
+            return Army.parseArmyTemplate(armyName, armyTemplate);
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException(String.format("File does not exist: '%s'", filePath.getAbsoluteFile()));
+        } catch (NoSuchElementException e) {
+            throw new FileFormatException("The supplied file is empty");
         }
-        return Army.parseArmyTemplate(armyName, armyTemplate);
     }
 
     /**
@@ -229,8 +217,9 @@ public class ArmyFileUtil {
      */
     public void saveArmyToPath(Army army, File filePath, boolean overwrite, boolean relativeToDefaultPath)
             throws IOException {
-        if (relativeToDefaultPath)
+        if (relativeToDefaultPath) {
             filePath = new File(defaultPath, filePath.toString());
+        }
         saveArmyToPath(army, filePath, overwrite);
     }
 
@@ -265,20 +254,18 @@ public class ArmyFileUtil {
             throw new FileAlreadyExistsException("File already exists. Writing to file would delete it's contents");
         }
 
-        FileWriter writer = new FileWriter(filePath, CHARSET);
-
-        // .write erases all contents of the file and writes the given string to the file
-        // making the supplied string its only content.
-        writer.write(army.getName() + '\n');
-        for (Map.Entry<Unit, Integer> entry : armyTemplate.entrySet()) {
-
-            // Each line is formatted like this: "{UnitClass},{UnitName},{UnitHealth},{Count}",
-            // where UnitClass is the Unit subclass of the unit,
-            // and Count is the number of this unit in the army.
-            writer.append(convertUnitToWritableString(entry.getKey())).append(",").append(entry.getValue().toString())
-                    .append("\n");
+        try (FileWriter writer = new FileWriter(filePath, CHARSET)) {
+            // .write erases all contents of the file and writes the given string to the file
+            // making the supplied string its only content.
+            writer.write(army.getName() + '\n');
+            for (Map.Entry<Unit, Integer> entry : armyTemplate.entrySet()) {
+                // Each line is formatted like this: "{UnitClass},{UnitName},{UnitHealth},{Count}",
+                // where UnitClass is the Unit subclass of the unit,
+                // and Count is the number of this unit in the army.
+                writer.append(convertUnitToWritableString(entry.getKey())).append(",")
+                        .append(entry.getValue().toString()).append("\n");
+            }
         }
-        writer.close();
     }
 
     /**

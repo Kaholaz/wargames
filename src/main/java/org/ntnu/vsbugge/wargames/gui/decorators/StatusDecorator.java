@@ -10,7 +10,6 @@ public class StatusDecorator {
      * Constructor is made private since the class is static.
      */
     private StatusDecorator() {
-
     }
 
     /**

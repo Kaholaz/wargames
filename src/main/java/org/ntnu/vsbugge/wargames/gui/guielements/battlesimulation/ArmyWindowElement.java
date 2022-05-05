@@ -1,7 +1,7 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.battlesimulation;
 
 import javafx.scene.layout.VBox;
-import org.ntnu.vsbugge.wargames.Army;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.util.HashMap;

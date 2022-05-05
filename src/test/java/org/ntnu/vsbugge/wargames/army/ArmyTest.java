@@ -1,6 +1,7 @@
-package org.ntnu.vsbugge.wargames;
+package org.ntnu.vsbugge.wargames.army;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.units.*;
 
 import java.util.*;

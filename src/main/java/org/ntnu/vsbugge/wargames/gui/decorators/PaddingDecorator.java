@@ -13,17 +13,6 @@ public class PaddingDecorator {
     }
 
     /**
-     * Removes all padding css classes form this UI element.
-     *
-     * @param node
-     *            The UI element to decorate.
-     */
-    public static void clearPadding(Node node) {
-        node.getStyleClass().remove("padded-light");
-        node.getStyleClass().remove("padded-medium");
-    }
-
-    /**
      * Removes all padding css classes and adds the 'padded-light' css class.
      *
      * @param node
@@ -43,5 +32,16 @@ public class PaddingDecorator {
     public static void padMedium(Node node) {
         clearPadding(node);
         node.getStyleClass().add("padded-medium");
+    }
+
+    /**
+     * Removes all padding css classes form this UI element.
+     *
+     * @param node
+     *            The UI element to decorate.
+     */
+    public static void clearPadding(Node node) {
+        node.getStyleClass().remove("padded-light");
+        node.getStyleClass().remove("padded-medium");
     }
 }
