@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.files;
+package org.ntnu.vsbugge.wargames.utils.files;
 
 import java.io.IOException;
 

@@ -1,10 +1,12 @@
 package org.ntnu.vsbugge.wargames.battle;
 
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
-import org.ntnu.vsbugge.wargames.eventlisteners.EventType;
-import org.ntnu.vsbugge.wargames.eventlisteners.Subject;
+import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
+import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
+import org.ntnu.vsbugge.wargames.utils.eventlisteners.Subject;
 import org.ntnu.vsbugge.wargames.units.Unit;
+
+import java.util.Date;
 
 /**
  * A class that represents a battle between two armies.
@@ -98,18 +100,22 @@ public class Battle extends Subject {
         prepareSimulation();
 
         if (getWinner() != null) {
-            notifyObservers(EventType.FINISH);
+            notifyEventListeners(EventType.FINISH);
             return getWinner();
         }
 
         simulationPaused = false;
+        long t0 = new Date().getTime();
         while (!simulationPaused) {
+            long t1 = new Date().getTime();
+            System.out.println(t1 - t0);
+            t0 = t1;
             Army attacker = getAttacker();
             Army defender = getDefender();
             Army winner = attack(attacker, defender);
 
             if (winner != null) {
-                notifyObservers(EventType.FINISH);
+                notifyEventListeners(EventType.FINISH);
                 return winner;
             }
             sleep(msDelay, nsDelay);
@@ -191,7 +197,7 @@ public class Battle extends Subject {
         Unit attackUnit = attacker.getRandomUnit();
         Unit defenderUnit = defender.getRandomUnit();
 
-        notifyObservers(EventType.UPDATE);
+        notifyEventListeners(EventType.UPDATE);
         attackUnit.attack(defenderUnit, terrain);
         if (defenderUnit.getHealth() <= 0) {
             defender.remove(defenderUnit);

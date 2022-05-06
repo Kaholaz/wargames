@@ -1,7 +1,7 @@
 package org.ntnu.vsbugge.wargames.units;
 
-import org.ntnu.vsbugge.wargames.enums.TerrainEnum;
-import org.ntnu.vsbugge.wargames.factories.UnitFactory;
+import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
+import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 
 import java.util.Objects;
 

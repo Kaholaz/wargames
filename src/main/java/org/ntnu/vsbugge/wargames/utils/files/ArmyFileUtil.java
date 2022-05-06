@@ -1,7 +1,7 @@
-package org.ntnu.vsbugge.wargames.files;
+package org.ntnu.vsbugge.wargames.utils.files;
 
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.factories.UnitFactory;
+import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.io.File;
@@ -51,7 +51,7 @@ public class ArmyFileUtil {
             int health = Integer.parseInt(s_fields[2]);
             Integer count = Integer.parseInt(s_fields[3]);
 
-            // Throws IllegalArgumentException ----------V
+            // Throws IllegalArgumentException ----------------V
             return new AbstractMap.SimpleEntry<>(UnitFactory.getUnit(unitName, name, health), count);
         } catch (IndexOutOfBoundsException e) {
             throw new FileFormatException(String.format("Too few fields on line %d", lineNr));

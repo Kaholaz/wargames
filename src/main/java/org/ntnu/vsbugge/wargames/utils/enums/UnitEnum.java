@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.enums;
+package org.ntnu.vsbugge.wargames.utils.enums;
 
 import org.ntnu.vsbugge.wargames.units.Unit;
 
@@ -29,6 +29,7 @@ public enum UnitEnum {
     }
 
     /**
+     * Gets the class that corresponds to the enum constant.
      * @return The class that corresponds to the enum constant. This would fore example be {@code CommanderUnit.class}
      *         for {UnitEnum.CommanderUnit}
      */
@@ -36,6 +37,10 @@ public enum UnitEnum {
         return unitClass;
     }
 
+    /**
+     * Retrieves the proper name string. This string is the 'proper' name of the unit (i.e. Cavalry unit instead of CavalryUnit)
+     * @return The proper name of the unit.
+     */
     public String getProperName() {
         return properName;
     }

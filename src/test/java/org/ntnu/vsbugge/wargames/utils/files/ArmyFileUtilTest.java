@@ -1,8 +1,10 @@
-package org.ntnu.vsbugge.wargames.files;
+package org.ntnu.vsbugge.wargames.utils.files;
 
 import junit.framework.TestCase;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.units.*;
+import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
+import org.ntnu.vsbugge.wargames.utils.files.FileFormatException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

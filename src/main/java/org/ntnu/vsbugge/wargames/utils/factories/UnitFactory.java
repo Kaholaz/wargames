@@ -1,6 +1,6 @@
-package org.ntnu.vsbugge.wargames.factories;
+package org.ntnu.vsbugge.wargames.utils.factories;
 
-import org.ntnu.vsbugge.wargames.enums.UnitEnum;
+import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.lang.reflect.InvocationTargetException;

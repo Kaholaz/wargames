@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.enums;
+package org.ntnu.vsbugge.wargames.utils.enums;
 
 /**
  * An enum used to represent the current terrain.

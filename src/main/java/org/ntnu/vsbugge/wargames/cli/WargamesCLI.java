@@ -2,7 +2,7 @@ package org.ntnu.vsbugge.wargames.cli;
 
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.battle.Battle;
-import org.ntnu.vsbugge.wargames.files.ArmyFileUtil;
+import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.io.File;

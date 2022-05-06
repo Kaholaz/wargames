@@ -1,10 +1,10 @@
-package org.ntnu.vsbugge.wargames.factories;
+package org.ntnu.vsbugge.wargames.utils.factories;
 
-import javafx.scene.control.cell.TextFieldListCell;
 import junit.framework.TestCase;
 import org.ntnu.vsbugge.wargames.units.CommanderUnit;
 import org.ntnu.vsbugge.wargames.units.RangedUnit;
 import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 
 import java.util.ArrayList;
 
