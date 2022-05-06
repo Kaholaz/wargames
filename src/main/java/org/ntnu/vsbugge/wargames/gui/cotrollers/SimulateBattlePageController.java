@@ -29,7 +29,10 @@ public class SimulateBattlePageController {
     private final Battle battle = new Battle();
     private Battle originalBattle = new Battle();
     private long lastUpdate = new Date().getTime();
-    private int updateDelta = 33;
+    /**
+     * The time in milliseconds between GUI updates during a battle simulation.
+     */
+    private final int updateDelta = 33;
 
     @FXML
     private CheckBox animateCheck;
@@ -107,7 +110,7 @@ public class SimulateBattlePageController {
 
         new Thread(() -> {
             if (animateCheck.isSelected()) {
-                battle.simulate(2, 0);
+                battle.simulate(1);
             } else {
                 battle.simulate();
             }
@@ -170,7 +173,7 @@ public class SimulateBattlePageController {
     }
 
     @FXML
-    void onTerrainChange(ActionEvent event) {
+    void onTerrainChange(ActionEvent ignoredEvent) {
         battle.setTerrain(terrainDropDown.getSelectionModel().getSelectedItem());
     }
 
@@ -197,11 +200,11 @@ public class SimulateBattlePageController {
     /**
      * The event listener for when the importAttacker button is pressed.
      *
-     * @param event
+     * @param ignoredEvent
      *            The action event from the button press.
      */
     @FXML
-    void onImportAttacker(ActionEvent event) {
+    void onImportAttacker(ActionEvent ignoredEvent) {
         Army army = pickArmy();
         if (army == null) {
             return;
@@ -216,11 +219,11 @@ public class SimulateBattlePageController {
     /**
      * The event listener for when the importDefender button is pressed.
      *
-     * @param event
+     * @param ignoredEvent
      *            The action event from the button press.
      */
     @FXML
-    void onImportDefender(ActionEvent event) {
+    void onImportDefender(ActionEvent ignoredEvent) {
         Army army = pickArmy();
         if (army == null) {
             return;

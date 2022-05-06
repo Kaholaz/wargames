@@ -71,7 +71,7 @@ public class Battle extends Subject {
      *             Throws an exception if neither of the armies have any units, or if one of the armies are set to null.
      */
     public Army simulate() throws RuntimeException {
-        return simulate(0, 0);
+        return simulate(0);
     }
 
     /**
@@ -88,15 +88,13 @@ public class Battle extends Subject {
      *
      * @param msDelay
      *            The delay (in milliseconds) between each attack.
-     * @param nsDelay
-     *            The delay (in nanoseconds) between each attack.
      *
      * @return The army that won the battle
      *
      * @throws RuntimeException
      *             Throws an exception if neither of the armies have any units, or if one of the armies are set to null.
      */
-    public Army simulate(int msDelay, int nsDelay) throws RuntimeException {
+    public Army simulate(int msDelay) throws RuntimeException {
         prepareSimulation();
 
         if (getWinner() != null) {
@@ -118,7 +116,7 @@ public class Battle extends Subject {
                 notifyEventListeners(EventType.FINISH);
                 return winner;
             }
-            sleep(msDelay, nsDelay);
+            sleep(msDelay);
         }
         return null;
     }
@@ -216,16 +214,14 @@ public class Battle extends Subject {
      *
      * @param msDelay
      *            The delay (in milliseconds) to sleep for.
-     * @param nsDelay
-     *            The delay (in nanoseconds) to sleep for.
      *
      * @throws RuntimeException
      *             Throws RuntimeException if Thred.sleep produces a InterruptedException.
      */
-    private void sleep(int msDelay, int nsDelay) throws RuntimeException {
-        if (msDelay != 0 || nsDelay != 0) {
+    private void sleep(int msDelay) throws RuntimeException {
+        if (msDelay != 0) {
             try {
-                Thread.sleep(msDelay, nsDelay);
+                Thread.sleep(msDelay);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

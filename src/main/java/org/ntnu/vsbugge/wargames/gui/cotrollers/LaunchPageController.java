@@ -25,11 +25,11 @@ public class LaunchPageController {
     /**
      * A method called when the 'simulate battle' button is pressed.
      *
-     * @param event
+     * @param ignoredEvent
      *            The action event form the button pres.
      */
     @FXML
-    void onEditArmies(ActionEvent event) {
+    void onEditArmies(ActionEvent ignoredEvent) {
         AlertFactory.createAlert(Alert.AlertType.ERROR, "This page has not yet been implemented", "Not implemented!")
                 .show();
     }
