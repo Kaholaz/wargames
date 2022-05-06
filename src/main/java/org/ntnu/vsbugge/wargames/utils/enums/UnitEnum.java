@@ -30,6 +30,7 @@ public enum UnitEnum {
 
     /**
      * Gets the class that corresponds to the enum constant.
+     *
      * @return The class that corresponds to the enum constant. This would fore example be {@code CommanderUnit.class}
      *         for {UnitEnum.CommanderUnit}
      */
@@ -38,7 +39,9 @@ public enum UnitEnum {
     }
 
     /**
-     * Retrieves the proper name string. This string is the 'proper' name of the unit (i.e. Cavalry unit instead of CavalryUnit)
+     * Retrieves the proper name string. This string is the 'proper' name of the unit (i.e. Cavalry unit instead of
+     * CavalryUnit)
+     *
      * @return The proper name of the unit.
      */
     public String getProperName() {

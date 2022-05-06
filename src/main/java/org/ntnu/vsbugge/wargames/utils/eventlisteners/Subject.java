@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Subject is an abstract class that facilitates eventListeners. Children of this class can be attached event listeners that trigger certain actions.
+ * Subject is an abstract class that facilitates eventListeners. Children of this class can be attached event listeners
+ * that trigger certain actions.
  */
 public abstract class Subject {
 
@@ -12,7 +13,9 @@ public abstract class Subject {
 
     /**
      * Attaches an event listener to the instance.
-     * @param eventListener The event listener.
+     *
+     * @param eventListener
+     *            The event listener.
      */
     public void attach(EventListener eventListener) {
         eventListeners.add(eventListener);
@@ -20,7 +23,9 @@ public abstract class Subject {
 
     /**
      * Removes an event listener from the instance.
-     * @param eventListener The event listener.
+     *
+     * @param eventListener
+     *            The event listener.
      */
     public void detach(EventListener eventListener) {
         eventListeners.remove(eventListener);
@@ -28,7 +33,9 @@ public abstract class Subject {
 
     /**
      * Notifies all event listeners of an event of the supplied event type.
-     * @param eventType The type of event.
+     *
+     * @param eventType
+     *            The type of event.
      */
     public void notifyEventListeners(EventType eventType) {
         eventListeners.forEach(listener -> listener.onEvent(eventType));
