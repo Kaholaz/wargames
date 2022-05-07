@@ -215,7 +215,7 @@ public class ArmyFileUtil {
      *
      * @throws java.io.IOException
      *             Throws a FileAlreadyExistsException if the file already exists and overwrite is set to false. Throws
-     *             an IOEException if something unexpected happened while creating the file.
+     *             a general IOEException if something unexpected happened while creating the file.
      */
     public void saveArmyToPath(Army army, File filePath, boolean overwrite, boolean relativeToDefaultPath)
             throws IOException {
@@ -245,8 +245,8 @@ public class ArmyFileUtil {
      *            Whenever or not to overwrite any file located at the given path
      *
      * @throws java.io.IOException
-     *             Throws a FileAlreadyExistsException if the file already exists and overwrite is set to false Throws
-     *             an IOEException if something unexpected happened while creating the file
+     *             Throws a FileAlreadyExistsException if the file already exists and overwrite is set to false. Throws
+     *             a general IOEException if something unexpected happened while creating the file.
      */
     public void saveArmyToPath(Army army, File filePath, boolean overwrite) throws IOException {
         Map<Unit, Integer> armyTemplate = army.getArmyTemplate();
