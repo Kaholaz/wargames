@@ -4,6 +4,8 @@ import javafx.scene.control.Label;
 
 /**
  * A decorator class used to set the icons of labels. This is done entirely through the use of css classes.
+ *
+ * @author vsbugge
  */
 public class IconLabelDecorator {
     /**

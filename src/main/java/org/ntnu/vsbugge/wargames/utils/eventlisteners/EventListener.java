@@ -3,6 +3,8 @@ package org.ntnu.vsbugge.wargames.utils.eventlisteners;
 /**
  * An interface for creating event listeners to attach to subjects. This interface can either be used functionally or
  * through inheritance.
+ *
+ * @author Atle Olsø / vsbugge (<a href="https://gitlab.com/atleolso/observer">https://gitlab.com/atleolso/observer</a>)
  */
 public interface EventListener {
     /**

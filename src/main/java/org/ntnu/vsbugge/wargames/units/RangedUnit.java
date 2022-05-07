@@ -4,16 +4,24 @@ import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 
 /**
  * A class that represent a single ranged unit
+ *
+ * @author vsbugge
  */
 public class RangedUnit extends Unit {
+    /** Constant <code>ATTACK_BONUS=3</code> */
     protected static final int ATTACK_BONUS = 3;
 
+    /** Constant <code>INITIAL_RESIST_BONUS=6</code> */
     protected static final int INITIAL_RESIST_BONUS = 6; // Initial resist bonus
+    /** Constant <code>RESIST_BONUS_PENALTY=2</code> */
     protected static final int RESIST_BONUS_PENALTY = 2; // Penalty in resist bonus per time this unit has taken damage
+    /** Constant <code>MINIMUM_RESIST_BONUS=2</code> */
     protected static final int MINIMUM_RESIST_BONUS = 2; // Minimum resist bonus
 
     private int numberOfTimesTakenDamage = 0;
 
+    /** Constant <code>DEFAULT_ATTACK=15</code> */
+    /** Constant <code>DEFAULT_ARMOR=8</code> */
     protected static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 8;
 
     /**
@@ -24,7 +32,7 @@ public class RangedUnit extends Unit {
      * @param health
      *            Total health of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health is negative.
      */
     public RangedUnit(String name, int health) {
@@ -43,7 +51,7 @@ public class RangedUnit extends Unit {
      * @param armor
      *            Total armor of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public RangedUnit(String name, int health, int attack, int armor) {
@@ -62,12 +70,11 @@ public class RangedUnit extends Unit {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * When this method is called, {@code super.takeDamage} is first called, then the private field
      * {@code timesTakenDamage} is incremented by one. This is important for the calculation of resist bonus, which is
      * variable depending on the number of times the unit has taken damage.
-     *
-     * @param damage
-     *            The damage inflicted on the unit
      */
     @Override
     public void takeDamage(int damage) {
@@ -75,26 +82,26 @@ public class RangedUnit extends Unit {
         numberOfTimesTakenDamage += 1;
     }
 
+    /** {@inheritDoc} */
     @Override
     public RangedUnit copy() {
         return new RangedUnit(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void resetStats() {
         numberOfTimesTakenDamage = 0;
     }
 
     /**
-     * Calculates the resist bonus of this unit.
+     * {@inheritDoc}
      *
      * <br>
      * <br>
      * This is the formula used: {@code INITIAL_RESIST_BONUS - timesTakenDamage * RESIST_BONUS_PENALTY}<br>
      * The resist bonus is first set to an initial value. After each time this unit takes damage, the resist bonus is
      * lowered by a set amount until the minimum resist bonus is reached.
-     *
-     * @return The resist bonus of the unit
      */
     @Override
     public int getResistBonus() {
@@ -103,9 +110,7 @@ public class RangedUnit extends Unit {
     }
 
     /**
-     * Calculates the base attack bonus of the unit.
-     *
-     * @return The base attack bonus of the unit.
+     * {@inheritDoc}
      */
     @Override
     public int getAttackBonus() {
@@ -113,14 +118,8 @@ public class RangedUnit extends Unit {
     }
 
     /**
-     * Calculates the attack bonus of the unit with the terrain taken into account. If the terrain of the unit is
-     * TerrainEnum.HILL, the unit is given a bonus of 3. If the terrain of the unit is TerrainEnum.FOREST, the unit is
-     * given a penalty of 2.
-     *
-     * @param terrain
-     *            The terrain.
-     *
-     * @return The updated attack bonus.
+     * {@inheritDoc} If the terrain of the unit is TerrainEnum.HILL, the unit is given a bonus of 3. If the terrain of
+     * the unit is TerrainEnum.FOREST, the unit is given a penalty of 2.
      */
     @Override
     public int getAttackBonus(TerrainEnum terrain) {

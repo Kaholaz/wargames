@@ -8,10 +8,23 @@ import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
+/**
+ * A unit element displays stats about one or more similar units.
+ *
+ * @author vsbugge
+ */
 public class UnitInfoElement extends AbstractInfoElement {
     protected Label unitTypeLabel;
     protected Label unitNameLabel;
 
+    /**
+     * Constructor for UnitInfoElement.
+     *
+     * @param unit
+     *            The unit to display in this UnitInfoElement
+     * @param count
+     *            The amount units this UnitInfoElement represents.
+     */
     public UnitInfoElement(Unit unit, int count) {
         super();
 
@@ -26,6 +39,7 @@ public class UnitInfoElement extends AbstractInfoElement {
         this.getStyleClass().add("unit-info-element");
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void createTopRow() {
         unitTypeLabel = new Label();

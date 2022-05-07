@@ -5,6 +5,8 @@ import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 
 /**
  * A class used to generate labels with icons.
+ *
+ * @author vsbugge
  */
 public class IconLabelFactory {
     /**

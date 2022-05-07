@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * Subject is an abstract class that facilitates eventListeners. Children of this class can be attached event listeners
  * that trigger certain actions.
+ *
+ * @author Atle Olsø / vsbugge (<a href="https://gitlab.com/atleolso/observer">https://gitlab.com/atleolso/observer</a>)
  */
 public abstract class Subject {
 

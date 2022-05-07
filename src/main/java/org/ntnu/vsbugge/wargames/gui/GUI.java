@@ -13,6 +13,8 @@ import java.net.URL;
 /**
  * This is the main gui class of the application. The class has also many helper methods that can be used in Controller
  * classes.
+ *
+ * @author vsbugge
  */
 public class GUI extends Application {
 
@@ -21,10 +23,7 @@ public class GUI extends Application {
     private static final String VIEWS_ROOT_DIRECTORY = "/gui/views/";
 
     /**
-     * Main method of the gui. This method starts the GUI application and sends the user to the launch page.
-     *
-     * @param primaryStage
-     *            primary window of the application
+     * {@inheritDoc}
      */
     @Override
     public void start(Stage primaryStage) {
@@ -87,6 +86,8 @@ public class GUI extends Application {
      * @param fxmlDocumentName
      *            The path for the FXML sheet for the next scene relative to the directory specified by the
      *            VIEWS_ROOT_DIRECTORY constant.
+     * @param startMaximized
+     *            If this is set to true, the stage will start maximized, if false it will not.
      */
     public static void setInitialSceneOfStage(Stage stage, String fxmlDocumentName, boolean startMaximized) {
         // Prepares the new scene
@@ -115,10 +116,10 @@ public class GUI extends Application {
      *
      * @return The loaded Parent.
      *
-     * @throws IllegalStateException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if something went wrong during the loading of the FXML page.
      */
-    protected static Parent checkedFXMLLoader(URL url) throws IllegalArgumentException {
+    private static Parent checkedFXMLLoader(URL url) throws IllegalArgumentException {
         Parent root = null;
 
         try {

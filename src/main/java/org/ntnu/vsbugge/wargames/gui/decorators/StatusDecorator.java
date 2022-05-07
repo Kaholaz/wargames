@@ -4,6 +4,8 @@ import javafx.scene.Node;
 
 /**
  * A class used to change the state of gui elements.
+ *
+ * @author vsbugge
  */
 public class StatusDecorator {
     /**

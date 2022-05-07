@@ -24,6 +24,8 @@ import java.util.Date;
 
 /**
  * The controller for to simulate battle page.
+ *
+ * @author vsbugge
  */
 public class SimulateBattlePageController {
     private final Battle battle = new Battle();

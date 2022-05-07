@@ -2,6 +2,8 @@ package org.ntnu.vsbugge.wargames.units;
 
 /**
  * A class that represent a single commander unit
+ *
+ * @author vsbugge
  */
 public class CommanderUnit extends CavalryUnit {
     protected static final int DEFAULT_ATTACK = 25, DEFAULT_ARMOR = 15;
@@ -14,7 +16,7 @@ public class CommanderUnit extends CavalryUnit {
      * @param health
      *            Total health of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public CommanderUnit(String name, int health) {
@@ -33,7 +35,7 @@ public class CommanderUnit extends CavalryUnit {
      * @param armor
      *            Total armor of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public CommanderUnit(String name, int health, int attack, int armor) {
@@ -54,6 +56,7 @@ public class CommanderUnit extends CavalryUnit {
         this.numberOfTimesAttacked = commanderUnit.numberOfTimesAttacked;
     }
 
+    /** {@inheritDoc} */
     @Override
     public CommanderUnit copy() {
         return new CommanderUnit(this);

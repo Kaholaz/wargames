@@ -7,6 +7,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A factory class for creating different Unit subclasses.
+ *
+ * @author vsbugge
+ */
 public class UnitFactory {
 
     /**
@@ -23,12 +28,13 @@ public class UnitFactory {
      * @return A unit created by the given parameters. The unit is created using the constructor of the subclass with
      *         the name that matches the supplied unitType.
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if the name of the class could not be found in UnitEnum.
-     * @throws IllegalStateException
+     * @throws java.lang.IllegalStateException
      *             Throws an exception if the unit could not be constructed.
      */
-    public static Unit getUnit(String unitType, String name, int health) {
+    public static Unit getUnit(String unitType, String name, int health)
+            throws IllegalArgumentException, IllegalStateException {
         // Reflection and the enum is used to make the application more scalable and expandable.
         UnitEnum unit = UnitEnum.fromString(unitType);
         try {
@@ -54,8 +60,14 @@ public class UnitFactory {
      *
      * @return A list of identical units created by the given parameters. The unit is created using the constructor of
      *         the subclass of Unit with a name that matches the supplied unitType.
+     *
+     * @throws java.lang.IllegalArgumentException
+     *             Throws an exception if the name of the class could not be found in UnitEnum.
+     * @throws java.lang.IllegalStateException
+     *             Throws an exception if the unit could not be constructed.
      */
-    public static List<Unit> getUnits(String unitType, String name, int health, int count) {
+    public static List<Unit> getUnits(String unitType, String name, int health, int count)
+            throws IllegalArgumentException, IllegalStateException {
         Unit unit = getUnit(unitType, name, health);
         ArrayList<Unit> units = new ArrayList<>(count);
         for (int i = 0; i < count; ++i) {

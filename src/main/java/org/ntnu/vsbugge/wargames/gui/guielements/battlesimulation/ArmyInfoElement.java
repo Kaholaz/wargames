@@ -6,9 +6,22 @@ import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
+/**
+ * <p>
+ * ArmyInfoElement class.
+ * </p>
+ *
+ * @author vsbugge
+ */
 public class ArmyInfoElement extends AbstractInfoElement {
     private Army army;
 
+    /**
+     * Constructor for ArmyInfoElement.
+     *
+     * @param army
+     *            The army to display in the ArmyInfoElement instance.
+     */
     public ArmyInfoElement(Army army) {
         super();
         this.army = army;
@@ -18,7 +31,9 @@ public class ArmyInfoElement extends AbstractInfoElement {
     }
 
     /**
-     * Creates the top row. The tow row consists of the text "Total army stats:")
+     * {@inheritDoc}
+     *
+     * The tow row consists of the text "Total army stats:")
      */
     @Override
     protected void createTopRow() {
@@ -52,6 +67,12 @@ public class ArmyInfoElement extends AbstractInfoElement {
         setCount(count);
     }
 
+    /**
+     * Sets the army to display in this ArmyInfoElement object.
+     *
+     * @param army
+     *            The army to display.
+     */
     public void setArmy(Army army) {
         this.army = army;
     }

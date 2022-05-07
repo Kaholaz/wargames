@@ -6,6 +6,8 @@ import org.ntnu.vsbugge.wargames.units.Unit;
  * This is an enum to keep track of all valid subclasses of Unit. This enum is created to make expanding the number of
  * supported classes easier. To add a subclass to the list of supported subclasses, the only necessary change would be
  * to add it to this enum.
+ *
+ * @author vsbugge
  */
 public enum UnitEnum {
     CavalryUnit(org.ntnu.vsbugge.wargames.units.CavalryUnit.class, "Cavalry unit"),

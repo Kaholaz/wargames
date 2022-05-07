@@ -4,6 +4,8 @@ import javafx.scene.Node;
 
 /**
  * A decorator class used to add padding to UI elements.
+ *
+ * @author vsbugge
  */
 public class PaddingDecorator {
     /**

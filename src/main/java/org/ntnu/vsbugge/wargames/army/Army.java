@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 /**
  * A class that represents a single army
+ *
+ * @author vsbugge
  */
 public class Army {
     private final String name;
@@ -22,6 +24,12 @@ public class Army {
         this(name, new ArrayList<>());
     }
 
+    /**
+     * Copy constructor for the army class.
+     *
+     * @param army
+     *            The army to copy.
+     */
     public Army(Army army) {
         this(army.getName());
         addAll(army.getAllUnits());
@@ -47,7 +55,7 @@ public class Army {
      * @param unit
      *            The unit to be added
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if it is attempted to add a dead unit to the army.
      */
     public void add(Unit unit) throws IllegalArgumentException {
@@ -65,7 +73,7 @@ public class Army {
      * @param count
      *            The number of that unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if it is attempted to add a dead unit to the army.
      */
     public void add(Unit unit, int count) {
@@ -108,16 +116,20 @@ public class Army {
     }
 
     /**
-     * @return true if the army consists of units, false if not
+     * A method used to check if an army contains units.
+     *
+     * @return True if the army consists of units, false if not
      */
     public boolean hasUnits() {
         return units.size() != 0;
     }
 
     /**
-     * @return a random unit from the army
+     * Picks a random unit from the army and returns it.
      *
-     * @throws IllegalStateException
+     * @return A random unit from the army.
+     *
+     * @throws java.lang.IllegalStateException
      *             Throws an exception if there are no units in the army
      */
     public Unit getRandomUnit() throws IllegalStateException {
@@ -132,6 +144,8 @@ public class Army {
     }
 
     /**
+     * Getter for the field <code>name</code>.
+     *
      * @return The name of the army
      */
     public String getName() {
@@ -139,6 +153,8 @@ public class Army {
     }
 
     /**
+     * Returns a copy of the list of all units.
+     *
      * @return A copy of a list of all the units in the army
      */
     public List<Unit> getAllUnits() {
@@ -210,7 +226,7 @@ public class Army {
      * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the
      * parseArmyTemplate method.
      *
-     * @return An amry template where units that only differ in stats that change during combat are grouped together.
+     * @return An army template where units that only differ in stats that change during combat are grouped together.
      */
     public Map<Unit, Integer> getCondensedArmyTemplate() {
         Map<Unit, Integer> originalTemplate = getArmyTemplate();
@@ -292,10 +308,7 @@ public class Army {
     }
 
     /**
-     * This method should be used for debugging purposes only. {@code WargamesCLI.armyToSimpleString(Army army)} should
-     * be used create a human-readable representation of a unit, ready to be printed to console.
-     *
-     * @return A string representation of an instance (used for debugging)
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -303,12 +316,7 @@ public class Army {
     }
 
     /**
-     * Checks whether two objects are equivalent
-     *
-     * @param o
-     *            The other object to compare with
-     *
-     * @return True if the objects are equivalent, false if not.
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object o) {
@@ -324,9 +332,7 @@ public class Army {
         return name.equals(army.name) && thisUnits.equals(armyUnits);
     }
 
-    /**
-     * @return A HashCode for the Army. This method hashes the name and the collection of units.
-     */
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         Unit[] hashUnits = units.toArray(Unit[]::new);

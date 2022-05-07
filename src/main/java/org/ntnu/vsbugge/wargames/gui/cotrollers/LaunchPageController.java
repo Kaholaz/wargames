@@ -8,6 +8,8 @@ import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 
 /**
  * The controller for the launch page.
+ *
+ * @author vsbugge
  */
 public class LaunchPageController {
 

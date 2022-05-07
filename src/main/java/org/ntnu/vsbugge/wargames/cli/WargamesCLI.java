@@ -15,12 +15,17 @@ import java.util.stream.Collectors;
 
 /**
  * A class used to run the CLI of the application
+ *
+ * @author vsbugge
  */
 public class WargamesCLI {
     private Battle battle;
 
     /**
      * Loads two predetermined armies into memory. This function must be run before running the start method.
+     *
+     * @throws java.io.IOException
+     *             Throws an exception if the file could not be read.
      */
     public void loadTestData() throws IOException {
         ArmyFileUtil armyFileUtil = new ArmyFileUtil();
@@ -35,7 +40,7 @@ public class WargamesCLI {
     /**
      * Starts the CLI. Data needs to be loaded into {@code battle} before this function is called
      *
-     * @throws IllegalStateException
+     * @throws java.lang.IllegalStateException
      *             If start is called without data loaded, or if a simulation is started where one or both of the armies
      *             contains 0 units.
      */

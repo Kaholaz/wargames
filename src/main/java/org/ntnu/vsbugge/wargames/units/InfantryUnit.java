@@ -4,6 +4,8 @@ import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 
 /**
  * A class that represent a single infantry unit
+ *
+ * @author vsbugge
  */
 public class InfantryUnit extends Unit {
     protected static final int RESIST_BONUS = 1;
@@ -19,7 +21,7 @@ public class InfantryUnit extends Unit {
      * @param health
      *            Total health of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public InfantryUnit(String name, int health) {
@@ -38,7 +40,7 @@ public class InfantryUnit extends Unit {
      * @param armor
      *            Total armor of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public InfantryUnit(String name, int health, int attack, int armor) {
@@ -55,19 +57,19 @@ public class InfantryUnit extends Unit {
         this(infantryUnit.getName(), infantryUnit.getHealth(), infantryUnit.getAttack(), infantryUnit.getArmor());
     }
 
+    /** {@inheritDoc} */
     @Override
     public InfantryUnit copy() {
         return new InfantryUnit(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void resetStats() {
     }
 
     /**
-     * The base resist bonus of the unit without taking the terrain into account.
-     *
-     * @return The resist bonus of the unit.
+     * {@inheritDoc}
      */
     @Override
     public int getResistBonus() {
@@ -75,13 +77,9 @@ public class InfantryUnit extends Unit {
     }
 
     /**
-     * The resist bonus with terrain considerations. If the unit is fighting in a forest, the unit is given a bonus of
-     * 2.
+     * {@inheritDoc}
      *
-     * @param terrain
-     *            The terrain.
-     *
-     * @return The resist bonus.
+     * If the unit is fighting in a forest, the unit is given a bonus of 2.
      */
     @Override
     public int getResistBonus(TerrainEnum terrain) {
@@ -92,9 +90,7 @@ public class InfantryUnit extends Unit {
     }
 
     /**
-     * The base attack bonus of the unit without taking the terrain into account.
-     *
-     * @return The attack bonus of the unit.
+     * {@inheritDoc}
      */
     @Override
     public int getAttackBonus() {
@@ -103,13 +99,9 @@ public class InfantryUnit extends Unit {
     }
 
     /**
-     * The attack bonus of the unit with terrain considerations. If the unit is fighting in a forest, the unit is given
-     * a bonus of 2.
+     * {@inheritDoc}
      *
-     * @param terrain
-     *            The terrain.
-     *
-     * @return The attack bonus.
+     * If the unit is fighting in a forest, the unit is given a bonus of 2.
      */
     @Override
     public int getAttackBonus(TerrainEnum terrain) {

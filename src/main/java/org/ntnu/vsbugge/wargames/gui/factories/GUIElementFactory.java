@@ -8,6 +8,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * A class used to create various UI elements.
+ *
+ * @author vsbugge
  */
 public class GUIElementFactory {
     /**

@@ -10,6 +10,8 @@ import java.util.Date;
 
 /**
  * A class that represents a battle between two armies.
+ *
+ * @author vsbugge
  */
 public class Battle extends Subject {
     private Army armyOne;
@@ -67,7 +69,7 @@ public class Battle extends Subject {
      *
      * @return The army that won the battle
      *
-     * @throws RuntimeException
+     * @throws java.lang.RuntimeException
      *             Throws an exception if neither of the armies have any units, or if one of the armies are set to null.
      */
     public Army simulate() throws RuntimeException {
@@ -91,7 +93,7 @@ public class Battle extends Subject {
      *
      * @return The army that won the battle
      *
-     * @throws RuntimeException
+     * @throws java.lang.RuntimeException
      *             Throws an exception if neither of the armies have any units, or if one of the armies are set to null.
      */
     public Army simulate(int msDelay) throws RuntimeException {
@@ -297,9 +299,7 @@ public class Battle extends Subject {
     }
 
     /**
-     * Creates a string representation of an instance of Battle.
-     *
-     * @return A string representation of an instance of Battle.
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

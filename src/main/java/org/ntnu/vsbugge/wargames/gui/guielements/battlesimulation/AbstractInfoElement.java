@@ -10,6 +10,8 @@ import org.ntnu.vsbugge.wargames.gui.factories.IconLabelFactory;
 
 /**
  * An abstract base class for a UI with one custom row, and one row with fields for health, attack, armor, and count.
+ *
+ * @author vsbugge
  */
 public abstract class AbstractInfoElement extends VBox {
     protected Label healthLabel;

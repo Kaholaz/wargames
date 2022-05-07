@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * ArmyWindowElement is a class that inherits from VBox. Instances of this class are used to
+ *
+ * @author vsbugge
  */
 public class ArmyWindowElement extends VBox {
     Map<Unit, UnitInfoElement> unitElements = new HashMap<>();

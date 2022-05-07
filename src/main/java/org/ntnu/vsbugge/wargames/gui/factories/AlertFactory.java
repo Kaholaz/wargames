@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 
 /**
  * This class is used to create alerts.
+ *
+ * @author vsbugge
  */
 public class AlertFactory {
     private AlertFactory() {

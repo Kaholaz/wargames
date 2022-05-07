@@ -7,6 +7,8 @@ import java.util.Objects;
 
 /**
  * An abstract class for all units
+ *
+ * @author vsbugge
  */
 public abstract class Unit implements Comparable<Unit> {
     private final String name;
@@ -25,7 +27,7 @@ public abstract class Unit implements Comparable<Unit> {
      * @param armor
      *            Total armor of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public Unit(String name, int health, int attack, int armor) throws IllegalArgumentException {
@@ -66,6 +68,8 @@ public abstract class Unit implements Comparable<Unit> {
      *
      * @param opponent
      *            The opposing unit in the engagement
+     * @param terrain
+     *            a {@link org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum} object
      */
     public void attack(Unit opponent, TerrainEnum terrain) {
         int damage = (this.getAttack() + this.getAttackBonus(terrain))
@@ -74,6 +78,8 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * Getter for the field 'name'.
+     *
      * @return The name of the unit
      */
     public final String getName() {
@@ -81,6 +87,8 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * Getter for the field 'health'.
+     *
      * @return The remaining health of the unit. Zero health signifies that the unit is dead.
      */
     public final int getHealth() {
@@ -88,6 +96,8 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * Getter for the field 'attack'.
+     *
      * @return The attack of the unit
      */
     public final int getAttack() {
@@ -95,6 +105,8 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * Getter for the field 'armor'.
+     *
      * @return The armor of the unit
      */
     public final int getArmor() {
@@ -140,6 +152,14 @@ public abstract class Unit implements Comparable<Unit> {
         return UnitFactory.getUnit(this.getClass().getSimpleName(), this.getName(), 0);
     }
 
+    /**
+     * Checks if two units only differ in attributes that only change during combat (resist / attack bonus and health)
+     *
+     * @param o
+     *            The other unit.
+     *
+     * @return True if the only differences between the units are health, and attack / resist bonuses, false if not.
+     */
     public boolean differsOnlyInCombatState(Object o) {
         if (this == o)
             return true;
@@ -151,10 +171,7 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
-     * This method should be used for debugging purposes only. {@code WargamesCLI.unitToSimpleString(Unit unit)} should
-     * be used to create a human-readable representation of a unit, ready to be printed to console.
-     *
-     * @return A string representation of an instance (used for debugging)
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -163,15 +180,12 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
-     * Check if a Unit equals another instance of Unit.
-     *
+     * {@inheritDoc} <br>
+     * <br>
+     * Check if a Unit equals another instance of Unit. <br>
+     * <br>
      * This method does not take into account subclass specific traits such as number of times attacked, or how many
      * times the unit has been attacked. Unit specific stats are compared by comparing the resist and attack bonuses.
-     *
-     * @param o
-     *            The object to compare to.
-     *
-     * @return True if the objects are equal, false if not.
      */
     @Override
     public boolean equals(Object o) {
@@ -185,9 +199,9 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * {@inheritDoc} <br>
+     * <br>
      * This method hashes name, attack, armor, health, and class name
-     *
-     * @return The hashcode of the Unit.
      */
     @Override
     public int hashCode() {
@@ -195,6 +209,8 @@ public abstract class Unit implements Comparable<Unit> {
     }
 
     /**
+     * {@inheritDoc} <br>
+     * <br>
      * Compares two units according to the specification of Comparable.compareTo()
      *
      * <br>
@@ -209,12 +225,6 @@ public abstract class Unit implements Comparable<Unit> {
      * <li>Attack Bonus (descending)</li>
      * <li>Resist Bonus (descending)</li>
      * </ol>
-     *
-     * @param other
-     *            The Unit to compare to
-     *
-     * @return A value less than 0 if this is deemed less than other, 0 if the objects are equivalent, and a value more
-     *         than 0 if other is deemed greater than 0
      */
     @Override
     public int compareTo(Unit other) {
@@ -255,7 +265,7 @@ public abstract class Unit implements Comparable<Unit> {
     public abstract void resetStats();
 
     /**
-     * Calculates the attack bonus of the unit.
+     * Calculates the base attack bonus of the unit with no terrain considerations.
      *
      * @return The attack bonus of the unit
      */
@@ -268,27 +278,26 @@ public abstract class Unit implements Comparable<Unit> {
      * @param terrain
      *            The terrain.
      *
-     * @return The updated resist bonus.
+     * @return The attack bonus with terrain considerations.
      */
     public int getAttackBonus(TerrainEnum terrain) {
         return getResistBonus();
     }
 
     /**
-     * Calculates the resist bonus of the unit.
+     * Calculates the base resist bonus of the unit with no terrain considerations.
      *
      * @return The resist bonus of the unit
      */
     public abstract int getResistBonus();
 
     /**
-     * Calculates the resist bonus of a unit with the terrain taken int account. The default method of any unit does not
-     * apply any penalties or bonuses to the resist bonus.
+     * Calculates the resist bonus of a unit with the terrain taken int account.
      *
      * @param terrain
      *            The terrain.
      *
-     * @return The updated resist bonus.
+     * @return The resist bonus with terrain considerations.
      */
     public int getResistBonus(TerrainEnum terrain) {
         return getResistBonus();

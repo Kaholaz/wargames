@@ -5,6 +5,8 @@ import org.ntnu.vsbugge.wargames.gui.GUI;
 
 /**
  * Entry point for the application
+ *
+ * @author vsbugge
  */
 public class Main {
 

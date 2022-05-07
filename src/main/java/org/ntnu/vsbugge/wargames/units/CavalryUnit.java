@@ -4,6 +4,8 @@ import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 
 /**
  * A class that represent a single cavalry unit
+ *
+ * @author vsbugge
  */
 public class CavalryUnit extends Unit {
     protected static final int RESIST_BONUS = 1;
@@ -11,6 +13,7 @@ public class CavalryUnit extends Unit {
     protected static final int INITIAL_ATTACK_BONUS = 6; // The initial attack bonus.
     protected static final int ATTACK_BONUS_PENALTY = 4; // A penalty that is applied each time this unit attacks.
     protected static final int MINIMUM_ATTACK_BONUS = 2; // The minimum attack bonus.
+
     protected int numberOfTimesAttacked;
 
     protected static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
@@ -23,7 +26,7 @@ public class CavalryUnit extends Unit {
      * @param health
      *            Total health of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public CavalryUnit(String name, int health) {
@@ -42,7 +45,7 @@ public class CavalryUnit extends Unit {
      * @param armor
      *            Total armor of the unit
      *
-     * @throws IllegalArgumentException
+     * @throws java.lang.IllegalArgumentException
      *             Throws an exception if either health, attack, or armor is negative.
      */
     public CavalryUnit(String name, int health, int attack, int armor) {
@@ -60,25 +63,26 @@ public class CavalryUnit extends Unit {
         this.numberOfTimesAttacked = cavalryUnit.numberOfTimesAttacked;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void attack(Unit opponent, TerrainEnum terrain) {
         super.attack(opponent, terrain);
         ++numberOfTimesAttacked;
     }
 
+    /** {@inheritDoc} */
     @Override
     public CavalryUnit copy() {
         return new CavalryUnit(this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void resetStats() {
         numberOfTimesAttacked = 0;
     }
 
-    /**
-     * @return The base resist bonus of the unit without terrain considerations.
-     */
+    /** {@inheritDoc} */
     @Override
     public int getResistBonus() {
         return RESIST_BONUS;
@@ -86,13 +90,7 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * The resist bonus of the unit after terrain considerations.If the terrain of the unit is TerrainEnum.FOREST, the
-     * resist bonus is 0.
-     *
-     * @param terrain
-     *            The terrain.
-     *
-     * @return The resist bonus.
+     * {@inheritDoc} If the terrain of the unit is TerrainEnum.FOREST, the resist bonus is 0.
      */
     @Override
     public int getResistBonus(TerrainEnum terrain) {
@@ -103,13 +101,11 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * Calculates the base attack bonus of the unit. If the unit has not attacked, this returns the value of the private
-     * constant INITIAL_ATTACK_BONUS. Each time this unit attacks, An attack value equal to ATTACK_BONUS_PENALTY is
-     * subtracted each time this unit attacks to a minimum of MINIMUM_ATTACK_BONUS.
+     * {@inheritDoc} If the unit has not attacked, this returns the value of the private constant INITIAL_ATTACK_BONUS.
+     * Each time this unit attacks, An attack value equal to ATTACK_BONUS_PENALTY is subtracted each time this unit
+     * attacks to a minimum of MINIMUM_ATTACK_BONUS.
      *
      * If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
-     *
-     * @return The attack bonus of the unit.
      */
     @Override
     public int getAttackBonus() {
@@ -117,13 +113,8 @@ public class CavalryUnit extends Unit {
     }
 
     /**
-     * Calculates the attack bonus of the unit after terrain considerations. This method uses getAttackBonus() as a
-     * baseline. If the terrain of the unit is TerrainEnum.PLAINS, the unit is given an additional attack bonus of 2.
-     *
-     * @param terrain
-     *            The terrain.
-     *
-     * @return The attack bonus of the unit.
+     * {@inheritDoc} This method uses getAttackBonus() as a baseline. If the terrain of the unit is TerrainEnum.PLAINS,
+     * the unit is given an additional attack bonus of 2.
      */
     @Override
     public int getAttackBonus(TerrainEnum terrain) {
