@@ -105,11 +105,7 @@ public class Battle extends Subject {
         }
 
         simulationPaused = false;
-        long t0 = new Date().getTime();
         while (!simulationPaused) {
-            long t1 = new Date().getTime();
-            System.out.println(t1 - t0);
-            t0 = t1;
             Army attacker = getAttacker();
             Army defender = getDefender();
             Army winner = attack(attacker, defender);
