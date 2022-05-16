@@ -16,7 +16,7 @@ import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
-import org.ntnu.vsbugge.wargames.gui.guielements.windowelement.ArmyWindowElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.ArmyWindowElement;
 
 import java.io.File;
 import java.io.IOException;
