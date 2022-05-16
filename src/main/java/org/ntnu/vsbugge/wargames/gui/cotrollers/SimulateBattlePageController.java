@@ -110,13 +110,15 @@ public class SimulateBattlePageController {
 
         StatusDecorator.makeDisabled(homeButton);
 
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             if (animateCheck.isSelected()) {
                 battle.simulate(1);
             } else {
                 battle.simulate();
             }
-        }).start();
+        });
+        thread.setDaemon(true); // Makes the simulation thread close whenever the application exits.
+        thread.start();
     }
 
     /**
