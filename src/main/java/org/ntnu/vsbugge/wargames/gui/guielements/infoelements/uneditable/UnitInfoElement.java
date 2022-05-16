@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
+package org.ntnu.vsbugge.wargames.gui.guielements.infoelements.uneditable;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -13,7 +13,7 @@ import org.ntnu.vsbugge.wargames.units.Unit;
  *
  * @author vsbugge
  */
-public class UnitInfoElement extends AbstractInfoElement {
+public class UnitInfoElement extends UnEditableInfoElement {
     protected Label unitTypeLabel;
     protected Label unitNameLabel;
 
