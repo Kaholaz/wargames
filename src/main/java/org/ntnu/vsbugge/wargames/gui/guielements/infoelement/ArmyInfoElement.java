@@ -1,9 +1,10 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.battlesimulation;
+package org.ntnu.vsbugge.wargames.gui.guielements.infoelement;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.AbstractInfoElement;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 /**
@@ -45,7 +46,7 @@ public class ArmyInfoElement extends AbstractInfoElement {
      * Updates the info fields based on the state of the army by summing the different attributes of each unit in the
      * army.
      */
-    protected void updateTotalStats() {
+    public void updateTotalStats() {
         int health = 0;
         int attack = 0;
         int armor = 0;

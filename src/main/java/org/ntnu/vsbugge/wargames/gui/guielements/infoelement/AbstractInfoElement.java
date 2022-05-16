@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.battlesimulation;
+package org.ntnu.vsbugge.wargames.gui.guielements.infoelement;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
