@@ -2,6 +2,7 @@ package org.ntnu.vsbugge.wargames.gui.eventhandlers;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.utils.funcinterfaces.StringSetter;
 
 public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
@@ -17,7 +18,12 @@ public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
         textField.requestFocus();
 
         textField.setOnAction(ignoredEvent -> {
-            setter.setString(textField.getText());
+            try {
+                setter.setString(textField.getText());
+            } catch (IllegalArgumentException e) {
+                AlertFactory.createExceptionErrorAlert(e).show();
+            }
+
             AbstractDoubleClickSwapper.swapNode(textField, label);
         });
 

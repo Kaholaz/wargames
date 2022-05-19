@@ -73,8 +73,18 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         String rollback = this.unitName;
         this.unitName = unitName;
 
-        if (!tryNotifyUpdate()) {
+        if (unitName.isBlank() || !tryNotifyUpdate()) {
             this.unitName = rollback;
+
+            // Unit was a new unit before the conflict.
+            if (rollback.equals("New unit...")) {
+                setCount(0); // Remove unit
+            }
+
+            if (unitName.isBlank()) {
+                throw new IllegalArgumentException("New name cannot be blank");
+            }
+
             return;
         }
 

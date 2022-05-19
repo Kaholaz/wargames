@@ -123,10 +123,12 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
     @Override
     protected void removeUnitInfoElement(Unit unit) {
-        for (EditableUnitInfoElement unitElement : unitElements) {
+        // Reversed search to remove the latest added element.
+        for (int i = unitElements.size() - 1; i >= 0; i--) {
+            EditableUnitInfoElement unitElement = unitElements.get(i);
             if (unitElement.getUnit().differsOnlyInCombatState(unit)) {
-                unitElements.remove(unitElement);
-                this.getChildren().remove(unitElement);
+                unitElements.remove(i);
+                this.getChildren().remove(i + 1);
                 return;
             }
         }
