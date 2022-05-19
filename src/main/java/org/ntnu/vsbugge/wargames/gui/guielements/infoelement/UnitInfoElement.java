@@ -2,11 +2,11 @@ package org.ntnu.vsbugge.wargames.gui.guielements.infoelement;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 
 /**
  * A unit element displays stats about one or more similar units.
@@ -61,10 +61,10 @@ public class UnitInfoElement extends AbstractInfoElement {
 
     protected void setUnitType(UnitEnum unitEnum) {
         String unitIcon = switch (unitEnum) {
-            case CavalryUnit -> "cavalry";
-            case CommanderUnit -> "commander";
-            case InfantryUnit -> "infantry";
-            case RangedUnit -> "ranged";
+        case CavalryUnit -> "cavalry";
+        case CommanderUnit -> "commander";
+        case InfantryUnit -> "infantry";
+        case RangedUnit -> "ranged";
         };
 
         unitTypeLabel.setText(unitEnum.getProperName());

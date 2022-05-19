@@ -2,10 +2,7 @@ package org.ntnu.vsbugge.wargames.gui.guielements.windowelement;
 
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.ArmyInfoElement;
 import org.ntnu.vsbugge.wargames.units.Unit;
-
-import java.util.Collection;
 
 public abstract class AbstractArmyWindowElement extends VBox {
     protected Army army = null;

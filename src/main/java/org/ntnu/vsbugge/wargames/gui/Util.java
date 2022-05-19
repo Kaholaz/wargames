@@ -13,9 +13,11 @@ public class Util {
     /**
      * Opens a dialog for picking an army file, and shows any file parsing errors to the user.
      *
+     * @param window
+     *            The base window of the javaFX application.
+     *
      * @return Returns the picked army if it was successfully parsed. If the file-picker was closed, or the file could
      *         not be parsed, {@code null} is returned.
-     * @param window
      */
     public static Army pickArmy(Window window) {
         FileChooser fileChooser = new FileChooser();

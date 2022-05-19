@@ -91,9 +91,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         try {
             notifyEventListeners(EventType.UPDATE);
         } catch (IllegalStateException | IllegalArgumentException e) {
-            Platform.runLater(() -> {
-                AlertFactory.createExceptionErrorAlert(e).show();
-            });
+            Platform.runLater(() -> AlertFactory.createExceptionErrorAlert(e).show());
             return false;
         }
         return true;

@@ -9,8 +9,8 @@ public abstract class DoubleClickEventHandler implements EventHandler<MouseEvent
 
     @Override
     public void handle(MouseEvent event) {
-        if(event.getButton().equals(MouseButton.PRIMARY)){
-            if(event.getClickCount() == 2){
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            if (event.getClickCount() == 2) {
                 runsIfDoubleClick(event);
             }
         }

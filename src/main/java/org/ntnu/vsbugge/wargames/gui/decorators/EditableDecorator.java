@@ -1,8 +1,6 @@
 package org.ntnu.vsbugge.wargames.gui.decorators;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
@@ -33,7 +31,9 @@ public class EditableDecorator {
                     try {
                         setter.setInt(Integer.parseInt(textField.getText()));
                     } catch (NumberFormatException e) {
-                        Platform.runLater(() -> AlertFactory.createExceptionErrorAlert(new NumberFormatException("Please enter an integer!")).show());
+                        Platform.runLater(() -> AlertFactory
+                                .createExceptionErrorAlert(new NumberFormatException("Please enter an integer!"))
+                                .show());
                     } finally {
                         swapNode(textField, label);
                     }
@@ -121,9 +121,9 @@ public class EditableDecorator {
     private static void setMatchingSize(Label label, Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
 
-        Double computedHeight = label.getHeight();
-        Double hPadding = 0d;
-        Double vPadding = 0d;
+        double computedHeight = label.getHeight();
+        double hPadding = 0d;
+        double vPadding = 0d;
 
         // Conditional size to accommodate a difference in size.
         if (control instanceof ComboBox) {
@@ -133,15 +133,15 @@ public class EditableDecorator {
             HBox.setHgrow(control, Priority.SOMETIMES);
 
             hPadding = 20d;
-            Double finalPadding = hPadding;
-            Double textScale = 1.54d;
+            double finalPadding = hPadding;
+            double textScale = 1.54d;
             field.textProperty().addListener(observable -> {
                 Text measuringText = new Text(field.getText());
                 field.setPrefWidth(measuringText.getLayoutBounds().getWidth() * textScale + finalPadding * 2);
             });
         }
         control.setMinSize(label.getWidth() + vPadding, computedHeight + hPadding);
-        control.setPrefSize(0,0);
+        control.setPrefSize(0, 0);
     }
 
     private static void swapNode(Node node1, Node node2) {

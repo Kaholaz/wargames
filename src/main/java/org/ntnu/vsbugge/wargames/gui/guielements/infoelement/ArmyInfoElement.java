@@ -4,7 +4,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.AbstractInfoElement;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 /**
@@ -39,7 +38,7 @@ public class ArmyInfoElement extends AbstractInfoElement {
      */
     @Override
     protected void createTopRow() {
-        topLabel =  new Label("Total army stats:");
+        topLabel = new Label("Total army stats:");
         HBox hBox = GUIElementFactory.createHBoxWithCenteredElements(true, topLabel);
         this.getChildren().add(0, hBox);
     }

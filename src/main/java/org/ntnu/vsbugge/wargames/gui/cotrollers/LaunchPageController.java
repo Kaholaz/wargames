@@ -2,9 +2,7 @@ package org.ntnu.vsbugge.wargames.gui.cotrollers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import org.ntnu.vsbugge.wargames.gui.GUI;
-import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 
 /**
  * The controller for the launch page.
