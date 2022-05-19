@@ -8,6 +8,7 @@ import org.ntnu.vsbugge.wargames.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,9 +50,13 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     @Override
     public void reset() {
         clear();
-        for (Map.Entry<Unit, Integer> entry : army.getCondensedArmyTemplate().entrySet()) {
-            addNewUnitInfoElement(entry.getKey(), entry.getValue());
-        }
+
+        // Units are sorted to make order consistent between loads
+        Map<Unit, Integer> template = army.getCondensedArmyTemplate();
+        army.getCondensedArmyTemplate().keySet().stream().sorted().forEach(unit -> {
+            addNewUnitInfoElement(unit, template.get(unit));
+        });
+        
         update();
     }
 
