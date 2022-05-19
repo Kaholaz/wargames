@@ -9,7 +9,6 @@ import java.util.Collection;
 
 public abstract class AbstractArmyWindowElement extends VBox {
     protected Army army = null;
-    protected ArmyInfoElement armyInfoElement = new ArmyInfoElement(null);
 
     /**
      * Creates a new ArmyWindowElement using the VBox constructor.
@@ -55,8 +54,5 @@ public abstract class AbstractArmyWindowElement extends VBox {
      */
     public void setArmy(Army army) {
         this.army = army;
-        armyInfoElement.setArmy(army);
-
-        update();
     }
 }

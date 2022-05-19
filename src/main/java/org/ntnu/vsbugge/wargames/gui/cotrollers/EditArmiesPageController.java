@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
+import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.Util;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelement.EditableArmyWindowElement;
 
@@ -33,7 +34,7 @@ public class EditArmiesPageController {
 
     @FXML
     void onHome(ActionEvent event) {
-
+        GUI.setSceneFromActionEvent(event, "launchPage.fxml");
     }
 
     @FXML
@@ -55,7 +56,9 @@ public class EditArmiesPageController {
 
     @FXML
     void onNew(ActionEvent event) {
-
+        Army army = new Army("Army name...");
+        armyWindow.setArmy(army);
+        armyWindow.reset();
     }
 
     @FXML

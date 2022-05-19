@@ -39,7 +39,10 @@ public class EditableDecorator {
                     }
                 });
                 textField.focusedProperty().addListener(ignored -> {
-                    swapNode(textField, label);
+                    // Does not swap if the reason for the swap was that it was swapped.
+                    if (textField.getParent() != null) {
+                        swapNode(textField, label);
+                    }
                 });
             }
         };
@@ -57,7 +60,10 @@ public class EditableDecorator {
                     swapNode(textField, label);
                 });
                 textField.focusedProperty().addListener(ignored -> {
-                    swapNode(textField, label);
+                    // Does not swap if the reason for the swap was that it was swapped.
+                    if (textField.getParent() != null) {
+                        swapNode(textField, label);
+                    }
                 });
             }
         };
@@ -76,7 +82,10 @@ public class EditableDecorator {
                     swapNode(comboBox, label);
                 });
                 comboBox.focusedProperty().addListener(ignored -> {
-                    swapNode(comboBox, label);
+                    // Does not swap if the reason for the swap was that it was swapped.
+                    if (comboBox.getParent() != null) {
+                        swapNode(comboBox, label);
+                    }
                 });
             }
         };

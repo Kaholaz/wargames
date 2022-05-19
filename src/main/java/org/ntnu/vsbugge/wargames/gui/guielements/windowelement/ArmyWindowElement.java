@@ -2,6 +2,7 @@ package org.ntnu.vsbugge.wargames.gui.guielements.windowelement;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.ArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.UnitInfoElement;
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 public class ArmyWindowElement extends AbstractArmyWindowElement {
     private final Map<Unit, UnitInfoElement> unitElements = new HashMap<>();
+    private final ArmyInfoElement armyInfoElement = new ArmyInfoElement(null);
 
     /**
      * Creates a new ArmyWindowElement using the VBox constructor.
@@ -161,5 +163,12 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         // Remove from the VBox and element map
         this.getChildren().remove(infoElement);
         unitElements.remove(nonCombatUnit);
+    }
+
+    @Override
+    public void setArmy(Army army) {
+        super.setArmy(army);
+        armyInfoElement.setArmy(army);
+        reset();
     }
 }

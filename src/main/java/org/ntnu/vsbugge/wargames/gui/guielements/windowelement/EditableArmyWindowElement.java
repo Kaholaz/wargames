@@ -37,7 +37,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
             throw new IllegalStateException("Two or more units are too similar!");
         }
 
-        armyInfoElement.setArmy(army);
+        setArmy(army);
         armyInfoElement.updateTotalStats();
     }
 
@@ -90,5 +90,11 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
                 return;
             }
         }
+    }
+
+    @Override
+    public void setArmy(Army army) {
+        super.setArmy(army);
+        armyInfoElement.setArmy(army);
     }
 }
