@@ -32,3 +32,7 @@
 .ranged-icon {
     -fx-background-image: url('../icons/ranged.png');
 }
+
+.delete-icon {
+    -fx-background-image: url('../icons/delete.png');
+}

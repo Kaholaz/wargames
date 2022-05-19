@@ -29,8 +29,13 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     @Override
     protected void update() {
         Army army = new Army(this.army.getName());
-        for (EditableUnitInfoElement unitElement : unitElements) {
-            army.addAll(unitElement.getUnits());
+        for (EditableUnitInfoElement unitElement : new ArrayList<>(unitElements)) {
+            List<Unit> units = unitElement.getUnits();
+            if (units.size() == 0) {
+                removeUnitInfoElement(unitElement.getUnit());
+            } else {
+                army.addAll(units);
+            }
         }
 
         if (army.getCondensedArmyTemplate().size() != unitElements.size()) {
@@ -65,7 +70,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         Unit nonCombatUnit = unit.getNonCombatUnit();
 
         for (EditableUnitInfoElement unitElement : unitElements) {
-            if (unitElement.getUnits().get(0).getNonCombatUnit().equals(nonCombatUnit)) {
+            if (unitElement.getUnit().differsOnlyInCombatState(nonCombatUnit)) {
                 throw new IllegalArgumentException("Could not add unit as similar unit already exists.");
             }
         }
@@ -84,7 +89,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     @Override
     protected void removeUnitInfoElement(Unit unit) {
         for (EditableUnitInfoElement unitElement : unitElements) {
-            if (unitElement.getUnits().get(0).getNonCombatUnit().equals(unit)) {
+            if (unitElement.getUnit().differsOnlyInCombatState(unit)) {
                 unitElements.remove(unitElement);
                 this.getChildren().remove(unitElement);
                 return;

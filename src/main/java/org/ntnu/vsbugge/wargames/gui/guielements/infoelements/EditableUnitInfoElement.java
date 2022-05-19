@@ -1,7 +1,10 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
+import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
@@ -25,6 +28,18 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
 
         EditableDecorator.makeEditable(unitTypeLabel, this::setUnitType);
         EditableDecorator.makeEditable(unitNameLabel, this::setUnitName);
+    }
+
+    @Override
+    protected void createTopRow() {
+        super.createTopRow();
+
+        Label xLabel = new Label("");
+        xLabel.setOnMouseClicked(observable -> {
+            this.setCount(0);
+        });
+        IconLabelDecorator.setIcon(xLabel, "delete");
+        ((Pane) this.getChildren().get(0)).getChildren().add(xLabel);
     }
 
     @Override
@@ -81,6 +96,10 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         Unit displayedUnit = UnitFactory.getUnit(unitType.toString(), unitName, health);
         setArmor(displayedUnit.getArmor());
         setAttack(displayedUnit.getAttack());
+    }
+
+    public Unit getUnit() {
+        return UnitFactory.getUnit(unitType.toString(), unitName, health);
     }
 
     public List<Unit> getUnits() {
