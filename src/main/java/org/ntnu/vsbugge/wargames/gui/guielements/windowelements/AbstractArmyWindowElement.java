@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.windowelement;
+package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;

@@ -1,8 +1,8 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.windowelement;
+package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.ArmyInfoElement;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.UnitInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.ArmyInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.UnitInfoElement;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 import java.util.HashMap;

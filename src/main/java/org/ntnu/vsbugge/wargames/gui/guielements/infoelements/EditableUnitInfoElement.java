@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.infoelement;
+package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 
 import javafx.application.Platform;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;

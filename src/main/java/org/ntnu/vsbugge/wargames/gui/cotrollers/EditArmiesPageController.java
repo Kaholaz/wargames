@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.Util;
-import org.ntnu.vsbugge.wargames.gui.guielements.windowelement.EditableArmyWindowElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.EditableArmyWindowElement;
 
 public class EditArmiesPageController {
     private EditableArmyWindowElement armyWindow = new EditableArmyWindowElement();

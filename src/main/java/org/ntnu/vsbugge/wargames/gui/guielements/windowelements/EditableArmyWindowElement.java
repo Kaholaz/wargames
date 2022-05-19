@@ -1,9 +1,9 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.windowelement;
+package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.ArmyInfoElement;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.EditableArmyInfoElement;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.EditableUnitInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.ArmyInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableUnitInfoElement;
 import org.ntnu.vsbugge.wargames.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
 

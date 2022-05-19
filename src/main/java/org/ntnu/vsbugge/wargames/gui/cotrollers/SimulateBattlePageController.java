@@ -15,7 +15,7 @@ import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.Util;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
-import org.ntnu.vsbugge.wargames.gui.guielements.windowelement.ArmyWindowElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.ArmyWindowElement;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 
 import java.util.Date;

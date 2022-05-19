@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.gui.guielements.infoelement;
+package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
