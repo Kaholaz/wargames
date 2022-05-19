@@ -1,8 +1,8 @@
 package org.ntnu.vsbugge.wargames.utils.files;
 
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;

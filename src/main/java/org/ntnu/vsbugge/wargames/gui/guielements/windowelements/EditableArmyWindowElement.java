@@ -1,14 +1,24 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.Pane;
 import org.ntnu.vsbugge.wargames.army.Army;
+import org.ntnu.vsbugge.wargames.gui.eventhandlers.AbstractDoubleClickSwapper;
+import org.ntnu.vsbugge.wargames.gui.eventhandlers.StringInputDoubleClickSwapper;
+import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.ArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableUnitInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.UnitInfoElement;
+import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 import org.ntnu.vsbugge.wargames.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
+import org.ntnu.vsbugge.wargames.utils.funcinterfaces.StringSetter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +27,32 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
     protected ArmyInfoElement armyInfoElement = new EditableArmyInfoElement(null);
 
+    private Button createAddButton() {
+        Button button = new Button(" + ");
+        button.getStyleClass().addAll("round-button", "padded-medium");
+
+        button.setOnAction((event -> {
+            addNewUnitInfoElement(new InfantryUnit("New unit...", 100), 1);
+            EditableUnitInfoElement unitElement = unitElements.get(unitElements.size() - 1);
+            Pane topRow = (Pane) unitElement.getChildren().get(0);
+            Label nameLabel = (Label) topRow.getChildren().get(3);
+
+            AbstractDoubleClickSwapper onDoubleClick = new StringInputDoubleClickSwapper(nameLabel, unitElement::setUnitName);
+            onDoubleClick.runsIfDoubleClick(); // Selects the name of the new unit.
+            ((TextField) topRow.getChildren().get(3)).setText("");
+        }));
+
+        return button;
+    }
+
     @Override
-    void clear() {
+    protected void clear() {
         this.getChildren().clear();
         unitElements.clear();
 
         if (army != null) {
             this.getChildren().add(armyInfoElement);
+            this.getChildren().add(createAddButton());
         }
     }
 
@@ -56,7 +85,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         army.getCondensedArmyTemplate().keySet().stream().sorted().forEach(unit -> {
             addNewUnitInfoElement(unit, template.get(unit));
         });
-        
+
         update();
     }
 
@@ -76,7 +105,8 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
         for (EditableUnitInfoElement unitElement : unitElements) {
             if (unitElement.getUnit().differsOnlyInCombatState(nonCombatUnit)) {
-                throw new IllegalArgumentException("Could not add unit as similar unit already exists.");
+                AlertFactory.createExceptionErrorAlert(new IllegalArgumentException("Could not add unit as similar unit already exists.")).show();
+                return;
             }
         }
 
@@ -87,7 +117,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
                 update();
             }
         });
-        this.getChildren().add(unitInfoElement);
+        this.getChildren().add(unitElements.size() + 1, unitInfoElement);
         unitElements.add(unitInfoElement);
     }
 

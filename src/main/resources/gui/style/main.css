@@ -46,6 +46,11 @@
     -fx-background-color: #A5A58D;
 }
 
+.round-button {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
 .check-box .box {
     -fx-border-color: black;
     -fx-background-color: #E2CCBF;

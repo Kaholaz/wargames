@@ -1,5 +1,6 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
+import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.units.Unit;
@@ -12,6 +13,7 @@ public abstract class AbstractArmyWindowElement extends VBox {
      */
     public AbstractArmyWindowElement() {
         super();
+        this.setAlignment(Pos.CENTER);
     }
 
     /**

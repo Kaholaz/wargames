@@ -1,12 +1,10 @@
 package org.ntnu.vsbugge.wargames.battle;
 
 import org.ntnu.vsbugge.wargames.army.Army;
+import org.ntnu.vsbugge.wargames.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.Subject;
-import org.ntnu.vsbugge.wargames.units.Unit;
-
-import java.util.Date;
 
 /**
  * A class that represents a battle between two armies.
