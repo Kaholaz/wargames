@@ -56,18 +56,22 @@ public class UnitInfoElement extends AbstractInfoElement {
 
     private void setUnitType(String simpleName) {
         UnitEnum unitEnum = UnitEnum.fromString(simpleName);
+        setUnitType(unitEnum);
+    }
+
+    protected void setUnitType(UnitEnum unitEnum) {
         String unitIcon = switch (unitEnum) {
-        case CavalryUnit -> "cavalry";
-        case CommanderUnit -> "commander";
-        case InfantryUnit -> "infantry";
-        case RangedUnit -> "ranged";
+            case CavalryUnit -> "cavalry";
+            case CommanderUnit -> "commander";
+            case InfantryUnit -> "infantry";
+            case RangedUnit -> "ranged";
         };
 
         unitTypeLabel.setText(unitEnum.getProperName());
         IconLabelDecorator.setIcon(unitTypeLabel, unitIcon);
     }
 
-    private void setUnitName(String unitName) {
+    protected void setUnitName(String unitName) {
         unitNameLabel.setText(unitName);
     }
 }

@@ -50,6 +50,15 @@ public enum UnitEnum {
         return properName;
     }
 
+    public static UnitEnum fromProperName(String properName) {
+        for (UnitEnum unit : UnitEnum.values()) {
+            if (unit.properName.equals(properName)) {
+                return unit;
+            }
+        }
+        throw new IllegalArgumentException("No unit with this name was found!");
+    }
+
     /**
      * This method functions similarly to UnitEnum::valueOf except it sends a custom exception message if the enum is
      * not found.

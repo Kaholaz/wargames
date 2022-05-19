@@ -3,23 +3,21 @@ package org.ntnu.vsbugge.wargames.gui.cotrollers;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.battle.Battle;
+import org.ntnu.vsbugge.wargames.gui.Util;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
-import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelement.ArmyWindowElement;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -204,12 +202,12 @@ public class SimulateBattlePageController {
     /**
      * The event listener for when the importAttacker button is pressed.
      *
-     * @param ignoredEvent
+     * @param event
      *            The action event from the button press.
      */
     @FXML
-    void onImportAttacker(ActionEvent ignoredEvent) {
-        Army army = pickArmy();
+    void onImportAttacker(ActionEvent event) {
+        Army army = Util.pickArmy(((Node) event.getSource()).getScene().getWindow());
         if (army == null) {
             return;
         }
@@ -223,12 +221,12 @@ public class SimulateBattlePageController {
     /**
      * The event listener for when the importDefender button is pressed.
      *
-     * @param ignoredEvent
+     * @param event
      *            The action event from the button press.
      */
     @FXML
-    void onImportDefender(ActionEvent ignoredEvent) {
-        Army army = pickArmy();
+    void onImportDefender(ActionEvent event) {
+        Army army = Util.pickArmy(((Node) event.getSource()).getScene().getWindow());
         if (army == null) {
             return;
         }
@@ -237,29 +235,6 @@ public class SimulateBattlePageController {
 
         battle.setArmyTwo(army);
         defenderUnitWindow.setArmy(battle.getArmyTwo());
-    }
-
-    /**
-     * Opens a dialog for picking an army file, and shows any file parsing errors to the user.
-     *
-     * @return Returns the picked army if it was successfully parsed. If the file-picker was closed, or the file could
-     *         not be parsed, {@code null} is returned.
-     */
-    private Army pickArmy() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Pick an army");
-
-        try {
-            ArmyFileUtil files = new ArmyFileUtil();
-            fileChooser.setInitialDirectory(files.getDefaultPath());
-            File armyFile = fileChooser.showOpenDialog(animateCheck.getScene().getWindow());
-            return files.loadFromPath(armyFile);
-        } catch (IOException e) {
-            AlertFactory.createExceptionErrorAlert(e).show();
-            return null;
-        } catch (NullPointerException ignore) {
-            return null;
-        }
     }
 
     /**

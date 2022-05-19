@@ -1,5 +1,6 @@
 package org.ntnu.vsbugge.wargames.gui.factories;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -45,6 +46,7 @@ public class GUIElementFactory {
      */
     public static HBox createHBoxWithCenteredElements(boolean padSides, Node... nodes) {
         HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
         if (nodes.length == 0) {
             return hBox;
         }

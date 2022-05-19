@@ -15,7 +15,8 @@ import org.ntnu.vsbugge.wargames.units.Unit;
  * @author vsbugge
  */
 public class ArmyInfoElement extends AbstractInfoElement {
-    private Army army;
+    protected Label topLabel;
+    protected Army army;
 
     /**
      * Constructor for ArmyInfoElement.
@@ -38,7 +39,8 @@ public class ArmyInfoElement extends AbstractInfoElement {
      */
     @Override
     protected void createTopRow() {
-        HBox hBox = GUIElementFactory.createHBoxWithCenteredElements(true, new Label("Total army stats:"));
+        topLabel =  new Label("Total army stats:");
+        HBox hBox = GUIElementFactory.createHBoxWithCenteredElements(true, topLabel);
         this.getChildren().add(0, hBox);
     }
 

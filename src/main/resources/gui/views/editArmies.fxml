@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ntnu.vsbugge.wargames.gui.cotrollers.EditArmiesPageController">
+   <top>
+      <HBox alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" styleClass="sub-title" text="Edit armies" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#onHome" styleClass="padded-medium" text="Home" HBox.hgrow="ALWAYS" />
+         </children>
+         <styleClass>
+            <String fx:value="bordered-box" />
+            <String fx:value="padded-medium" />
+         </styleClass>
+      </HBox>
+   </top>
+   <center>
+      <VBox fx:id="armyWrapper" BorderPane.alignment="TOP_CENTER" />
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="0.0" prefWidth="0.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" styleClass="padded-medium" text="Save" HBox.hgrow="ALWAYS" />
+            <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="saveAsButton" mnemonicParsing="false" onAction="#onSaveAs" styleClass="padded-medium" text="Save as..." HBox.hgrow="ALWAYS" />
+            <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="importButton" mnemonicParsing="false" onAction="#onImport" styleClass="padded-medium" text="Import" />
+            <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="newButton" mnemonicParsing="false" onAction="#onNew" styleClass="padded-medium" text="New" />
+            <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <styleClass>
+            <String fx:value="bordered-box" />
+            <String fx:value="padded-medium" />
+         </styleClass>
+      </HBox>
+   </bottom>
+   <stylesheets>
+      <URL value="@../style/main.css" />
+      <URL value="@../style/icon-text.css" />
+   </stylesheets>
+</BorderPane>

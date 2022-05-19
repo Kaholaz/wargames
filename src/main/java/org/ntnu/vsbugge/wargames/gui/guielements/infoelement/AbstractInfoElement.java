@@ -3,6 +3,7 @@ package org.ntnu.vsbugge.wargames.gui.guielements.infoelement;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
@@ -33,6 +34,8 @@ public abstract class AbstractInfoElement extends VBox {
         // Add style
         this.getStyleClass().add("bordered-box");
         PaddingDecorator.padMedium(this);
+
+        VBox.setVgrow(this, Priority.ALWAYS);
     }
 
     /**
@@ -61,7 +64,6 @@ public abstract class AbstractInfoElement extends VBox {
         // Add to VBox
         HBox bottom = GUIElementFactory.createHBoxWithCenteredElements(true, healthLabel, attackLabel, armorLabel,
                 countLabel);
-
         this.getChildren().add(bottom);
     }
 

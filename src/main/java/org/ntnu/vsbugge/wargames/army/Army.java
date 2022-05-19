@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @author vsbugge
  */
 public class Army {
-    private final String name;
+    private String name;
     private final List<Unit> units;
 
     /**
@@ -31,7 +31,7 @@ public class Army {
      *            The army to copy.
      */
     public Army(Army army) {
-        this(army.getName());
+        this(army.name);
         addAll(army.getAllUnits());
     }
 
@@ -141,6 +141,10 @@ public class Army {
         int index = random.nextInt(units.size());
 
         return units.get(index);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

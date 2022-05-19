@@ -1,8 +1,9 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.windowelement;
 
-import javafx.scene.layout.VBox;
-import org.ntnu.vsbugge.wargames.army.Army;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.ArmyInfoElement;
+import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelement.UnitInfoElement;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
@@ -16,10 +17,8 @@ import java.util.Map;
  *
  * @author vsbugge
  */
-public class ArmyWindowElement extends VBox {
-    Map<Unit, UnitInfoElement> unitElements = new HashMap<>();
-    Army army = null;
-    ArmyInfoElement armyInfoElement = new ArmyInfoElement(null);
+public class ArmyWindowElement extends AbstractArmyWindowElement {
+    private final Map<Unit, UnitInfoElement> unitElements = new HashMap<>();
 
     /**
      * Creates a new ArmyWindowElement using the VBox constructor.
@@ -28,9 +27,13 @@ public class ArmyWindowElement extends VBox {
         super();
     }
 
-    /**
-     * Clears any unit elements and removes the army info if army is set to null
-     */
+    @Override
+    public void reset() {
+        clear();
+        update();
+    }
+
+    @Override
     public void clear() {
         this.getChildren().clear();
         unitElements.clear();
@@ -43,6 +46,7 @@ public class ArmyWindowElement extends VBox {
     /**
      * Updates the contents of the army window element to reflect the set army.
      */
+    @Override
     public void update() {
         armyInfoElement.updateTotalStats();
         updateCounts();
@@ -52,7 +56,7 @@ public class ArmyWindowElement extends VBox {
      * Updates the counts of all UnitInfoElements in the army window to reflect the state of the set army. If a unit is
      * not represented in the army window, a UnitInfoElement is added to reflect that unit.
      */
-    private void updateCounts() {
+    protected void updateCounts() {
         // To avoid NullPointerException, the window is just cleared when the army is null.
         if (army == null) {
             clear();
@@ -70,12 +74,10 @@ public class ArmyWindowElement extends VBox {
             // Unit in both unitElements and army
             if (unitElements.containsKey(unit) && nonCombatArmyTemplate.containsKey(unit)) {
                 updateElementCount(unit, nonCombatArmyTemplate.get(unit));
-                continue;
             }
             // Unit in unitElements not in army
-            if (!nonCombatArmyTemplate.containsKey(unit)) {
+            else if (!nonCombatArmyTemplate.containsKey(unit)) {
                 updateElementCount(unit, 0);
-                continue;
             }
             // Unit in army not in unitElements
             else if (!unitElements.containsKey(unit)) {
@@ -123,7 +125,7 @@ public class ArmyWindowElement extends VBox {
      * @param count
      *            The count of this unit.
      */
-    private void addNewUnitInfoElement(Unit unit, int count) {
+    protected void addNewUnitInfoElement(Unit unit, int count) {
         // Gets the nonCombatUnit and checks for presence
         Unit nonCombatUnit = unit.getNonCombatUnit();
         if (unitElements.containsKey(nonCombatUnit)) {
@@ -143,7 +145,8 @@ public class ArmyWindowElement extends VBox {
      * @param unit
      *            THe unit whose UnitInfoElement to remove
      */
-    private void removeUnitInfoElement(Unit unit) {
+    @Override
+    protected void removeUnitInfoElement(Unit unit) {
         // Gets values
         Unit nonCombatUnit = unit.getNonCombatUnit();
         UnitInfoElement infoElement = unitElements.get(nonCombatUnit);
@@ -158,19 +161,5 @@ public class ArmyWindowElement extends VBox {
         // Remove from the VBox and element map
         this.getChildren().remove(infoElement);
         unitElements.remove(nonCombatUnit);
-    }
-
-    /**
-     * Sets the army that should be displayed in this ArmyWindowElement.
-     *
-     * @param army
-     *            The army that should be displayed in this ArmyWindowElements.
-     */
-    public void setArmy(Army army) {
-        this.army = army;
-        armyInfoElement.setArmy(army);
-
-        clear();
-        update();
     }
 }

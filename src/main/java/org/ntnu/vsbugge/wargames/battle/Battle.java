@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author vsbugge
  */
-public class Battle extends Subject {
+public class Battle implements Subject {
     private Army armyOne;
     private Army armyTwo;
     private TerrainEnum terrain = TerrainEnum.DEFAULT;

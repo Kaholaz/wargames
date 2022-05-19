@@ -9,9 +9,9 @@ import java.util.List;
  *
  * @author Atle Olsø / vsbugge (<a href="https://gitlab.com/atleolso/observer">https://gitlab.com/atleolso/observer</a>)
  */
-public abstract class Subject {
+public interface Subject {
 
-    private List<EventListener> eventListeners = new ArrayList<>();
+    List<EventListener> eventListeners = new ArrayList<>();
 
     /**
      * Attaches an event listener to the instance.
@@ -19,7 +19,7 @@ public abstract class Subject {
      * @param eventListener
      *            The event listener.
      */
-    public void attach(EventListener eventListener) {
+    default void attach(EventListener eventListener) {
         eventListeners.add(eventListener);
     }
 
@@ -29,7 +29,7 @@ public abstract class Subject {
      * @param eventListener
      *            The event listener.
      */
-    public void detach(EventListener eventListener) {
+    default void detach(EventListener eventListener) {
         eventListeners.remove(eventListener);
     }
 
@@ -39,7 +39,7 @@ public abstract class Subject {
      * @param eventType
      *            The type of event.
      */
-    public void notifyEventListeners(EventType eventType) {
+    default void notifyEventListeners(EventType eventType) {
         eventListeners.forEach(listener -> listener.onEvent(eventType));
     }
 }
