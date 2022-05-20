@@ -143,12 +143,17 @@ public class Army {
         return units.get(index);
     }
 
+    /**
+     * Sets the name of the Army.
+     * @param name
+     *            The new name of the Army.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Getter for the field <code>name</code>.
+     * Getter for the field {@code name}.
      *
      * @return The name of the army
      */
@@ -311,17 +316,13 @@ public class Army {
         return army;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Army{" + "name='" + name + '\'' + ", armyTemplate=" + getArmyTemplate() + '}';
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
         if (this == o)

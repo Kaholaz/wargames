@@ -27,7 +27,7 @@ public class UnitSelectorDoubleClickSwapper extends AbstractDoubleClickSwapper {
     }
 
     /**
-     * The function that is called when the label is double-clicked.
+     * {@inheritDoc}
      */
     @Override
     public void runsIfDoubleClick() {

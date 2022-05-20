@@ -170,9 +170,7 @@ public abstract class Unit implements Comparable<Unit> {
         return this.getNonCombatUnit().equals(unit.getNonCombatUnit());
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{" + "name='" + name + '\'' + ", health=" + health + ", attack="

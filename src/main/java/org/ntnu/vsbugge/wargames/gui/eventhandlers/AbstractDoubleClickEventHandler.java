@@ -17,11 +17,11 @@ public abstract class AbstractDoubleClickEventHandler implements EventHandler<Mo
     public abstract void runsIfDoubleClick();
 
     /**
+     * {@inheritDoc}
+     *
+     * <br><br>
      * Overwrites the standard function called by the EventHandler and calls the runsIfDoubleClick method if the mouse
      * event was a double click.
-     *
-     * @param event
-     *            The MouseEvent
      */
     @Override
     public void handle(MouseEvent event) {

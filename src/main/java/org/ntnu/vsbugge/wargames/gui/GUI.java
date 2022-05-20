@@ -22,9 +22,7 @@ public class GUI extends Application {
     private static final int STAGE_MIN_WIDTH = 1000;
     private static final String VIEWS_ROOT_DIRECTORY = "/gui/views/";
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Wargames");

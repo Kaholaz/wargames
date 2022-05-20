@@ -11,6 +11,8 @@ import java.io.IOException;
 
 /**
  * A utility class for various methods related to picking, opening, and saving Army files.
+ *
+ * @author vsbugge
  */
 public class ArmyFilePickerUtil {
     static private final FileChooser.ExtensionFilter EXTENSIONS = new FileChooser.ExtensionFilter("Army files", "army");

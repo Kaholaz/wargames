@@ -27,9 +27,7 @@ public class IntInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
         this.setter = setter;
     }
 
-    /**
-     * The function that is called when the label is double-clicked.
-     */
+    /** {@inheritDoc} */
     @Override
     public void runsIfDoubleClick() {
         TextField textField = AbstractDoubleClickSwapper.replaceLabelWithTextField(label);

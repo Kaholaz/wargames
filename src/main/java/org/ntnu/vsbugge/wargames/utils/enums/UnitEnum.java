@@ -50,6 +50,14 @@ public enum UnitEnum {
         return properName;
     }
 
+    /**
+     * Gets the enum constant corresponding to the given proper name.
+     *
+     * @param properName
+     *            The proper name of the unit.
+     *
+     * @return The corresponding enum constant.
+     */
     public static UnitEnum fromProperName(String properName) {
         for (UnitEnum unit : UnitEnum.values()) {
             if (unit.properName.equals(properName)) {

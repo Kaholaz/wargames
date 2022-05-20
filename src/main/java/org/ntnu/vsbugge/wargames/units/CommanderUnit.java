@@ -6,7 +6,10 @@ package org.ntnu.vsbugge.wargames.units;
  * @author vsbugge
  */
 public class CommanderUnit extends CavalryUnit {
-    protected static final int DEFAULT_ATTACK = 25, DEFAULT_ARMOR = 15;
+    /** Constant <code>DEFAULT_ATTACK=25</code> */
+    protected static final int DEFAULT_ATTACK = 25;
+    /** Constant <code>DEFAULT_ARMOR=15</code> */
+    protected static final int DEFAULT_ARMOR = 15;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)

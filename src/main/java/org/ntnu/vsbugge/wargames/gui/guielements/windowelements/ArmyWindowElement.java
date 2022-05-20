@@ -26,12 +26,14 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         super();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void reset() {
         clear();
         update();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void clear() {
         this.getChildren().clear();
@@ -42,9 +44,7 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         }
     }
 
-    /**
-     * Updates the contents of the army window element to reflect the set army.
-     */
+    /** {@inheritDoc} */
     @Override
     public void update() {
         armyInfoElement.updateTotalStats();
@@ -115,14 +115,7 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
     }
 
     /**
-     * Adds a unit element to the army window.
-     *
-     * This method is used by updateCounts to add units not represented in the army window.
-     *
-     * @param unit
-     *            The unit to add.
-     * @param count
-     *            The count of this unit.
+     * {@inheritDoc}
      */
     protected void addNewUnitInfoElement(Unit unit, int count) {
         // Gets the nonCombatUnit and checks for presence
@@ -139,10 +132,7 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
     }
 
     /**
-     * Removes a unit info element from the army window.
-     *
-     * @param unit
-     *            THe unit whose UnitInfoElement to remove
+     * {@inheritDoc}
      */
     @Override
     protected void removeUnitInfoElement(Unit unit) {
@@ -162,9 +152,7 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         unitElements.remove(nonCombatUnit);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setArmy(Army army) {
         super.setArmy(army);

@@ -8,15 +8,22 @@ import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
  * @author vsbugge
  */
 public class CavalryUnit extends Unit {
+    /** Constant <code>RESIST_BONUS=1</code> */
     protected static final int RESIST_BONUS = 1;
 
+    /** Constant <code>INITIAL_ATTACK_BONUS=6</code> */
     protected static final int INITIAL_ATTACK_BONUS = 6; // The initial attack bonus.
+    /** Constant <code>ATTACK_BONUS_PENALTY=4</code> */
     protected static final int ATTACK_BONUS_PENALTY = 4; // A penalty that is applied each time this unit attacks.
+    /** Constant <code>MINIMUM_ATTACK_BONUS=2</code> */
     protected static final int MINIMUM_ATTACK_BONUS = 2; // The minimum attack bonus.
 
     protected int numberOfTimesAttacked;
 
-    protected static final int DEFAULT_ATTACK = 20, DEFAULT_ARMOR = 12;
+    /** Constant <code>DEFAULT_ATTACK=20</code> */
+    protected static final int DEFAULT_ATTACK = 20;
+    /** Constant <code>DEFAULT_ARMOR=12</code> */
+    protected static final int DEFAULT_ARMOR = 12;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)

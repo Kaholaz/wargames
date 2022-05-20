@@ -8,10 +8,15 @@ import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
  * @author vsbugge
  */
 public class InfantryUnit extends Unit {
+    /** Constant <code>RESIST_BONUS=1</code> */
     protected static final int RESIST_BONUS = 1;
+    /** Constant <code>ATTACK_BONUS=2</code> */
     protected static final int ATTACK_BONUS = 2;
 
-    protected static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 10;
+    /** Constant <code>DEFAULT_ATTACK=15</code> */
+    protected static final int DEFAULT_ATTACK = 15;
+    /** Constant <code>DEFAULT_ARMOR=10</code> */
+    protected static final int DEFAULT_ARMOR = 10;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)
@@ -68,9 +73,7 @@ public class InfantryUnit extends Unit {
     public void resetStats() {
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public int getResistBonus() {
         return RESIST_BONUS;
@@ -89,9 +92,7 @@ public class InfantryUnit extends Unit {
         return getResistBonus();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public int getAttackBonus() {
         return ATTACK_BONUS;

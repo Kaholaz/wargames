@@ -157,7 +157,7 @@ public class Battle implements Subject {
     /**
      * Checks if the battle is in a valid state before a simulation, and removes all dead units from both armies.
      *
-     * @throws IllegalStateException
+     * @throws java.lang.IllegalStateException
      *             Throws an exception if either of the armies are null, or if both of the armies are empty.
      */
     public void prepareSimulation() throws IllegalStateException {
@@ -293,9 +293,7 @@ public class Battle implements Subject {
         this.terrain = terrain;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Battle{" + "armyOne=" + armyOne + ", armyTwo=" + armyTwo + '}';

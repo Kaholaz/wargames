@@ -10,7 +10,6 @@ import java.util.List;
  * @author Atle Olsø / vsbugge (<a href="https://gitlab.com/atleolso/observer">https://gitlab.com/atleolso/observer</a>)
  */
 public interface Subject {
-
     List<EventListener> eventListeners = new ArrayList<>();
 
     /**

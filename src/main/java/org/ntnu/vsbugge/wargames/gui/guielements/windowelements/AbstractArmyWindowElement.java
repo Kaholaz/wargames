@@ -26,8 +26,14 @@ public abstract class AbstractArmyWindowElement extends VBox {
      */
     abstract void clear();
 
+    /**
+     * Updates the state of the army window to reflect changes to the set army.
+     */
     protected abstract void update();
 
+    /**
+     * Resets the window to its original state solely using the set army.
+     */
     public abstract void reset();
 
     /**

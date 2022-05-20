@@ -24,6 +24,8 @@ import java.util.Map;
 
 /**
  * An editable ArmyWindowElement.
+ *
+ * @author vsbugge
  */
 public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     private final List<EditableUnitInfoElement> unitElements = new ArrayList<>();
@@ -53,9 +55,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         return button;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     protected void clear() {
         this.getChildren().clear();
@@ -67,9 +67,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     protected void update() {
         Army army = new Army(this.army.getName());
@@ -90,9 +88,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         armyInfoElement.updateTotalStats();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void reset() {
         clear();
@@ -106,16 +102,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         update();
     }
 
-    /**
-     * Adds a unit element to the army window.
-     *
-     * This method is used by updateCounts to add units not represented in the army window.
-     *
-     * @param unit
-     *            The unit to add.
-     * @param count
-     *            The count of this unit.
-     */
+    /** {@inheritDoc} */
     @Override
     protected void addNewUnitInfoElement(Unit unit, int count) {
         Unit nonCombatUnit = unit.getNonCombatUnit();
@@ -141,9 +128,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         unitElements.add(unitInfoElement);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     protected void removeUnitInfoElement(Unit unit) {
         // Reversed search to remove the latest added element.
@@ -157,9 +142,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setArmy(Army army) {
         super.setArmy(army);

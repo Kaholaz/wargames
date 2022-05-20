@@ -5,6 +5,8 @@ import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
 
 /**
  * An editable ArmyInfoElement where the user can set the name of the army.
+ *
+ * @author vsbugge
  */
 public class EditableArmyInfoElement extends ArmyInfoElement {
     /**
@@ -30,10 +32,7 @@ public class EditableArmyInfoElement extends ArmyInfoElement {
     }
 
     /**
-     * Set the army of the ArmyInfoElement.
-     *
-     * @param army
-     *            The army to display.
+     * {@inheritDoc}
      */
     @Override
     public void setArmy(Army army) {

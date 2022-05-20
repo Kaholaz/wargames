@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * An editable version of the UnitInfoElement. Notifies any observers if the state of the unit changes.
+ *
+ * @author vsbugge
  */
 public class EditableUnitInfoElement extends UnitInfoElement implements Subject {
     private int health;
@@ -41,9 +43,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         EditableDecorator.makeEditable(unitNameLabel, this::setUnitName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     protected void createTopRow() {
         super.createTopRow();
@@ -57,9 +57,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         ((Pane) this.getChildren().get(0)).getChildren().add(xLabel);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setHealth(int health) {
         int rollback = this.health;
@@ -73,9 +71,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         super.setHealth(health);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setCount(int count) {
         int rollback = this.count;
@@ -89,9 +85,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         super.setCount(count);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setUnitName(String unitName) {
         String rollback = this.unitName;
@@ -115,9 +109,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         super.setUnitName(unitName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setUnitType(UnitEnum unitType) {
         UnitEnum rollback = this.unitType;

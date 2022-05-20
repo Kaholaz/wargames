@@ -21,8 +21,9 @@ public class RangedUnit extends Unit {
     private int numberOfTimesTakenDamage = 0;
 
     /** Constant <code>DEFAULT_ATTACK=15</code> */
+    protected static final int DEFAULT_ATTACK = 15;
     /** Constant <code>DEFAULT_ARMOR=8</code> */
-    protected static final int DEFAULT_ATTACK = 15, DEFAULT_ARMOR = 8;
+    protected static final int DEFAULT_ARMOR = 8;
 
     /**
      * Shorthand constructor that sets attack and armor to default values (15 and 10)
@@ -109,9 +110,7 @@ public class RangedUnit extends Unit {
         return Integer.max(calculatedResistBonus, MINIMUM_RESIST_BONUS);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public int getAttackBonus() {
         return ATTACK_BONUS;
