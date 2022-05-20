@@ -7,9 +7,7 @@ import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
 /**
- * <p>
- * ArmyInfoElement class.
- * </p>
+ * An ArmyInfoElement object displays aggregate stats of an army.
  *
  * @author vsbugge
  */

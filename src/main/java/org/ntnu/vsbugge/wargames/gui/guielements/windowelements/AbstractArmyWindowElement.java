@@ -5,6 +5,11 @@ import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.units.Unit;
 
+/**
+ * The super class for all windows that displays an army. This class extends the VBox class.
+ *
+ * @author vsbugge
+ */
 public abstract class AbstractArmyWindowElement extends VBox {
     protected Army army = null;
 

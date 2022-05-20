@@ -9,8 +9,12 @@ import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 import java.io.File;
 import java.io.IOException;
 
-public class Util {
+/**
+ * A utility class for various methods related to picking, opening, and saving Army files.
+ */
+public class ArmyFilePickerUtil {
     static private final FileChooser.ExtensionFilter EXTENSIONS = new FileChooser.ExtensionFilter("Army files", "army");
+
     /**
      * Opens a dialog for picking an army file, and shows any file parsing errors to the user.
      *
@@ -25,6 +29,15 @@ public class Util {
         return parseArmyFileAndAlertUserIfUnsuccessful(armyFile);
     }
 
+    /**
+     * Opens a file picker window and lets the user pick a file to open.
+     *
+     * @param window
+     *            The active window of the JavaFX application.
+     *
+     * @return The file chosen by the user. If the file could not be parsed as an army file, an error message is
+     *         displayed and null is returned.
+     */
     public static File pickArmyFileToOpen(Window window) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Pick an army");
@@ -45,6 +58,14 @@ public class Util {
         return armyFile;
     }
 
+    /**
+     * Parses the file and alerts the user if the parsing was unsuccessful.
+     *
+     * @param file
+     *            The file to parse.
+     *
+     * @return The parsed Army. If the parsing was unsuccessful, null is returned instead.
+     */
     public static Army parseArmyFileAndAlertUserIfUnsuccessful(File file) {
         if (file == null) {
             return null;
@@ -59,6 +80,14 @@ public class Util {
         }
     }
 
+    /**
+     * Picks an existing or new file with a file explorer.
+     *
+     * @param window
+     *            The active window of the JavaFx application.
+     *
+     * @return The file chosen by the user.
+     */
     public static File pickSaveAsArmyFile(Window window) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save as...");

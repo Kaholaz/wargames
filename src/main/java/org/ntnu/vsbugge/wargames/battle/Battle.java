@@ -161,7 +161,8 @@ public class Battle implements Subject {
      *             Throws an exception if either of the armies are null, or if both of the armies are empty.
      */
     public void prepareSimulation() throws IllegalStateException {
-        // Throws a IllegalStateException if one of the armies has not been added, or if neither of the armies has any units.
+        // Throws a IllegalStateException if one of the armies has not been added, or if neither of the armies has any
+        // units.
         if (armyOne == null || armyTwo == null) {
             throw new IllegalStateException("Both armies need to be set to simulate a battle battle");
         }

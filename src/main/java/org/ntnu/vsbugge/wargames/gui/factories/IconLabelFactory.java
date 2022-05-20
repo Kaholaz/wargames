@@ -12,7 +12,7 @@ public class IconLabelFactory {
     /**
      * This is a static class, so the constructor is private.
      */
-    IconLabelFactory() {
+    private IconLabelFactory() {
     }
 
     /**

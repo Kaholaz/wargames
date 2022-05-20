@@ -54,11 +54,23 @@ public class UnitInfoElement extends AbstractInfoElement {
         this.getChildren().add(0, top);
     }
 
+    /**
+     * Sets the type of the unit in the UnitInfoElement.
+     *
+     * @param simpleName
+     *            The name of the unit type (eg. CavalryUnit, ect.)
+     */
     private void setUnitType(String simpleName) {
         UnitEnum unitEnum = UnitEnum.fromString(simpleName);
         setUnitType(unitEnum);
     }
 
+    /**
+     * Sets the type of the unit in the UnitInfoElement using the unit enum.
+     *
+     * @param unitEnum
+     *            The unit enum constant that corresponds to the desired Unit subclass.
+     */
     protected void setUnitType(UnitEnum unitEnum) {
         String unitIcon = switch (unitEnum) {
         case CavalryUnit -> "cavalry";
@@ -71,6 +83,12 @@ public class UnitInfoElement extends AbstractInfoElement {
         IconLabelDecorator.setIcon(unitTypeLabel, unitIcon);
     }
 
+    /**
+     * Sets the name of the unit represented by this UnitInfoElement.
+     *
+     * @param unitName
+     *            The name of the Unit.
+     */
     protected void setUnitName(String unitName) {
         unitNameLabel.setText(unitName);
     }

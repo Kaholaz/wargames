@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.battle.Battle;
 import org.ntnu.vsbugge.wargames.gui.GUI;
-import org.ntnu.vsbugge.wargames.gui.Util;
+import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.ArmyWindowElement;
@@ -215,7 +215,7 @@ public class SimulateBattlePageController {
      */
     @FXML
     void onImportAttacker(ActionEvent event) {
-        Army army = Util.pickArmy(((Node) event.getSource()).getScene().getWindow());
+        Army army = ArmyFilePickerUtil.pickArmy(((Node) event.getSource()).getScene().getWindow());
         if (army == null) {
             return;
         }
@@ -234,7 +234,7 @@ public class SimulateBattlePageController {
      */
     @FXML
     void onImportDefender(ActionEvent event) {
-        Army army = Util.pickArmy(((Node) event.getSource()).getScene().getWindow());
+        Army army = ArmyFilePickerUtil.pickArmy(((Node) event.getSource()).getScene().getWindow());
         if (army == null) {
             return;
         }

@@ -14,12 +14,23 @@ import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 
 import java.util.List;
 
+/**
+ * An editable version of the UnitInfoElement. Notifies any observers if the state of the unit changes.
+ */
 public class EditableUnitInfoElement extends UnitInfoElement implements Subject {
     private int health;
     private int count;
     private UnitEnum unitType;
     private String unitName;
 
+    /**
+     * The contstuctor for the EditableUnitInfoElement.
+     *
+     * @param unit
+     *            The unit to display in the UnitInfoElement.
+     * @param count
+     *            The initial count of this unit.
+     */
     public EditableUnitInfoElement(Unit unit, int count) {
         super(unit, count);
 
@@ -30,10 +41,14 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         EditableDecorator.makeEditable(unitNameLabel, this::setUnitName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void createTopRow() {
         super.createTopRow();
 
+        // Add a red X to remove the unit.
         Label xLabel = new Label("");
         xLabel.setOnMouseClicked(observable -> {
             this.setCount(0);
@@ -42,6 +57,9 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         ((Pane) this.getChildren().get(0)).getChildren().add(xLabel);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setHealth(int health) {
         int rollback = this.health;
@@ -55,6 +73,9 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         super.setHealth(health);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setCount(int count) {
         int rollback = this.count;
@@ -68,6 +89,9 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         super.setCount(count);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setUnitName(String unitName) {
         String rollback = this.unitName;
@@ -91,6 +115,9 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         super.setUnitName(unitName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setUnitType(UnitEnum unitType) {
         UnitEnum rollback = this.unitType;
@@ -108,14 +135,30 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         setAttack(displayedUnit.getAttack());
     }
 
+    /**
+     * Gets the unit displayed in the UnitInfoElement in its current state.
+     *
+     * @return The unit displayed in the UnitInfoElement.
+     */
     public Unit getUnit() {
         return UnitFactory.getUnit(unitType.toString(), unitName, health);
     }
 
+    /**
+     * Gets a list all units represented by this UnitInfoElement. This is a list of size equal to the count in the
+     * UnitInfoElement where every unit is the unit returned from the getUnit method.
+     *
+     * @return A list of all units represented by this UnitInfoElement.
+     */
     public List<Unit> getUnits() {
         return UnitFactory.getUnits(unitType.toString(), unitName, health, count);
     }
 
+    /**
+     * Tries to notify the observers and notifies the user of any errors thrown by the operation.
+     *
+     * @return True if the operation was succsessfull, false if not.
+     */
     private boolean tryNotifyUpdate() {
         try {
             notifyEventListeners(EventType.UPDATE);

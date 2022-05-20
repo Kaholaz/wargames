@@ -13,13 +13,32 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 
+/**
+ * The class with all methods and helpers necessary for swapping a label and a control on a double press.
+ *
+ * @author vsbugge
+ */
 public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEventHandler {
     protected Label label;
 
+    /**
+     * The constructor of the abstract method.
+     *
+     * @param label
+     *            The label to swap on the double click.
+     */
     public AbstractDoubleClickSwapper(Label label) {
         this.label = label;
     }
 
+    /**
+     * Replaces a label with a TextField.
+     *
+     * @param label
+     *            The Label.
+     *
+     * @return The TextField.
+     */
     protected static TextField replaceLabelWithTextField(Label label) {
         TextField textField = new TextField();
         textField.setAlignment(Pos.CENTER);
@@ -30,6 +49,14 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
         return textField;
     }
 
+    /**
+     * Replaces a label with a ComboBox.
+     *
+     * @param label
+     *            The Label.
+     *
+     * @return The ComboBox.
+     */
     protected static ComboBox<UnitEnum> replaceLabelWithUnitSelector(Label label) {
         ComboBox<UnitEnum> comboBox = new ComboBox<>();
 
@@ -42,6 +69,14 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
         return comboBox;
     }
 
+    /**
+     * Sets the size of the control to match the label.
+     *
+     * @param label
+     *            The Label.
+     * @param control
+     *            The Control.
+     */
     protected static void setMatchingSize(Label label, Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
 
@@ -77,6 +112,14 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
         control.setMinSize(label.getWidth() + vPadding, computedHeight + hPadding);
     }
 
+    /**
+     * Swaps two nodes in the UI by taking one of the nodes and inserting it into the place of the other.
+     *
+     * @param node1
+     *            The node whose place to insert into.
+     * @param node2
+     *            The node to insert.
+     */
     protected static void swapNode(Node node1, Node node2) {
         Pane parent = (Pane) node1.getParent();
         int index = parent.getChildren().indexOf(node1);
@@ -84,7 +127,13 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
         parent.getChildren().add(index, node2);
     }
 
-    protected void makeHiddenWhenDeselected(Control control) {
+    /**
+     * Adds a listener for when the control is deselected and triggers the onAction event.
+     *
+     * @param control
+     *            The Control.
+     */
+    protected void triggerTheOnActionWhenDeselected(Control control) {
         control.focusedProperty().addListener(observable -> {
             // Does not swap if the node is already hidden.
             if (control.getParent() != null) {

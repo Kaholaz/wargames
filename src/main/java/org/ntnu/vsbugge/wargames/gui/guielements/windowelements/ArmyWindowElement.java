@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ArmyWindowElement is a class that inherits from VBox. Instances of this class are used to
+ * ArmyWindowElement is a non-editable ArmyWindowElement.
  *
  * @author vsbugge
  */
@@ -162,6 +162,9 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         unitElements.remove(nonCombatUnit);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setArmy(Army army) {
         super.setArmy(army);

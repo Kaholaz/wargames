@@ -22,11 +22,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * An editable ArmyWindowElement.
+ */
 public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     private final List<EditableUnitInfoElement> unitElements = new ArrayList<>();
 
     protected ArmyInfoElement armyInfoElement = new EditableArmyInfoElement(null);
 
+    /**
+     * Creates a button to add units to the army.
+     *
+     * @return The button used to add units to the army.
+     */
     private Button createAddButton() {
         Button button = new Button(" + ");
         button.getStyleClass().addAll("round-button", "padded-medium");
@@ -37,13 +45,17 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
             Pane topRow = (Pane) unitElement.getChildren().get(0);
             Label nameLabel = (Label) topRow.getChildren().get(3);
 
-            AbstractDoubleClickSwapper onDoubleClick = new StringInputDoubleClickSwapper(nameLabel, unitElement::setUnitName);
-            onDoubleClick.runsIfDoubleClick(); // Selects the name of the new unit.
+            AbstractDoubleClickSwapper onDoubleClick = new StringInputDoubleClickSwapper(nameLabel,
+                    unitElement::setUnitName);
+            onDoubleClick.runsIfDoubleClick(); // Selects the name field of the new unit.
         }));
 
         return button;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void clear() {
         this.getChildren().clear();
@@ -55,6 +67,9 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void update() {
         Army army = new Army(this.army.getName());
@@ -75,6 +90,9 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         armyInfoElement.updateTotalStats();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
         clear();
@@ -104,7 +122,10 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
         for (EditableUnitInfoElement unitElement : unitElements) {
             if (unitElement.getUnit().differsOnlyInCombatState(nonCombatUnit)) {
-                AlertFactory.createExceptionErrorAlert(new IllegalArgumentException("Could not add unit as similar unit already exists.")).show();
+                AlertFactory
+                        .createExceptionErrorAlert(
+                                new IllegalArgumentException("Could not add unit as similar unit already exists."))
+                        .show();
                 return;
             }
         }
@@ -120,6 +141,9 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         unitElements.add(unitInfoElement);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void removeUnitInfoElement(Unit unit) {
         // Reversed search to remove the latest added element.
@@ -133,12 +157,20 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setArmy(Army army) {
         super.setArmy(army);
         armyInfoElement.setArmy(army);
     }
 
+    /**
+     * Gets the Army represented by this ArmyWindowElement.
+     *
+     * @return The Army.
+     */
     public Army getArmy() {
         return army;
     }
