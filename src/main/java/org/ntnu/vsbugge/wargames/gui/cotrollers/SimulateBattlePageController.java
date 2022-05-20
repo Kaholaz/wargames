@@ -16,8 +16,10 @@ import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.ArmyWindowElement;
+import org.ntnu.vsbugge.wargames.utils.config.Settings;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -29,10 +31,8 @@ public class SimulateBattlePageController {
     private final Battle battle = new Battle();
     private Battle originalBattle = new Battle();
     private long lastUpdate = new Date().getTime();
-    /**
-     * The time in milliseconds between GUI updates during a battle simulation.
-     */
-    private final int updateDelta = 33;
+    private int updateDelta = 33;
+    private int simulationDelta = 1;
 
     @FXML
     private CheckBox animateCheck;
@@ -118,7 +118,7 @@ public class SimulateBattlePageController {
 
         Thread thread = new Thread(() -> {
             if (animateCheck.isSelected()) {
-                battle.simulate(1);
+                battle.simulate(simulationDelta);
             } else {
                 battle.simulate();
             }
@@ -270,6 +270,14 @@ public class SimulateBattlePageController {
 
         terrainDropDown.getItems().addAll(TerrainEnum.values());
         terrainDropDown.getSelectionModel().select(TerrainEnum.DEFAULT);
+
+        try {
+            Settings config = Settings.readConfig();
+            updateDelta = config.getRenderFrequency().getUpdateDelay();
+            simulationDelta = config.getSimulationSpeed().getSimulationDelay();
+        } catch (IOException e) {
+            AlertFactory.createExceptionErrorAlert(e).show();
+        }
 
         battle.attach(eventType -> {
             switch (eventType) {

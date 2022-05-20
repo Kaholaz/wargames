@@ -32,4 +32,9 @@ public class LaunchPageController {
     void onEditArmies(ActionEvent event) {
         GUI.setSceneFromActionEvent(event, "editArmies.fxml");
     }
+
+    @FXML
+    void onSettings(ActionEvent event) {
+        GUI.setSceneFromActionEvent(event, "settingsPage.fxml");
+    }
 }

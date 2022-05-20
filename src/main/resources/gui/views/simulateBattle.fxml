@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ntnu.vsbugge.wargames.gui.cotrollers.SimulateBattlePageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ntnu.vsbugge.wargames.gui.cotrollers.SimulateBattlePageController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -32,7 +32,7 @@
                      </children>
                   </VBox>
                   <Pane prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <VBox alignment="CENTER" prefHeight="86.0" prefWidth="166.0" HBox.hgrow="NEVER">
+                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="196.0" HBox.hgrow="NEVER">
                      <children>
                         <HBox alignment="CENTER" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="ALWAYS">
                            <children>

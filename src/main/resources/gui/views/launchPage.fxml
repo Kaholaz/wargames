@@ -7,20 +7,33 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ntnu.vsbugge.wargames.gui.cotrollers.LaunchPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="657.0" stylesheets="@../style/main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ntnu.vsbugge.wargames.gui.cotrollers.LaunchPageController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label styleClass="title" text="WarGames" />
-            <HBox alignment="CENTER" prefHeight="63.0" prefWidth="600.0">
+            <VBox alignment="CENTER" VBox.vgrow="NEVER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onEditArmies" text="Edit armies" />
-                  <Button mnemonicParsing="false" onAction="#onBattleSimulation" text="Battle simulation">
-                     <HBox.margin>
-                        <Insets left="25.0" />
-                     </HBox.margin></Button>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onEditArmies" text="Edit armies" />
+                        <Button mnemonicParsing="false" onAction="#onBattleSimulation" text="Battle simulation">
+                           <HBox.margin>
+                              <Insets left="25.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#onSettings" text="Simulation settings">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
                </children>
-            </HBox>
+            </VBox>
          </children>
       </VBox>
    </center>
