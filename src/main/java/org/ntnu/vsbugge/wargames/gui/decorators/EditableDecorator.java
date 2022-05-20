@@ -14,7 +14,7 @@ import org.ntnu.vsbugge.wargames.utils.funcinterfaces.UnitSetter;
  * @author vsbugge
  */
 public class EditableDecorator {
-    private static final String[] EDITABLE_STYLE_CLASSES = { "editable-label", "padded-light" };
+    private static final String[] EDITABLE_STYLE_CLASSES = { "editable-label" };
 
     /**
      * Makes a label editable.
@@ -74,6 +74,11 @@ public class EditableDecorator {
      */
     private static void removeStyleClass(Label label) {
         label.getStyleClass().removeAll(EDITABLE_STYLE_CLASSES);
+
+        if (label.getStyleClass().contains("editable-icon-text")) {
+            label.getStyleClass().remove("editable-icon-text");
+            label.getStyleClass().add("icon-text");
+        }
     }
 
     /**
@@ -85,5 +90,10 @@ public class EditableDecorator {
     private static void addStyleClass(Label label) {
         removeStyleClass(label);
         label.getStyleClass().addAll(EDITABLE_STYLE_CLASSES);
+
+        if (label.getStyleClass().contains("icon-text")) {
+            label.getStyleClass().remove("icon-text");
+            label.getStyleClass().add("editable-icon-text");
+        }
     }
 }

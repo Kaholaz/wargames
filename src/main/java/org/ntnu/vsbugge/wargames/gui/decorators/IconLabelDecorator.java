@@ -26,6 +26,12 @@ public class IconLabelDecorator {
     public static void setIcon(Label label, String icon) {
         removeIcon(label);
 
+        if (label.getStyleClass().contains("editable-label")) {
+            label.getStyleClass().add("editable-icon-text");
+        } else {
+            label.getStyleClass().add("icon-text");
+        }
+
         label.getStyleClass().add("icon-text");
         label.getStyleClass().add(String.format("%s-icon", icon));
     }
@@ -37,7 +43,8 @@ public class IconLabelDecorator {
      *            The label to remove the icon from.
      */
     public static void removeIcon(Label label) {
-        label.getStyleClass().remove("icon-label");
+        label.getStyleClass().remove("icon-text");
+        label.getStyleClass().remove("editable-icon-text");
         label.getStyleClass().removeIf(styleClass -> styleClass.endsWith("-icon"));
     }
 }

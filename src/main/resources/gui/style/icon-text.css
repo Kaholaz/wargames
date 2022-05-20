@@ -1,8 +1,15 @@
-.icon-text {
+.icon-text, .editable-icon-text {
     -fx-background-size: 30px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0%;
+}
+
+.icon-text {
     -fx-padding: 0 0 0 30px;
+}
+
+.editable-icon-text {
+    -fx-padding: 5px 5px 5px 35px;
 }
 
 .armor-icon {

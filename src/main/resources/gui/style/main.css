@@ -38,13 +38,18 @@
     -fx-background-color: #C8C1BC;
 }
 
-.button:hover, .combo-box:hover, .editable-label:hover, .editable-label:hover {
+.button:hover, .combo-box:hover, .editable-label:hover {
     -fx-background-color: #B7B7A4;
     -fx-cursor: hand;
 }
 
 .button:pressed, .combo-box:pressed, .editable-label:pressed {
     -fx-background-color: #A5A58D;
+}
+
+.editable-label {
+    -fx-padding: 5px;
+    -fx-border-style: dotted;
 }
 
 .round-button {
