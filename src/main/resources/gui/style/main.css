@@ -29,20 +29,21 @@
     -fx-background-insets: 2px;
 }
 
-.button {
+.button, .combo-box {
     -fx-border-color: black;
     -fx-background-color: #E2CCBF;
 }
 
-.button:disabled {
+.button:disabled, .combo-box:disabled, .editable-label:disabled {
     -fx-background-color: #C8C1BC;
 }
 
-.button:hover {
+.button:hover, .combo-box:hover, .editable-label:hover, .editable-label:hover {
     -fx-background-color: #B7B7A4;
+    -fx-cursor: hand;
 }
 
-.button:pressed {
+.button:pressed, .combo-box:pressed, .editable-label:pressed {
     -fx-background-color: #A5A58D;
 }
 
@@ -57,8 +58,12 @@
     -fx-padding: 3px;
 }
 
-.check-box .box .mark {
+.check-box .mark {
     -fx-padding: 6px;
+}
+
+.check-box:hover, .combo-box .list-cell:hover {
+    -fx-cursor: hand;
 }
 
 .unit-info-element {
@@ -75,21 +80,4 @@
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
-}
-
-.combo-box {
-    -fx-border-color: black;
-    -fx-background-color: #E2CCBF;
-}
-
-.combo-box:disabled {
-    -fx-background-color: #C8C1BC;
-}
-
-.combo-box:hover {
-    -fx-background-color: #B7B7A4;
-}
-
-.combo-box:pressed {
-    -fx-background-color: #A5A58D;
 }
