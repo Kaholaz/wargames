@@ -108,6 +108,14 @@ public class SimulateBattlePageController {
 
         StatusDecorator.makeDisabled(homeButton);
 
+        try {
+            battle.prepareSimulation();
+        } catch (IllegalStateException e) {
+            AlertFactory.createExceptionErrorAlert(e).show();
+            onReset(event);
+            return;
+        }
+
         Thread thread = new Thread(() -> {
             if (animateCheck.isSelected()) {
                 battle.simulate(1);

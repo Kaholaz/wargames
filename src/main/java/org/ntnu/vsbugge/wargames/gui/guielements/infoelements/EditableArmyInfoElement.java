@@ -17,6 +17,8 @@ public class EditableArmyInfoElement extends ArmyInfoElement {
     @Override
     public void setArmy(Army army) {
         super.setArmy(army);
-        topLabel.setText(army.getName());
+        if (army != null) {
+            topLabel.setText(army.getName());
+        }
     }
 }

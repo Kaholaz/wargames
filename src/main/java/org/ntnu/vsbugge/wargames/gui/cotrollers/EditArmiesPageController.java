@@ -61,9 +61,13 @@ public class EditArmiesPageController {
         armyWindow.reset();
     }
 
+    /**
+     * Method that is called when the 'save' button is pressed.
+     * @param event The action event from the button press.
+     */
     @FXML
     void onSave(ActionEvent event) {
-        army = armyWindow.getArmy();
+        army = armyWindow.getArmy(); // Gets the currently displayed army
 
         if (armyFile == null) {
             onSaveAs(event);

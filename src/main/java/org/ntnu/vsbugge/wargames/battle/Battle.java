@@ -157,17 +157,17 @@ public class Battle implements Subject {
     /**
      * Checks if the battle is in a valid state before a simulation, and removes all dead units from both armies.
      *
-     * @throws RuntimeException
+     * @throws IllegalStateException
      *             Throws an exception if either of the armies are null, or if both of the armies are empty.
      */
-    private void prepareSimulation() throws RuntimeException {
-        // Throws a RunTimeException if one of the armies has not been added, or if neither of the armies has any units.
+    public void prepareSimulation() throws IllegalStateException {
+        // Throws a IllegalStateException if one of the armies has not been added, or if neither of the armies has any units.
         if (armyOne == null || armyTwo == null) {
-            throw new RuntimeException("Both armies need to be set to simulate a battle battle");
+            throw new IllegalStateException("Both armies need to be set to simulate a battle battle");
         }
 
         if (!(armyOne.hasUnits() || armyTwo.hasUnits())) {
-            throw new RuntimeException("Both armies cannot be empty when simulating a battle.");
+            throw new IllegalStateException("Both armies cannot be empty when simulating a battle.");
         }
 
         armyOne.removeAllDeadUnits();
