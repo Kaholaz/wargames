@@ -39,7 +39,6 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
             AbstractDoubleClickSwapper onDoubleClick = new StringInputDoubleClickSwapper(nameLabel, unitElement::setUnitName);
             onDoubleClick.runsIfDoubleClick(); // Selects the name of the new unit.
-            ((TextField) topRow.getChildren().get(3)).setText("");
         }));
 
         return button;
@@ -138,5 +137,9 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     public void setArmy(Army army) {
         super.setArmy(army);
         armyInfoElement.setArmy(army);
+    }
+
+    public Army getArmy() {
+        return army;
     }
 }
