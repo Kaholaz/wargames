@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ntnu.vsbugge.wargames.gui.cotrollers.EditArmiesTutorialController">
+   <children>
+      <HBox alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="700.0" prefWidth="1000.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="341.0" layoutY="38.0" prefHeight="55.0" prefWidth="318.0" styleClass="sub-title" text="Edit armies tutorial" />
+                  <VBox fx:id="content" layoutX="194.0" layoutY="117.0" prefHeight="0.0" prefWidth="613.0">
+                     <children>
+                        <TextFlow prefHeight="0.0" prefWidth="0.0" textAlignment="CENTER" VBox.vgrow="NEVER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This page can be used to edit or create armies. The name of the unit and the aggregate stats of it will be displayed like this:" textAlignment="CENTER" />
+                           </children>
+                        </TextFlow>
+                        <TextFlow prefHeight="0.0" prefWidth="0.0" textAlignment="CENTER" VBox.vgrow="NEVER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="You may add units to the army. You can change the health, name, and the amount of this unit in the army, aswell as the type of unit. The type of unit determines the attack and armor of the unit. The unit will be displayed like this:" textAlignment="CENTER" />
+                           </children>
+                        </TextFlow>
+                        <TextFlow prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Editable fields will always have a slight outline around them." />
+                           </children>
+                        </TextFlow>
+                     </children>
+                  </VBox>
+                  <Button layoutX="472.0" layoutY="577.0" mnemonicParsing="false" onAction="#onOK" text="OK" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../style/main.css" />
+      <URL value="@../style/icon-text.css" />
+   </stylesheets>
+</VBox>

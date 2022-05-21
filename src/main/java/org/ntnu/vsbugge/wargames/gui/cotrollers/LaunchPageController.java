@@ -1,8 +1,15 @@
 package org.ntnu.vsbugge.wargames.gui.cotrollers;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.ntnu.vsbugge.wargames.gui.GUI;
+import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
+import org.ntnu.vsbugge.wargames.utils.config.Settings;
+
+import java.io.IOException;
 
 /**
  * The controller for the launch page.
@@ -31,6 +38,24 @@ public class LaunchPageController {
     @FXML
     void onEditArmies(ActionEvent event) {
         GUI.setSceneFromActionEvent(event, "editArmies.fxml");
+
+        // Display tutorial if it has not been shown already.
+        Settings config = null;
+        try {
+            config = Settings.readConfig();
+        } catch (IOException e) {
+            AlertFactory.createExceptionErrorAlert(e).show();
+        } finally {
+            if (config == null || config.isEditArmiesTutorial()) {
+                Stage stage = new Stage();
+                GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
+                EventHandler<WindowEvent> currentClose = stage.getOnCloseRequest();
+                stage.setOnCloseRequest(windowEvent -> {
+                    EditArmiesTutorialController.markTutorialComplete();
+                    stage.close();
+                });
+            }
+        }
     }
 
     @FXML

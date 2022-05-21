@@ -4,13 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
+import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.StringInputDoubleClickSwapper;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
@@ -29,23 +28,9 @@ public class EditArmiesPageController {
     private final EditableArmyWindowElement armyWindow = new EditableArmyWindowElement();
     private Army army = null;
     private File armyFile = null;
+
     @FXML
     private VBox armyWrapper;
-
-    @FXML
-    private Button homeButton;
-
-    @FXML
-    private Button importButton;
-
-    @FXML
-    private Button saveButton;
-
-    @FXML
-    private Button saveAsButton;
-
-    @FXML
-    private Button newButton;
 
     /**
      * Method called when the 'home' button is pressed.

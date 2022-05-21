@@ -1,7 +1,7 @@
 package org.ntnu.vsbugge.wargames.utils.config;
 
 public enum RenderFrequencyEnum {
-    High(17),
+    HIGH(17),
     MEDIUM(33),
     SLOW(60);
 
