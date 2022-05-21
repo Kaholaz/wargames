@@ -18,19 +18,20 @@
                   <Label alignment="CENTER" layoutX="341.0" layoutY="38.0" prefHeight="55.0" prefWidth="318.0" styleClass="sub-title" text="Edit armies tutorial" />
                   <VBox fx:id="content" layoutX="194.0" layoutY="117.0" prefHeight="0.0" prefWidth="613.0">
                      <children>
-                        <TextFlow prefHeight="0.0" prefWidth="0.0" textAlignment="CENTER" VBox.vgrow="NEVER">
+                        <TextFlow prefHeight="0.0" prefWidth="0.0" VBox.vgrow="NEVER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This page can be used to edit or create armies. The name of the unit and the aggregate stats of it will be displayed like this:" textAlignment="CENTER" />
                            </children>
                         </TextFlow>
-                        <TextFlow prefHeight="0.0" prefWidth="0.0" textAlignment="CENTER" VBox.vgrow="NEVER">
+                        <TextFlow prefHeight="0.0" prefWidth="0.0" VBox.vgrow="NEVER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="You may add units to the army. You can change the health, name, and the amount of this unit in the army, aswell as the type of unit. The type of unit determines the attack and armor of the unit. The unit will be displayed like this:" textAlignment="CENTER" />
                            </children>
                         </TextFlow>
                         <TextFlow prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Editable fields will always have a slight outline around them." />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Editable fields will always have a slight outline around them. " />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bold" text="Try double clicking the editable fields :)" />
                            </children>
                         </TextFlow>
                      </children>

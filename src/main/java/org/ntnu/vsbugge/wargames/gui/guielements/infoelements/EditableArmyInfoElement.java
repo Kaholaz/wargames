@@ -1,5 +1,8 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
 
@@ -9,6 +12,17 @@ import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
  * @author vsbugge
  */
 public class EditableArmyInfoElement extends ArmyInfoElement {
+
+    @Override
+    protected void createTopRow() {
+        super.createTopRow();
+
+        HBox topRow = (HBox) this.getChildren().get(0);
+        HBox armyName = new HBox(new Label("Army name: "), topLabel);
+        armyName.setAlignment(Pos.CENTER);
+        topRow.getChildren().add(1, armyName);
+    }
+
     /**
      * Constructor for the EditableArmyInfoElement.
      *
@@ -18,6 +32,9 @@ public class EditableArmyInfoElement extends ArmyInfoElement {
     public EditableArmyInfoElement(Army army) {
         super(army);
         EditableDecorator.makeEditable(topLabel, this::setArmyName);
+        if (army != null) {
+            setArmyName(army.getName());
+        }
     }
 
     /**

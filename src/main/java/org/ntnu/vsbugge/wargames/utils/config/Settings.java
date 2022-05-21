@@ -9,7 +9,6 @@ public class Settings {
     private RenderFrequencyEnum renderFrequency = RenderFrequencyEnum.MEDIUM;
     private SimulationSpeedEnum simulationSpeed = SimulationSpeedEnum.FAST;
     private boolean editArmiesTutorial = true;
-    private boolean simulateBattleTutorial = true;
 
     public static Settings readConfig() throws IOException{
         File config = new File(CONFIG_PATH);
@@ -69,13 +68,5 @@ public class Settings {
 
     public void setEditArmiesTutorial(boolean editArmiesTutorial) {
         this.editArmiesTutorial = editArmiesTutorial;
-    }
-
-    public boolean isSimulateBattleTutorial() {
-        return simulateBattleTutorial;
-    }
-
-    public void setSimulateBattleTutorial(boolean simulateBattleTutorial) {
-        this.simulateBattleTutorial = simulateBattleTutorial;
     }
 }

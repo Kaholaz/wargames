@@ -1,7 +1,9 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
@@ -44,13 +46,15 @@ public class UnitInfoElement extends AbstractInfoElement {
     protected void createTopRow() {
         unitTypeLabel = new Label();
         unitNameLabel = new Label();
+        HBox unitName = new HBox(new Label("Unit name: "), unitNameLabel);
+        unitName.setAlignment(Pos.CENTER);
 
         // Add padding
         PaddingDecorator.padLight(unitTypeLabel);
-        PaddingDecorator.padLight(unitNameLabel);
+        PaddingDecorator.padLight(unitName);
 
         // Add to VBox
-        HBox top = GUIElementFactory.createHBoxWithCenteredElements(true, unitTypeLabel, unitNameLabel);
+        HBox top = GUIElementFactory.createHBoxWithCenteredElements(true, unitTypeLabel, unitName);
         this.getChildren().add(0, top);
     }
 

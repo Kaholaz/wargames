@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.ntnu.vsbugge.wargames.army.Army;
+import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableUnitInfoElement;
@@ -43,11 +44,13 @@ public class EditArmiesTutorialController {
 
     @FXML
     void initialize() {
-        Army displayedArmy = new Army("Your army name");
+        Army displayedArmy = new Army("Your army name...");
         displayedArmy.add(new CavalryUnit("", 100), 100);
         content.getChildren().add(1, new EditableArmyInfoElement(displayedArmy));
 
-        Unit displayedUnit = new CavalryUnit("Your unit name", 100);
+        Unit displayedUnit = new CavalryUnit("Your unit name...", 100);
         content.getChildren().add(3, new EditableUnitInfoElement(displayedUnit, 100));
+
+        content.getChildren().forEach(PaddingDecorator::padMedium);
     }
 }

@@ -12,6 +12,10 @@
     -fx-font-size: 30px;
 }
 
+.bold {
+    -fx-font-weight: bold;
+}
+
 .bordered-box {
     -fx-border-width: 2px;
     -fx-border-color: black;

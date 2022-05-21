@@ -82,34 +82,35 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
 
         label.applyCss();
         double computedHeight = label.getHeight();
-        double hPadding = 0d;
         double vPadding = 0d;
+        double hPadding = 0d;
 
         control.setPrefSize(0, 0);
         // Conditional size to accommodate a difference in size.
         if (control instanceof ComboBox) {
-            hPadding = 25d;
-            vPadding = 38d;
+            vPadding = 5d;
+            hPadding = 38d;
         } else if (control instanceof TextField field) {
-            HBox.setHgrow(control, Priority.SOMETIMES);
+            HBox.setHgrow(control, Priority.NEVER);
 
-            vPadding = 40d;
-            hPadding = 20d;
+            hPadding = 30d;
+            vPadding = 15d;
             double textScale = 1.54d;
 
             // Compute hPadding to get the desired vertical height.
-            Text measuringText = new Text(field.getText());
-            hPadding = measuringText.getLayoutBounds().getHeight() * textScale + hPadding - computedHeight;
+            Text measuringText = new Text(label.getText());
+            vPadding = measuringText.getLayoutBounds().getHeight() * textScale + vPadding - computedHeight;
 
             // Make size update when the user types in the text-field
-            double finalVPadding = vPadding;
+            double finalHPadding = hPadding;
             field.textProperty().addListener(observable -> {
                 Text _measuringText = new Text(field.getText());
-                field.setPrefWidth(_measuringText.getLayoutBounds().getWidth() * textScale + finalVPadding);
+                field.setPrefWidth(_measuringText.getLayoutBounds().getWidth() * textScale + finalHPadding);
             });
 
+
         }
-        control.setMinSize(label.getWidth() + vPadding, computedHeight + hPadding);
+        control.setMinSize(label.getWidth() + hPadding, computedHeight + vPadding);
     }
 
     /**

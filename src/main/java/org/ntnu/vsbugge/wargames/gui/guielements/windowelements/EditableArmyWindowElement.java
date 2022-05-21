@@ -93,11 +93,13 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     public void reset() {
         clear();
 
-        // Units are sorted to make order consistent between loads
-        Map<Unit, Integer> template = army.getCondensedArmyTemplate();
-        army.getCondensedArmyTemplate().keySet().stream().sorted().forEach(unit -> {
-            addNewUnitInfoElement(unit, template.get(unit));
-        });
+        if (army != null) {
+            // Units are sorted to make order consistent between loads
+            Map<Unit, Integer> template = army.getCondensedArmyTemplate();
+            army.getCondensedArmyTemplate().keySet().stream().sorted().forEach(unit -> {
+                addNewUnitInfoElement(unit, template.get(unit));
+            });
+        }
 
         update();
     }
