@@ -108,7 +108,6 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
                 field.setPrefWidth(_measuringText.getLayoutBounds().getWidth() * textScale + finalHPadding);
             });
 
-
         }
         control.setMinSize(label.getWidth() + hPadding, computedHeight + vPadding);
     }

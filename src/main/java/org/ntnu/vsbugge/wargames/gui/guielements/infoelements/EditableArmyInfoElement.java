@@ -13,6 +13,7 @@ import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
  */
 public class EditableArmyInfoElement extends ArmyInfoElement {
 
+    /** {@inheritDoc} */
     @Override
     protected void createTopRow() {
         super.createTopRow();
@@ -48,9 +49,7 @@ public class EditableArmyInfoElement extends ArmyInfoElement {
         topLabel.setText(name);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void setArmy(Army army) {
         super.setArmy(army);

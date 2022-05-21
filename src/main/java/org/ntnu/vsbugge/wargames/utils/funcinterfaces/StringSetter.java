@@ -8,7 +8,9 @@ package org.ntnu.vsbugge.wargames.utils.funcinterfaces;
 public interface StringSetter {
     /**
      * Method used to invoke the setter.
-     * @param string The value to supply the setter.
+     *
+     * @param string
+     *            The value to supply the setter.
      */
     void setString(String string);
 }

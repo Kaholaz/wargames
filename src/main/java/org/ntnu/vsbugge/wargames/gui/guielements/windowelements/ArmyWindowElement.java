@@ -114,9 +114,7 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         unitElements.get(nonCombatUnit).setCount(count);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     protected void addNewUnitInfoElement(Unit unit, int count) {
         // Gets the nonCombatUnit and checks for presence
         Unit nonCombatUnit = unit.getNonCombatUnit();
@@ -131,9 +129,7 @@ public class ArmyWindowElement extends AbstractArmyWindowElement {
         unitElements.put(nonCombatUnit, unitInfoElement);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     protected void removeUnitInfoElement(Unit unit) {
         // Gets values

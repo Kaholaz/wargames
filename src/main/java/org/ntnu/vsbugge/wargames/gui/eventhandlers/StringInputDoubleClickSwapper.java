@@ -26,7 +26,9 @@ public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
         this.setter = setter;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void runsIfDoubleClick() {
         TextField textField = AbstractDoubleClickSwapper.replaceLabelWithTextField(label);
         textField.requestFocus();

@@ -26,9 +26,7 @@ public class UnitSelectorDoubleClickSwapper extends AbstractDoubleClickSwapper {
         this.setter = setter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     @Override
     public void runsIfDoubleClick() {
         ComboBox<UnitEnum> comboBox = AbstractDoubleClickSwapper.replaceLabelWithUnitSelector(label);

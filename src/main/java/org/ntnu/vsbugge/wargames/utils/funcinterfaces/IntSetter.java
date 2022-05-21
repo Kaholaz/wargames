@@ -8,7 +8,9 @@ package org.ntnu.vsbugge.wargames.utils.funcinterfaces;
 public interface IntSetter {
     /**
      * Method used to invoke the setter.
-     * @param value The value to supply the setter.
+     *
+     * @param value
+     *            The value to supply the setter.
      */
     void setInt(int value);
 }

@@ -10,7 +10,9 @@ import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 public interface UnitSetter {
     /**
      * Method used to invoke the setter.
-     * @param unit The value to supply the setter.
+     *
+     * @param unit
+     *            The value to supply the setter.
      */
     void setUnit(UnitEnum unit);
 }

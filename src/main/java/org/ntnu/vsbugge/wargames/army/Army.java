@@ -145,6 +145,7 @@ public class Army {
 
     /**
      * Sets the name of the Army.
+     *
      * @param name
      *            The new name of the Army.
      */
