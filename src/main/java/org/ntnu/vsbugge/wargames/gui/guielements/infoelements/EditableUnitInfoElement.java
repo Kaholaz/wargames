@@ -54,6 +54,8 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
             this.setCount(0);
         });
         IconLabelDecorator.setIcon(xLabel, "delete");
+        xLabel.getStyleClass().add("clickable");
+
         ((Pane) this.getChildren().get(0)).getChildren().add(xLabel);
     }
 

@@ -8,6 +8,10 @@
     -fx-padding: 0 0 0 30px;
 }
 
+.clickable:hover {
+    -fx-cursor: hand;
+}
+
 .editable-icon-text {
     -fx-padding: 5px 5px 5px 35px;
 }
