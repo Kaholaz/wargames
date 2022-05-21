@@ -6,5 +6,5 @@ package org.ntnu.vsbugge.wargames.utils.eventlisteners;
  * @author vsbugge
  */
 public enum EventType {
-    UPDATE, FINISH;
+    UPDATE, FINISH
 }

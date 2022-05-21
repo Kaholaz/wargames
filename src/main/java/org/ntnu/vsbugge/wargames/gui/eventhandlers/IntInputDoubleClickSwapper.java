@@ -12,7 +12,7 @@ import org.ntnu.vsbugge.wargames.utils.funcinterfaces.IntSetter;
  * @author vsbugge
  */
 public class IntInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
-    private IntSetter setter;
+    private final IntSetter setter;
 
     /**
      * The constructor of the DoubleClickSwapper.
