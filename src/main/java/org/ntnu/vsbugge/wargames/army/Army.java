@@ -215,7 +215,8 @@ public class Army {
     public Map<Unit, Integer> getArmyTemplate() {
         Map<Unit, Integer> template = new HashMap<>();
 
-        units.stream().map(Unit::copy).forEach(unit -> {
+        // Shallow copy of the unit list to avoid modification to the list while using the stream.
+        new ArrayList<>(units).stream().map(Unit::copy).forEach(unit -> {
             // Unit specific stats are reset to properly group units
             unit.resetStats();
 

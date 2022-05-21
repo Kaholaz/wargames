@@ -193,8 +193,9 @@ public class SimulateBattlePageController {
     void announceWinner() {
         updateUnits();
 
-        Army winner = battle.getWinner();
-        if (battle.getWinner() == null) {
+        Battle localBattle = new Battle(battle);
+        Army winner = localBattle.getWinner();
+        if (winner == null) {
             Exception e = new RuntimeException("Could not announce winner as there is no winner.");
             AlertFactory.createExceptionErrorAlert(e).show();
         }
