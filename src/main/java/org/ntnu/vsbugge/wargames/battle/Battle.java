@@ -107,6 +107,7 @@ public class Battle implements Subject {
             Army attacker = getAttacker();
             Army defender = getDefender();
             Army winner = attack(attacker, defender);
+            attackTurn = (attackTurn + 1) % 2;
 
             if (winner != null) {
                 notifyEventListeners(EventType.FINISH);
@@ -192,7 +193,6 @@ public class Battle implements Subject {
         Unit attackUnit = attacker.getRandomUnit();
         Unit defenderUnit = defender.getRandomUnit();
 
-        notifyEventListeners(EventType.UPDATE);
         attackUnit.attack(defenderUnit, terrain);
         if (defenderUnit.getHealth() <= 0) {
             defender.remove(defenderUnit);
@@ -200,8 +200,8 @@ public class Battle implements Subject {
                 return attacker;
             }
         }
+        notifyEventListeners(EventType.UPDATE);
 
-        attackTurn = (attackTurn + 1) % 2;
         return null;
     }
 
@@ -213,7 +213,7 @@ public class Battle implements Subject {
      *            The delay (in milliseconds) to sleep for.
      *
      * @throws RuntimeException
-     *             Throws RuntimeException if Thred.sleep produces a InterruptedException.
+     *             Throws RuntimeException if Thread.sleep produces a InterruptedException.
      */
     private void sleep(int msDelay) throws RuntimeException {
         if (msDelay != 0) {

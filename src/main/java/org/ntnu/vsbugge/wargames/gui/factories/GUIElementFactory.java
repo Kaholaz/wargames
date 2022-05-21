@@ -20,7 +20,7 @@ public class GUIElementFactory {
     }
 
     /**
-     * Creates a pane with a set prefSize of 0 that will always try to hgrow and vgro. This pane can be used as a
+     * Creates a pane with a set prefSize of 0 that will always try to hgrow and vgrow. This pane can be used as a
      * divider pane to create dynamically scaling UI elements.
      *
      * @return A pane that can be used to space other elements.
@@ -35,10 +35,10 @@ public class GUIElementFactory {
     }
 
     /**
-     * This metod takes an array of UI elements and spaces them evenly through an HBox.
+     * This method takes an array of UI elements and spaces them evenly through an HBox.
      *
      * @param padSides
-     *            If this is set to true, a devider pane will be added before and after the first and last ui elements.
+     *            If this is set to true, a divider pane will be added before and after the first and last ui elements.
      * @param nodes
      *            The ui elements to populate the vbox with.
      *

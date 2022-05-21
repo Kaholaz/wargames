@@ -106,9 +106,9 @@ public class InfantryUnit extends Unit {
      */
     @Override
     public int getAttackBonus(TerrainEnum terrain) {
-        return switch (terrain) {
-        case FOREST -> getAttackBonus() + 2;
-        default -> getAttackBonus();
-        };
+        if (terrain == TerrainEnum.FOREST) {
+            return getAttackBonus() + 2;
+        }
+        return getAttackBonus();
     }
 }

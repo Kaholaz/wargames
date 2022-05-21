@@ -19,7 +19,7 @@ import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
  * @author vsbugge
  */
 public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEventHandler {
-    protected Label label;
+    protected final Label label;
 
     /**
      * The constructor of the abstract method.

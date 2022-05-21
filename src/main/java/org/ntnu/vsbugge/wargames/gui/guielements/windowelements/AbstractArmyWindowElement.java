@@ -24,7 +24,7 @@ public abstract class AbstractArmyWindowElement extends VBox {
     /**
      * Clears any unit elements and removes the army info if army is set to null
      */
-    abstract void clear();
+    public abstract void clear();
 
     /**
      * Updates the state of the army window to reflect changes to the set army.

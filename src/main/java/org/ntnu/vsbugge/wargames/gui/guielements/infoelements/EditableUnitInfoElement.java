@@ -26,7 +26,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
     private String unitName;
 
     /**
-     * The contstuctor for the EditableUnitInfoElement.
+     * The constructor for the EditableUnitInfoElement.
      *
      * @param unit
      *            The unit to display in the UnitInfoElement.
@@ -50,9 +50,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
 
         // Add a red X to remove the unit.
         Label xLabel = new Label("");
-        xLabel.setOnMouseClicked(observable -> {
-            this.setCount(0);
-        });
+        xLabel.setOnMouseClicked(observable -> this.setCount(0));
         IconLabelDecorator.setIcon(xLabel, "delete");
         xLabel.getStyleClass().add("clickable");
 
@@ -151,7 +149,7 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
     /**
      * Tries to notify the observers and notifies the user of any errors thrown by the operation.
      *
-     * @return True if the operation was succsessfull, false if not.
+     * @return True if the operation was successful, false if not.
      */
     private boolean tryNotifyUpdate() {
         try {

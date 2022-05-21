@@ -8,6 +8,7 @@ module Wargames {
     exports org.ntnu.vsbugge.wargames.units;
     exports org.ntnu.vsbugge.wargames.army;
     exports org.ntnu.vsbugge.wargames.battle;
+    exports org.ntnu.vsbugge.wargames.utils.enums;
     opens org.ntnu.vsbugge.wargames.gui.cotrollers;
     opens org.ntnu.vsbugge.wargames.utils.config;
 }

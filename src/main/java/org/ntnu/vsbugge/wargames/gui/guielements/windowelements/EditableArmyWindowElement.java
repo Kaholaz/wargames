@@ -2,8 +2,6 @@ package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.AbstractDoubleClickSwapper;
@@ -12,11 +10,9 @@ import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.ArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableUnitInfoElement;
-import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.UnitInfoElement;
 import org.ntnu.vsbugge.wargames.units.InfantryUnit;
 import org.ntnu.vsbugge.wargames.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
-import org.ntnu.vsbugge.wargames.utils.funcinterfaces.StringSetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +26,7 @@ import java.util.Map;
 public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     private final List<EditableUnitInfoElement> unitElements = new ArrayList<>();
 
-    protected ArmyInfoElement armyInfoElement = new EditableArmyInfoElement(null);
+    protected final ArmyInfoElement armyInfoElement = new EditableArmyInfoElement(null);
 
     /**
      * Creates a button to add units to the army.
@@ -57,7 +53,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
     /** {@inheritDoc} */
     @Override
-    protected void clear() {
+    public void clear() {
         this.getChildren().clear();
         unitElements.clear();
 

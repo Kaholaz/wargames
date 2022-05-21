@@ -3,7 +3,6 @@ package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;

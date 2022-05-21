@@ -49,7 +49,6 @@ public class LaunchPageController {
             if (config == null || config.isEditArmiesTutorial()) {
                 Stage stage = new Stage();
                 GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
-                EventHandler<WindowEvent> currentClose = stage.getOnCloseRequest();
                 stage.setOnCloseRequest(windowEvent -> {
                     EditArmiesTutorialController.markTutorialComplete();
                     stage.close();

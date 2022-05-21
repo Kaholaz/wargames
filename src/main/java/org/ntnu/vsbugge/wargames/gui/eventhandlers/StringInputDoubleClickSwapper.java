@@ -11,7 +11,7 @@ import org.ntnu.vsbugge.wargames.utils.funcinterfaces.StringSetter;
  * @author vsbugge
  */
 public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
-    StringSetter setter;
+    private final StringSetter setter;
 
     /**
      * The constructor of the DoubleClickSwapper.

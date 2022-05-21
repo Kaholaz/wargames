@@ -1,7 +1,7 @@
 package org.ntnu.vsbugge.wargames.utils.funcinterfaces;
 
 /**
- * A functional interface used to supply a setter of an string field.
+ * A functional interface used to supply a setter of a string field.
  *
  * @author vsbugge
  */

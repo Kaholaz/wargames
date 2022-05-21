@@ -1,7 +1,6 @@
 package org.ntnu.vsbugge.wargames.utils.config;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.*;
 
@@ -45,7 +44,7 @@ public class Settings {
      * @throws java.io.IOException
      *             Throws an exception if the config could not be saved.
      */
-    public boolean saveConfig() throws IOException {
+    public void saveConfig() throws IOException {
         Gson gson = new Gson();
         String jsonString = gson.toJson(this);
 
@@ -58,7 +57,6 @@ public class Settings {
 
         try (Writer writer = new FileWriter(config)) {
             writer.write(jsonString);
-            return true;
         } catch (IOException e) {
             throw new IOException("Could not save config to file. (" + e.getMessage() + ")");
         }

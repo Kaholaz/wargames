@@ -106,7 +106,7 @@ public class GUI extends Application {
 
     /**
      * This is a helper method that checks the loader for exceptions and returns the Parent if successful. This makes it
-     * easier to troubleshoot errors. This method should not produce errors unless something is worng with the FXMl page
+     * easier to troubleshoot errors. This method should not produce errors unless something is wrong with the FXMl page
      * or the connected controller.
      *
      * @param url

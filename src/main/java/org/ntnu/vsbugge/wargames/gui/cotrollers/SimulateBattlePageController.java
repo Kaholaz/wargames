@@ -11,8 +11,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.battle.Battle;
-import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
+import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.ArmyWindowElement;
@@ -133,7 +133,7 @@ public class SimulateBattlePageController {
      * @param event
      *            The action event from the button press.
      */
-    void onReset(ActionEvent event) {
+    void onReset(ActionEvent ignoredEvent) {
         battle.setArmyOne(originalBattle.getArmyOne());
         battle.setArmyTwo(originalBattle.getArmyTwo());
         battle.setAttackTurn(originalBattle.getAttackTurn());
@@ -173,7 +173,7 @@ public class SimulateBattlePageController {
      * @param event
      *            The action event from the button press.
      */
-    void onPause(ActionEvent event) {
+    void onPause(ActionEvent ignoredEvent) {
         battle.pauseSimulation();
 
         startButton.setText("Resume");
@@ -198,6 +198,7 @@ public class SimulateBattlePageController {
         if (winner == null) {
             Exception e = new RuntimeException("Could not announce winner as there is no winner.");
             AlertFactory.createExceptionErrorAlert(e).show();
+            return;
         }
 
         StatusDecorator.makeDisabled(startButton);

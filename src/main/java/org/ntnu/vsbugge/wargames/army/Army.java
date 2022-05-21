@@ -30,6 +30,7 @@ public class Army {
      * @param army
      *            The army to copy.
      */
+    @SuppressWarnings("CopyConstructorMissesField") // Units are copied using the addAll method.
     public Army(Army army) {
         this(army.name);
         addAll(army.getAllUnits());
@@ -270,7 +271,7 @@ public class Army {
      * This template cannot be guaranteed to produce the same army it was based of when used as an argument for the
      * parseArmyTemplate method.
      *
-     * @return An amry template where units that only differ in stats that change during combat are grouped together.
+     * @return An army template where units that only differ in stats that change during combat are grouped together.
      */
     public Map<Unit, Integer> getCondensedNonCombatUnitArmyTemplate() {
         Map<Unit, Integer> condensedArmyTemplate = getCondensedArmyTemplate();
