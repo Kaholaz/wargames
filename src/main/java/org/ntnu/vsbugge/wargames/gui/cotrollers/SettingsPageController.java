@@ -13,6 +13,11 @@ import org.ntnu.vsbugge.wargames.utils.config.SimulationSpeedEnum;
 
 import java.io.IOException;
 
+/**
+ * The controller for the simulation setting page.
+ *
+ * @author vsbugge
+ */
 public class SettingsPageController {
     private Settings config;
 

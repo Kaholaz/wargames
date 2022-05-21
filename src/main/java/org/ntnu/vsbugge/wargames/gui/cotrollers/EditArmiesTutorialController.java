@@ -18,6 +18,11 @@ import org.ntnu.vsbugge.wargames.utils.config.Settings;
 
 import java.io.IOException;
 
+/**
+ * The controller class for the edit armies page.
+ *
+ * @author vsbugge
+ */
 public class EditArmiesTutorialController {
 
     /**
