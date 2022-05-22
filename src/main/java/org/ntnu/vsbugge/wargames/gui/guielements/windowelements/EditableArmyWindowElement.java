@@ -2,7 +2,6 @@ package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.AbstractDoubleClickSwapper;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.StringInputDoubleClickSwapper;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
@@ -40,8 +39,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         button.setOnAction((event -> {
             addNewUnitInfoElement(new InfantryUnit("New unit...", 100), 1);
             EditableUnitInfoElement unitElement = unitElements.get(unitElements.size() - 1);
-            Pane topRow = (Pane) unitElement.getChildren().get(0);
-            Label nameLabel = (Label) topRow.getChildren().get(3);
+            Label nameLabel = unitElement.getUnitNameLabel();
 
             AbstractDoubleClickSwapper onDoubleClick = new StringInputDoubleClickSwapper(nameLabel,
                     unitElement::setUnitName);

@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
@@ -122,10 +121,8 @@ public class EditArmiesPageController {
         armyWindow.setArmy(army);
         armyWindow.reset();
 
-        // Selects army name;
         var armyInfo = (EditableArmyInfoElement) armyWindow.getChildren().get(0);
-        var topRow = (HBox) armyInfo.getChildren().get(0);
-        var armyName = (Label) topRow.getChildren().get(1);
+        Label armyName = armyInfo.getTopLabel();
 
         var onDoubleClick = new StringInputDoubleClickSwapper(armyName, armyInfo::setArmyName);
         onDoubleClick.runsIfDoubleClick();

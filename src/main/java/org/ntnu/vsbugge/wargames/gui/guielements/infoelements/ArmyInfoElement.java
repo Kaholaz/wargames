@@ -76,4 +76,13 @@ public class ArmyInfoElement extends AbstractInfoElement {
     public void setArmy(Army army) {
         this.army = army;
     }
+
+    /**
+     * Getter for the top label.
+     *
+     * @return The top label.
+     */
+    public Label getTopLabel() {
+        return topLabel;
+    }
 }

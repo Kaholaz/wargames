@@ -95,4 +95,22 @@ public class UnitInfoElement extends AbstractInfoElement {
     protected void setUnitName(String unitName) {
         unitNameLabel.setText(unitName);
     }
+
+    /**
+     * Getter for the unit name label.
+     *
+     * @return The unit name label.
+     */
+    public Label getUnitNameLabel() {
+        return unitNameLabel;
+    }
+
+    /**
+     * Getter for the unit type label.
+     *
+     * @return The unit type label.
+     */
+    public Label getUnitTypeLabel() {
+        return unitTypeLabel;
+    }
 }
