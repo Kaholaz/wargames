@@ -53,10 +53,10 @@ public class EditArmiesPageController {
         armyFile = ArmyFilePickerUtil.pickArmyFileToOpen(((Node) event.getSource()).getScene().getWindow());
 
         if (armyFile == null) {
-            army = null;
-        } else {
-            army = ArmyFilePickerUtil.parseArmyFileAndAlertUserIfUnsuccessful(armyFile);
+            return;
         }
+
+        army = ArmyFilePickerUtil.parseArmyFileAndAlertUserIfUnsuccessful(armyFile);
 
         armyWindow.setArmy(army);
         armyWindow.reset();

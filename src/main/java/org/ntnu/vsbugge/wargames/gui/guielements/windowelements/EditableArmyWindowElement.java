@@ -69,6 +69,11 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     /** {@inheritDoc} */
     @Override
     protected void update() {
+        if (army == null) {
+            clear();
+            return;
+        }
+
         Army army = new Army(this.army.getName());
         for (EditableUnitInfoElement unitElement : new ArrayList<>(unitElements)) {
             List<Unit> units = unitElement.getUnits();
@@ -92,13 +97,15 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
     public void reset() {
         clear();
 
-        if (army != null) {
-            // Units are sorted to make order consistent between loads
-            Map<Unit, Integer> template = army.getCondensedArmyTemplate();
-            army.getCondensedArmyTemplate().keySet().stream().sorted().forEach(unit -> {
-                addNewUnitInfoElement(unit, template.get(unit));
-            });
+        if (army == null) {
+            return;
         }
+
+        // Units are sorted to make order consistent between loads
+        Map<Unit, Integer> template = army.getCondensedArmyTemplate();
+        army.getCondensedArmyTemplate().keySet().stream().sorted().forEach(unit -> {
+            addNewUnitInfoElement(unit, template.get(unit));
+        });
 
         update();
     }
