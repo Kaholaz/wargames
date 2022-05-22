@@ -9,13 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
-import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.battle.Battle;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.decorators.StatusDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.ArmyWindowElement;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.battle.Battle;
 import org.ntnu.vsbugge.wargames.utils.config.Settings;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 

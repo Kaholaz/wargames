@@ -1,10 +1,9 @@
 package org.ntnu.vsbugge.wargames.utils.factories;
 
 import junit.framework.TestCase;
-import org.ntnu.vsbugge.wargames.units.CommanderUnit;
-import org.ntnu.vsbugge.wargames.units.RangedUnit;
-import org.ntnu.vsbugge.wargames.units.Unit;
-import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
+import org.ntnu.vsbugge.wargames.models.units.CommanderUnit;
+import org.ntnu.vsbugge.wargames.models.units.RangedUnit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 
 import java.util.ArrayList;
 

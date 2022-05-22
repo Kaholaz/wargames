@@ -2,8 +2,8 @@ package org.ntnu.vsbugge.wargames.gui;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
+import org.ntnu.vsbugge.wargames.models.army.Army;
 import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 
 import java.io.File;

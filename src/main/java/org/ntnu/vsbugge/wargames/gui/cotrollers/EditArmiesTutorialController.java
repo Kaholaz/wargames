@@ -6,13 +6,13 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableUnitInfoElement;
-import org.ntnu.vsbugge.wargames.units.CavalryUnit;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.units.CavalryUnit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.config.Settings;
 
 import java.io.IOException;

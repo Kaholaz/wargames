@@ -3,8 +3,8 @@ package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
+import org.ntnu.vsbugge.wargames.models.army.Army;
 
 /**
  * An editable ArmyInfoElement where the user can set the name of the army.

@@ -1,7 +1,7 @@
-package org.ntnu.vsbugge.wargames.battle;
+package org.ntnu.vsbugge.wargames.models.battle;
 
-import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.Subject;

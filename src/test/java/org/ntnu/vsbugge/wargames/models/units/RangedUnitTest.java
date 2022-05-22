@@ -1,6 +1,7 @@
-package org.ntnu.vsbugge.wargames.units;
+package org.ntnu.vsbugge.wargames.models.units;
 
 import junit.framework.TestCase;
+import org.ntnu.vsbugge.wargames.models.units.RangedUnit;
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 
 import static org.junit.Assert.assertNotEquals;

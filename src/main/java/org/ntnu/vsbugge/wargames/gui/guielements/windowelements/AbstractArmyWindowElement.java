@@ -2,8 +2,8 @@ package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 
 /**
  * The super class for all windows that displays an army. This class extends the VBox class.

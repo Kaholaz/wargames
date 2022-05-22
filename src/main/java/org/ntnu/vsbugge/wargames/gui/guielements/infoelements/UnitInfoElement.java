@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 import org.ntnu.vsbugge.wargames.gui.decorators.PaddingDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.GUIElementFactory;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 
 /**

@@ -1,6 +1,6 @@
 package org.ntnu.vsbugge.wargames.utils.enums;
 
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 
 /**
  * This is an enum to keep track of all valid subclasses of Unit. This enum is created to make expanding the number of
@@ -10,10 +10,10 @@ import org.ntnu.vsbugge.wargames.units.Unit;
  * @author vsbugge
  */
 public enum UnitEnum {
-    CavalryUnit(org.ntnu.vsbugge.wargames.units.CavalryUnit.class, "Cavalry unit"),
-    CommanderUnit(org.ntnu.vsbugge.wargames.units.CommanderUnit.class, "Commander unit"),
-    InfantryUnit(org.ntnu.vsbugge.wargames.units.InfantryUnit.class, "Infantry unit"),
-    RangedUnit(org.ntnu.vsbugge.wargames.units.RangedUnit.class, "Ranged unit");
+    CavalryUnit(org.ntnu.vsbugge.wargames.models.units.CavalryUnit.class, "Cavalry unit"),
+    CommanderUnit(org.ntnu.vsbugge.wargames.models.units.CommanderUnit.class, "Commander unit"),
+    InfantryUnit(org.ntnu.vsbugge.wargames.models.units.InfantryUnit.class, "Infantry unit"),
+    RangedUnit(org.ntnu.vsbugge.wargames.models.units.RangedUnit.class, "Ranged unit");
 
     // The corresponding Unit subclass.
     final Class<? extends Unit> unitClass;

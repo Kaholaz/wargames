@@ -1,8 +1,10 @@
 package org.ntnu.vsbugge.wargames.utils.enums;
 
 import junit.framework.TestCase;
-import org.ntnu.vsbugge.wargames.units.*;
-import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
+import org.ntnu.vsbugge.wargames.models.units.CavalryUnit;
+import org.ntnu.vsbugge.wargames.models.units.CommanderUnit;
+import org.ntnu.vsbugge.wargames.models.units.InfantryUnit;
+import org.ntnu.vsbugge.wargames.models.units.RangedUnit;
 
 public class UnitEnumTest extends TestCase {
 

@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.units;
+package org.ntnu.vsbugge.wargames.models.units;
 
 import org.ntnu.vsbugge.wargames.utils.enums.TerrainEnum;
 

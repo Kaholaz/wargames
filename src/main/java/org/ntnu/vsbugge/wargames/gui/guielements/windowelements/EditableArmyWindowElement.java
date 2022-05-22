@@ -3,15 +3,15 @@ package org.ntnu.vsbugge.wargames.gui.guielements.windowelements;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.AbstractDoubleClickSwapper;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.StringInputDoubleClickSwapper;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.ArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableUnitInfoElement;
-import org.ntnu.vsbugge.wargames.units.InfantryUnit;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.units.InfantryUnit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
 
 import java.util.ArrayList;

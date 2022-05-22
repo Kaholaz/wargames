@@ -1,9 +1,9 @@
-package org.ntnu.vsbugge.wargames.battle;
+package org.ntnu.vsbugge.wargames.models.battle;
 
 import junit.framework.TestCase;
-import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.battle.Battle;
-import org.ntnu.vsbugge.wargames.units.InfantryUnit;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.battle.Battle;
+import org.ntnu.vsbugge.wargames.models.units.InfantryUnit;
 
 public class BattleTest extends TestCase {
 

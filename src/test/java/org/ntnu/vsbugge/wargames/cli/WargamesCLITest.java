@@ -1,11 +1,10 @@
 package org.ntnu.vsbugge.wargames.cli;
 
 import junit.framework.TestCase;
-import org.ntnu.vsbugge.wargames.army.Army;
-import org.ntnu.vsbugge.wargames.cli.WargamesCLI;
-import org.ntnu.vsbugge.wargames.units.CavalryUnit;
-import org.ntnu.vsbugge.wargames.units.CommanderUnit;
-import org.ntnu.vsbugge.wargames.units.RangedUnit;
+import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.models.units.CavalryUnit;
+import org.ntnu.vsbugge.wargames.models.units.CommanderUnit;
+import org.ntnu.vsbugge.wargames.models.units.RangedUnit;
 
 import java.io.IOException;
 

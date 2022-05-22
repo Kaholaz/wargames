@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
 import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.Subject;

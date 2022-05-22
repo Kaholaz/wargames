@@ -1,6 +1,6 @@
-package org.ntnu.vsbugge.wargames.army;
+package org.ntnu.vsbugge.wargames.models.army;
 
-import org.ntnu.vsbugge.wargames.units.Unit;
+import org.ntnu.vsbugge.wargames.models.units.Unit;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -7,13 +7,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.ntnu.vsbugge.wargames.army.Army;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.StringInputDoubleClickSwapper;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.EditableArmyWindowElement;
+import org.ntnu.vsbugge.wargames.models.army.Army;
 import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 
 import java.io.File;

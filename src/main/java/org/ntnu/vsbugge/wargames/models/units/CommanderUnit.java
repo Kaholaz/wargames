@@ -1,4 +1,4 @@
-package org.ntnu.vsbugge.wargames.units;
+package org.ntnu.vsbugge.wargames.models.units;
 
 /**
  * A class that represent a single commander unit
