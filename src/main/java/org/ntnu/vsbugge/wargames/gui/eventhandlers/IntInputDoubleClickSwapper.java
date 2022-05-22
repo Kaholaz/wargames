@@ -1,6 +1,5 @@
 package org.ntnu.vsbugge.wargames.gui.eventhandlers;
 
-import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;

@@ -40,7 +40,8 @@ public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
                     if (label.getText().equals("New unit...")) {
                         try {
                             setter.setString("");
-                        } catch (IllegalArgumentException ignore) {}
+                        } catch (IllegalArgumentException ignore) {
+                        }
                     }
                     throw new IllegalArgumentException("Commas in text fields are unsupported!");
                 }
