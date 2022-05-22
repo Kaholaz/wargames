@@ -15,7 +15,8 @@ import java.io.IOException;
  * @author vsbugge
  */
 public class ArmyFilePickerUtil {
-    static private final FileChooser.ExtensionFilter EXTENSIONS = new FileChooser.ExtensionFilter("Army files", "army");
+    static private final FileChooser.ExtensionFilter EXTENSIONS = new FileChooser.ExtensionFilter("Army files",
+            "*.army", "*.csv");
 
     /**
      * Opens a dialog for picking an army file, and shows any file parsing errors to the user.
@@ -46,7 +47,7 @@ public class ArmyFilePickerUtil {
 
         ArmyFileUtil files = new ArmyFileUtil();
         fileChooser.setInitialDirectory(files.getDefaultPath());
-        fileChooser.setSelectedExtensionFilter(EXTENSIONS);
+        fileChooser.getExtensionFilters().add(EXTENSIONS);
         File armyFile = fileChooser.showOpenDialog(window);
 
         if (armyFile == null) {
@@ -95,7 +96,7 @@ public class ArmyFilePickerUtil {
         fileChooser.setTitle("Save as...");
 
         ArmyFileUtil files = new ArmyFileUtil();
-        fileChooser.setSelectedExtensionFilter(EXTENSIONS);
+        fileChooser.getExtensionFilters().add(EXTENSIONS);
         fileChooser.setInitialDirectory(files.getDefaultPath());
 
         return fileChooser.showSaveDialog(window);
