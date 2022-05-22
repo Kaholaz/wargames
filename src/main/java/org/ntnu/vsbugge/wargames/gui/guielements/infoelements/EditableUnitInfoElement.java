@@ -1,11 +1,9 @@
 package org.ntnu.vsbugge.wargames.gui.guielements.infoelements;
 
-import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import org.ntnu.vsbugge.wargames.gui.decorators.EditableDecorator;
 import org.ntnu.vsbugge.wargames.gui.decorators.IconLabelDecorator;
-import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 import org.ntnu.vsbugge.wargames.utils.eventlisteners.EventType;
@@ -63,9 +61,10 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         int rollback = this.health;
         this.health = health;
 
-        if (!tryNotifyUpdate()) {
+        RuntimeException exception = tryNotifyUpdateAndReturnException();
+        if (exception != null) {
             this.health = rollback;
-            return;
+            throw exception;
         }
 
         super.setHealth(health);
@@ -77,9 +76,10 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         int rollback = this.count;
         this.count = count;
 
-        if (!tryNotifyUpdate()) {
+        RuntimeException exception = tryNotifyUpdateAndReturnException();
+        if (exception != null) {
             this.count = rollback;
-            return;
+            throw exception;
         }
 
         super.setCount(count);
@@ -91,19 +91,20 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         String rollback = this.unitName;
         this.unitName = unitName;
 
-        if (unitName.isBlank() || !tryNotifyUpdate()) {
-            this.unitName = rollback;
+        RuntimeException exception;
+        if (unitName.isBlank()) {
+            exception = new IllegalArgumentException("New name cannot be blank");
+        } else {
+            exception = tryNotifyUpdateAndReturnException();
+        }
 
+        if (exception != null) {
+            this.unitName = rollback;
             // Unit was a new unit before the conflict.
             if (rollback.equals("New unit...")) {
                 setCount(0); // Remove unit
             }
-
-            if (unitName.isBlank()) {
-                throw new IllegalArgumentException("New name cannot be blank");
-            }
-
-            return;
+            throw exception;
         }
 
         super.setUnitName(unitName);
@@ -115,9 +116,10 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
         UnitEnum rollback = this.unitType;
         this.unitType = unitType;
 
-        if (!tryNotifyUpdate()) {
+        RuntimeException exception = tryNotifyUpdateAndReturnException();
+        if (exception != null) {
             this.unitType = rollback;
-            return;
+            throw exception;
         }
 
         super.setUnitType(unitType);
@@ -147,17 +149,16 @@ public class EditableUnitInfoElement extends UnitInfoElement implements Subject 
     }
 
     /**
-     * Tries to notify the observers and notifies the user of any errors thrown by the operation.
+     * Tries to notify the observers and returns any exceptions encountered.
      *
-     * @return True if the operation was successful, false if not.
+     * @return The exception encountered. If no exception was encountered, null is returned.
      */
-    private boolean tryNotifyUpdate() {
+    private RuntimeException tryNotifyUpdateAndReturnException() {
         try {
             notifyEventListeners(EventType.UPDATE);
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            Platform.runLater(() -> AlertFactory.createExceptionErrorAlert(e).show());
-            return false;
+        } catch (RuntimeException e) {
+            return e;
         }
-        return true;
+        return null;
     }
 }

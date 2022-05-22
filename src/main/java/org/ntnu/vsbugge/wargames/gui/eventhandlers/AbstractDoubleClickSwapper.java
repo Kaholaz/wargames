@@ -135,6 +135,9 @@ public abstract class AbstractDoubleClickSwapper extends AbstractDoubleClickEven
      */
     protected void triggerTheOnActionWhenDeselected(Control control) {
         control.focusedProperty().addListener(observable -> {
+            if (control.focusedProperty().get()) {
+                return; // Does not do anything if it is selected.
+            }
             // Does not swap if the node is already hidden.
             if (control.getParent() != null) {
                 // Save contents

@@ -35,8 +35,17 @@ public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
 
         textField.setOnAction(ignoredEvent -> {
             try {
+                if (textField.getText().contains(",")) {
+                    // Hack to remove the unit if it is brand new:
+                    if (label.getText().equals("New unit...")) {
+                        try {
+                            setter.setString("");
+                        } catch (IllegalArgumentException ignore) {}
+                    }
+                    throw new IllegalArgumentException("Commas in text fields are unsupported!");
+                }
                 setter.setString(textField.getText());
-            } catch (IllegalArgumentException e) {
+            } catch (RuntimeException e) {
                 AlertFactory.createExceptionErrorAlert(e).show();
             }
 

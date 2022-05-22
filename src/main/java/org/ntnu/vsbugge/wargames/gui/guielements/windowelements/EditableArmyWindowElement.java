@@ -37,7 +37,12 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
         button.getStyleClass().addAll("round-button", "padded-medium");
 
         button.setOnAction((event -> {
-            addNewUnitInfoElement(new InfantryUnit("New unit...", 100), 1);
+            try {
+                addNewUnitInfoElement(new InfantryUnit("New unit...", 100), 1);
+            } catch (RuntimeException e) { // Gets thrown if there already is an infantry unit named New unit...
+                AlertFactory.createExceptionErrorAlert(e).showAndWait();
+            }
+
             EditableUnitInfoElement unitElement = unitElements.get(unitElements.size() - 1);
             Label nameLabel = unitElement.getUnitNameLabel();
 
@@ -105,11 +110,7 @@ public class EditableArmyWindowElement extends AbstractArmyWindowElement {
 
         for (EditableUnitInfoElement unitElement : unitElements) {
             if (unitElement.getUnit().differsOnlyInCombatState(nonCombatUnit)) {
-                AlertFactory
-                        .createExceptionErrorAlert(
-                                new IllegalArgumentException("Could not add unit as similar unit already exists."))
-                        .show();
-                return;
+                throw new IllegalArgumentException("Could not add unit as similar unit already exists.");
             }
         }
 

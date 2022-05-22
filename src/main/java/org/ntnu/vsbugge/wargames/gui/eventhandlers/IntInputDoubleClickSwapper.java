@@ -37,11 +37,11 @@ public class IntInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
             try {
                 setter.setInt(Integer.parseInt(textField.getText()));
             } catch (NumberFormatException e) {
-                Platform.runLater(() -> AlertFactory
-                        .createExceptionErrorAlert(new NumberFormatException("Please enter an integer!")).show());
-            } finally {
-                AbstractDoubleClickSwapper.swapNode(textField, label);
+                AlertFactory.createExceptionErrorAlert(new NumberFormatException("Please enter an integer!")).show();
+            } catch (RuntimeException e) {
+                AlertFactory.createExceptionErrorAlert(e).show();
             }
+            AbstractDoubleClickSwapper.swapNode(textField, label);
         });
 
         triggerTheOnActionWhenDeselected(textField);

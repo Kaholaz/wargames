@@ -2,6 +2,7 @@ package org.ntnu.vsbugge.wargames.gui.eventhandlers;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.utils.enums.UnitEnum;
 import org.ntnu.vsbugge.wargames.utils.funcinterfaces.UnitSetter;
 
@@ -33,7 +34,11 @@ public class UnitSelectorDoubleClickSwapper extends AbstractDoubleClickSwapper {
         comboBox.requestFocus();
 
         comboBox.setOnAction(ignoredEvent -> {
-            setter.setUnit(comboBox.getSelectionModel().getSelectedItem());
+            try {
+                setter.setUnit(comboBox.getSelectionModel().getSelectedItem());
+            } catch (RuntimeException e) {
+                AlertFactory.createExceptionErrorAlert(e).show();
+            }
             AbstractDoubleClickSwapper.swapNode(comboBox, label);
         });
 
