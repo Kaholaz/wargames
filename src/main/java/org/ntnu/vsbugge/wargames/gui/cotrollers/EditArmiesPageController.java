@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
@@ -136,11 +137,15 @@ public class EditArmiesPageController {
      */
     void launchTutorial() {
         Stage stage = new Stage();
-        GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
+
         stage.setOnCloseRequest(windowEvent -> {
             EditArmiesTutorialController.markTutorialComplete();
             stage.close();
         });
+        stage.initOwner(armyWrapper.getScene().getWindow());
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
     }
 
     /**
