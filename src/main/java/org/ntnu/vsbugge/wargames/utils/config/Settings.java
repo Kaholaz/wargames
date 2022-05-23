@@ -16,7 +16,8 @@ public class Settings {
     private boolean editArmiesTutorial = true;
 
     /**
-     * Setting should be retrieved using Settings.readConfig() or Settings.getDefaultConfig(), not by using the constructor.
+     * Setting should be retrieved using Settings.readConfig() or Settings.getDefaultConfig(), not by using the
+     * constructor.
      */
     private Settings() {
     }
@@ -46,6 +47,7 @@ public class Settings {
 
     /**
      * Gets the default config settings.
+     *
      * @return A settings object with the default values.
      */
     public static Settings getDefaultConfig() {
