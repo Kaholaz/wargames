@@ -4,10 +4,7 @@ import org.ntnu.vsbugge.wargames.models.army.Army;
 import org.ntnu.vsbugge.wargames.models.units.Unit;
 import org.ntnu.vsbugge.wargames.utils.factories.UnitFactory;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
@@ -257,17 +254,29 @@ public class ArmyFileUtil {
         }
 
         try (FileWriter writer = new FileWriter(filePath, CHARSET)) {
-            // .write erases all contents of the file and writes the given string to the file
-            // making the supplied string its only content.
-            writer.write(army.getName() + '\n');
+            writer.write(army.getName() + '\n'); // Write the army name at the top of the file.
             for (Map.Entry<Unit, Integer> entry : armyTemplate.entrySet()) {
-                // Each line is formatted like this: "{UnitClass},{UnitName},{UnitHealth},{Count}",
-                // where UnitClass is the Unit subclass of the unit,
-                // and Count is the number of this unit in the army.
-                writer.append(convertUnitToWritableString(entry.getKey())).append(",")
-                        .append(entry.getValue().toString()).append("\n");
+                writeUnitLine(writer, entry.getKey(), entry.getValue());
             }
         }
+    }
+
+    /**
+     * Writes a line using the writer formatted like this "{UnitClass},{UnitName},{UnitHealth},{Count}\n".
+     *
+     * @param writer
+     *            The writer.
+     * @param unit
+     *            The unit.
+     * @param count
+     *            The amount of the unit in the army.
+     *
+     * @throws IOException
+     *             Propagates any IOExceptions thrown by the Writer.
+     */
+    private void writeUnitLine(Writer writer, Unit unit, Integer count) throws IOException {
+        String unitString = convertUnitToWritableString(unit);
+        writer.append(unitString).append(',').append(count.toString()).append('\n');
     }
 
     /**
