@@ -30,7 +30,7 @@ public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
      * {@inheritDoc}
      */
     public void runsIfDoubleClick() {
-        TextField textField = AbstractDoubleClickSwapper.replaceLabelWithTextField(label);
+        TextField textField = replaceLabelWithTextField(label);
         textField.requestFocus();
 
         textField.setOnAction(ignoredEvent -> {
@@ -50,7 +50,7 @@ public class StringInputDoubleClickSwapper extends AbstractDoubleClickSwapper {
                 AlertFactory.createExceptionErrorAlert(e).show();
             }
 
-            AbstractDoubleClickSwapper.swapNode(textField, label);
+            swapNode(textField, label);
         });
 
         triggerTheOnActionWhenDeselected(textField);

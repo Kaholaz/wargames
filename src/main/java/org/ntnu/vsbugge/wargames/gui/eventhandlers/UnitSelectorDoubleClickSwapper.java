@@ -30,7 +30,7 @@ public class UnitSelectorDoubleClickSwapper extends AbstractDoubleClickSwapper {
     /** {@inheritDoc} */
     @Override
     public void runsIfDoubleClick() {
-        ComboBox<UnitEnum> comboBox = AbstractDoubleClickSwapper.replaceLabelWithUnitSelector(label);
+        ComboBox<UnitEnum> comboBox = replaceLabelWithUnitSelector(label);
         comboBox.requestFocus();
 
         comboBox.setOnAction(ignoredEvent -> {
@@ -39,7 +39,7 @@ public class UnitSelectorDoubleClickSwapper extends AbstractDoubleClickSwapper {
             } catch (RuntimeException e) {
                 AlertFactory.createExceptionErrorAlert(e).show();
             }
-            AbstractDoubleClickSwapper.swapNode(comboBox, label);
+            swapNode(comboBox, label);
         });
 
         triggerTheOnActionWhenDeselected(comboBox);
