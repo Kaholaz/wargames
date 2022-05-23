@@ -1,11 +1,13 @@
 package org.ntnu.vsbugge.wargames.gui.cotrollers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.ntnu.vsbugge.wargames.gui.ArmyFilePickerUtil;
 import org.ntnu.vsbugge.wargames.gui.GUI;
 import org.ntnu.vsbugge.wargames.gui.eventhandlers.StringInputDoubleClickSwapper;
@@ -13,6 +15,7 @@ import org.ntnu.vsbugge.wargames.gui.factories.AlertFactory;
 import org.ntnu.vsbugge.wargames.gui.guielements.infoelements.EditableArmyInfoElement;
 import org.ntnu.vsbugge.wargames.gui.guielements.windowelements.EditableArmyWindowElement;
 import org.ntnu.vsbugge.wargames.models.army.Army;
+import org.ntnu.vsbugge.wargames.utils.config.Settings;
 import org.ntnu.vsbugge.wargames.utils.files.ArmyFileUtil;
 
 import java.io.File;
@@ -129,10 +132,35 @@ public class EditArmiesPageController {
     }
 
     /**
+     * Launches the tutorial
+     */
+    void launchTutorial() {
+        Stage stage = new Stage();
+        GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
+        stage.setOnCloseRequest(windowEvent -> {
+            EditArmiesTutorialController.markTutorialComplete();
+            stage.close();
+        });
+    }
+
+    /**
      * Method called directly after the FXML page is loaded.
      */
     @FXML
     void initialize() {
         armyWrapper.getChildren().add(armyWindow);
+
+        Settings config = null;
+        try {
+            config = Settings.readConfig();
+        } catch (IOException e) {
+            AlertFactory.createExceptionErrorAlert(e).show();
+            config = Settings.getDefaultConfig();
+        }
+
+        // Display tutorial if it has not been shown already.
+        if (config.isEditArmiesTutorial()) {
+            Platform.runLater(this::launchTutorial);
+        }
     }
 }
