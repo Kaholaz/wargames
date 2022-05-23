@@ -44,6 +44,10 @@ public class Settings {
         }
     }
 
+    /**
+     * Gets the default config settings.
+     * @return A settings object with the default values.
+     */
     public static Settings getDefaultConfig() {
         return new Settings();
     }
