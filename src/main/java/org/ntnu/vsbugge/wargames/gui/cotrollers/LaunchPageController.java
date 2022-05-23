@@ -43,15 +43,16 @@ public class LaunchPageController {
             config = Settings.readConfig();
         } catch (IOException e) {
             AlertFactory.createExceptionErrorAlert(e).show();
-        } finally {
-            if (config == null || config.isEditArmiesTutorial()) {
-                Stage stage = new Stage();
-                GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
-                stage.setOnCloseRequest(windowEvent -> {
-                    EditArmiesTutorialController.markTutorialComplete();
-                    stage.close();
-                });
-            }
+        }
+
+        if (config == null || config.isEditArmiesTutorial()) {
+            // Launch the tutorial
+            Stage stage = new Stage();
+            GUI.setInitialSceneOfStage(stage, "editArmiesTutorial.fxml", false);
+            stage.setOnCloseRequest(windowEvent -> {
+                EditArmiesTutorialController.markTutorialComplete();
+                stage.close();
+            });
         }
     }
 
