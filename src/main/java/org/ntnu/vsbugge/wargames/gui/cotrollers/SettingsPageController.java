@@ -59,7 +59,7 @@ public class SettingsPageController {
             config = Settings.readConfig();
         } catch (IOException e) {
             AlertFactory.createExceptionErrorAlert(e).show();
-            config = new Settings();
+            config = Settings.getDefaultConfig();
         }
 
         simulationSelector.getItems().addAll(SimulationSpeedEnum.values());

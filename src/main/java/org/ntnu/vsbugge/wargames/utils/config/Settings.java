@@ -16,6 +16,12 @@ public class Settings {
     private boolean editArmiesTutorial = true;
 
     /**
+     * Setting should be retrieved using Settings.readConfig() or Settings.getDefaultConfig(), not by using the constructor.
+     */
+    private Settings() {
+    }
+
+    /**
      * Reads the config from disk.
      *
      * @throws java.io.IOException
@@ -25,7 +31,7 @@ public class Settings {
         File config = new File(CONFIG_PATH);
 
         if (!config.exists()) {
-            Settings settings = new Settings(); // Default settings
+            Settings settings = getDefaultConfig(); // Default settings
             settings.saveConfig();
             return settings;
         }
@@ -36,6 +42,10 @@ public class Settings {
         } catch (IOException e) {
             throw new IOException("Could not read config-file (" + e.getMessage() + ")");
         }
+    }
+
+    public static Settings getDefaultConfig() {
+        return new Settings();
     }
 
     /**
