@@ -15,8 +15,9 @@ import java.io.IOException;
  * @author vsbugge
  */
 public class ArmyFilePickerUtil {
-    static private final FileChooser.ExtensionFilter EXTENSIONS = new FileChooser.ExtensionFilter("Army files",
-            "*.army", "*.csv");
+    static private final FileChooser.ExtensionFilter ARMY_FILES = new FileChooser.ExtensionFilter("Army files",
+            "*.army");
+    static private final FileChooser.ExtensionFilter ALL_FILES = new FileChooser.ExtensionFilter("All files", "*");
 
     /**
      * Opens a dialog for picking an army file, and shows any file parsing errors to the user.
@@ -42,14 +43,10 @@ public class ArmyFilePickerUtil {
      *         displayed and null is returned.
      */
     public static File pickArmyFileToOpen(Window window) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Pick an army");
-
         ArmyFileUtil files = new ArmyFileUtil();
-        fileChooser.setInitialDirectory(files.getDefaultPath());
-        fileChooser.getExtensionFilters().add(EXTENSIONS);
-        File armyFile = fileChooser.showOpenDialog(window);
+        FileChooser fileChooser = createFileChooser("Pick an army", files.getDefaultPath());
 
+        File armyFile = fileChooser.showOpenDialog(window);
         if (armyFile == null) {
             return null;
         }
@@ -59,6 +56,46 @@ public class ArmyFilePickerUtil {
         }
 
         return armyFile;
+    }
+
+    /**
+     * Picks an existing or new file with a file explorer.
+     *
+     * @param window
+     *            The active window of the JavaFx application.
+     *
+     * @return The file chosen by the user.
+     */
+    public static File pickSaveAsArmyFile(Window window) {
+        ArmyFileUtil files = new ArmyFileUtil();
+        FileChooser fileChooser = createFileChooser("Save as...", files.getDefaultPath());
+
+        return fileChooser.showSaveDialog(window);
+    }
+
+    /**
+     * Creates a file chooser with the correct extension filters.
+     *
+     * @param title
+     *            The title of the file chooser.
+     * @param initialDir
+     *            The initial dir of the file chooser.
+     *
+     * @return The constructed file chooser.
+     */
+    private static FileChooser createFileChooser(String title, File initialDir) {
+        if (!initialDir.isDirectory()) {
+            throw new IllegalArgumentException("Provided dir is not a directory.");
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+
+        fileChooser.setInitialDirectory(initialDir);
+        fileChooser.getExtensionFilters().addAll(ALL_FILES, ARMY_FILES);
+        fileChooser.setSelectedExtensionFilter(ARMY_FILES);
+
+        return fileChooser;
     }
 
     /**
@@ -81,24 +118,5 @@ public class ArmyFilePickerUtil {
             AlertFactory.createExceptionErrorAlert(e).show();
             return null;
         }
-    }
-
-    /**
-     * Picks an existing or new file with a file explorer.
-     *
-     * @param window
-     *            The active window of the JavaFx application.
-     *
-     * @return The file chosen by the user.
-     */
-    public static File pickSaveAsArmyFile(Window window) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save as...");
-
-        ArmyFileUtil files = new ArmyFileUtil();
-        fileChooser.getExtensionFilters().add(EXTENSIONS);
-        fileChooser.setInitialDirectory(files.getDefaultPath());
-
-        return fileChooser.showSaveDialog(window);
     }
 }
