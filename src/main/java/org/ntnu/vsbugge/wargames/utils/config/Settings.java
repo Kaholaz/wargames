@@ -27,6 +27,8 @@ public class Settings {
      *
      * @throws java.io.IOException
      *             Throws an exception if the config-file could not be read.
+     *
+     * @return The current written settings from disk. If the file is not found, the default settings are returned.
      */
     public static Settings readConfig() throws IOException {
         File config = new File(CONFIG_PATH);

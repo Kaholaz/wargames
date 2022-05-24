@@ -16,6 +16,8 @@ public enum RenderFrequencyEnum {
 
     /**
      * Gets the desired update delay corresponding to the enum constant.
+     *
+     * @return The desired update delay.
      */
     public int getUpdateDelay() {
         return updateDelay;
